@@ -1,0 +1,86 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h5>TABELA GERAL DOS JOGADORES</h5>
+        <div class="table-responsive">
+            <table class=" table table-bordered">
+                <thead>
+                    <tr class="text-center">
+                        <th>Pos</th>
+                        <th>Jogador</th>
+                        <th>Pts</th>
+                        <th>J</th>
+                        <th>V</th>
+                        <th>E</th>
+                        <th>D</th>
+                        <th>GP</th>
+                        <th>GF</th>
+                        <th>SG</th>
+                    </tr>
+                    <?php foreach ($this->tabelaJogadores as $key => $jogador) : ?>
+                        <tr class="text-center">
+                            <td><?php echo $key+1; ?>º</td>
+                            <td class="text-left"><?php echo $jogador->jogador; ?></td>
+                            <td><?php echo $jogador->pontos; ?></td>
+                            <td><?php echo $jogador->jogos; ?></td>
+                            <td><?php echo $jogador->vitorias; ?></td>
+                            <td><?php echo $jogador->empates; ?></td>
+                            <td><?php echo $jogador->derrotas; ?></td>
+                            <td><?php echo $jogador->gols_proc; ?></td>
+                            <td><?php echo $jogador->gols_contra; ?></td>
+                            <td><?php echo $jogador->saldo_gols; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-2">
+        <h5>Jogadores</h5>
+        <form method="<?php echo $this->formDefaultRetrospecto->getMethod(); ?>">
+            <span><?php echo $this->formDefaultRetrospecto->jogador_1; ?></span>
+            <span><?php echo $this->formDefaultRetrospecto->jogador_2; ?></span>
+            <span><?php echo $this->formDefaultRetrospecto->submit; ?></span>
+        </form>
+    </div>
+    <div class="col-lg-10">
+        <?php if (isset($this->retrospectos) && $this->retrospectos->count() > 0) : ?>
+        <h5>Retrospectos</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">                
+                <thead>
+                    <tr>
+                        <th>Campeonato</th>
+                        <th>Data</th> 
+                        <th>Local</th> 
+                        <th colspan="2">Mandante</th>                        
+                        <th> X </th>
+                        <th colspan="2">Visitante</th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($this->retrospectos as $retrospecto) : ?>
+                    <tr class="text-center">
+                        <td></td>
+                        <td><?php echo $retrospecto->data_partida; ?></td>
+                        <td></td>
+                        <td>
+                            <?php echo $retrospecto->mandante; ?>
+                            <span style="font-size: 9px;"><?php echo '( ' . $retrospecto->jogador_1 . ' )'; ?></span>
+                        </td>
+                        <td><?php echo $retrospecto->placar_mandante; ?></td>
+                        <td> X </td>
+                        <td><?php echo $retrospecto->placar_visitante; ?></td>
+                        <td>
+                            <?php echo $retrospecto->visitante; ?>
+                            <span style="font-size: 9px;"><?php echo '( ' . $retrospecto->jogador_2 . ' )'; ?></span>
+                        </td>                        
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <?php endif; ?>
+    </div>
+</div>

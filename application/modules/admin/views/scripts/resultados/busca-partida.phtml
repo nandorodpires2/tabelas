@@ -1,0 +1,13 @@
+<form action="<?php echo $this->formResultados->getAction(); ?>" method="post">
+    <?php echo $this->formResultados->id_partida; ?>
+    <table class="table-bordered">        
+        <tr>
+            <td><?php echo $this->dadosPartida->mandante; ?></td>
+            <td><?php echo $this->formResultados->placar_equipe_mandante; ?></td>
+            <td>X</td>
+            <td><?php echo $this->formResultados->placar_equipe_visitante; ?></td>
+            <td><?php echo $this->dadosPartida->visitante; ?></td>
+            <td><?php echo $this->formResultados->submit; ?></td>
+        </tr>
+    </table>
+</form>

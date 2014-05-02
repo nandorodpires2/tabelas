@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <?php header('Content-Type: text/html; charset=UTF-8'); ?>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('views/js/jquery-2.0.3.js'); ?>"></script> 
+        <script type="text/javascript" src="<?php echo $this->baseUrl('views/js/jquery-ui-1.10.3.js'); ?>"></script> 
+        <script type="text/javascript" src="<?php echo $this->baseUrl('views/js/jquery.ui.datepicker-pt-BR.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('views/js/jquery.maskedinput.min.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('views/js/functions.js'); ?>"></script> 
+        <link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('views/css/bootstrap/bootstrap.css'); ?>" />
+        <link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('views/css/bootstrap/bootstrap-theme.css'); ?>" />
+    </head>
+    <body>        
+        <div class="container-fluid">            
+            <div class="row">
+                <div class="col-lg-2 small">
+                    <h3>Campeonatos</h3>
+                    <ul class="list-group-item">
+                        <li class="list-inline"><a href="<?php echo $this->url(array(
+                            'controller' => 'index',
+                            'action' => 'index'
+                        )); ?>">Home</a></li>
+                        <?php foreach ($this->campeonatos as $reputacao) : ?>
+                            <li class="list-inline"><?php echo $reputacao['descricao_reputacao']; ?></li>
+                            <ul class="">
+                                <?php foreach ($reputacao['campeonatos'] as $campeonato) : ?>
+                                    <li style="margin-left: -30px;" class="list-inline">
+                                        <a href="<?php echo $this->url(array(
+                                                'module' => 'default',
+                                                'controller' => 'campeonatos',
+                                                'action' => 'index',
+                                                'campeonato' => $campeonato['id_campeonato'],
+                                                'temporada' => $campeonato['id_campeonato_temporada']
+                                            )); ?>">
+                                            <?php echo $campeonato['nome_campeonato'] . ' ' . $campeonato['ano_temporada']; ?>
+                                            <?php echo $campeonato['finalizado'] ? '(F)' : ''; ?>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>                                
+                            </ul>
+                        <?php endforeach; ?>                                
+                    </ul>
+                    <a href="<?php echo $this->url(array(
+                        'module' => 'admin',
+                        'controller' => 'index',
+                        'action' => 'index'
+                    ), null, true); ?>">Admin</a>
+                </div>
+                <div class="col-lg-10">
+                    <?php echo $this->layout()->content; ?>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

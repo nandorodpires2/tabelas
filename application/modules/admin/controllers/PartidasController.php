@@ -93,7 +93,7 @@ class Admin_PartidasController extends Zend_Controller_Action {
         
         $multioptions = "<option value=''>Selecione a fase...</option>";
         foreach ($fases as $fase) {
-            $multioptions .= "<option value='{$fase->id_fase_campeonato}'>{$fase->num_fase_campeonato}ª fase - {$fase->descricao_fase}</option>";
+            $multioptions .= "<option value='{$fase->id_fase_campeonato}'>{$fase->descricao_fase}</option>";
         } 
         echo $multioptions;
     }

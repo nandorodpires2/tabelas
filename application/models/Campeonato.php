@@ -17,6 +17,21 @@ class Model_Campeonato extends Zend_Db_Table_Abstract {
     
     protected $_primary = "id_campeonato";
     
+    public function getLastInsertId() {
+    
+        $select = $this->select()
+                ->from($this->_name, array(
+                    "last_id" => "last_insert_id(id_campeonato)"
+                ))
+                ->order("id_campeonato desc")
+                ->limit(1);
+        
+        $query = $this->fetchRow($select);
+        
+        return (int)$query->last_id;
+        
+    }
+
     /**
      * retorna o nome do campeonato
      */
@@ -32,14 +47,28 @@ class Model_Campeonato extends Zend_Db_Table_Abstract {
         
         $select = $this->select()
                 ->from(array('c' => $this->_name), '*')
-                ->setIntegrityCheck(false)
-                ->joinInner(array('ct' => 'campeonato_temporada'), 'c.id_campeonato = ct.id_campeonato', array('*'))
+                ->setIntegrityCheck(false)                
+                ->joinInner(array('rep' => 'reputacao'), 'c.id_reputacao = rep.id_reputacao', array('*'))
                 ->order('c.nome_campeonato asc');
         
         if ($where) {
             $select->where($where);
         }
         
+        return $this->fetchAll($select);
+        
+    }
+    
+    public function getCampeonatosNaoFinalizados() {
+        
+        $select = $this->select()
+                ->from(array('c' => $this->_name), '*')
+                ->setIntegrityCheck(false)                
+                ->joinInner(array('rep' => 'reputacao'), 'c.id_reputacao = rep.id_reputacao', array('*'))
+                ->joinInner(array('ct' => 'campeonato_temporada'), 'c.id_campeonato = ct.id_campeonato', array('*'))
+                ->where("ct.finalizado = ?", 0)
+                ->order('c.nome_campeonato asc');
+                
         return $this->fetchAll($select);
         
     }

@@ -14,13 +14,11 @@
 class Default_CampeonatosController extends Zend_Controller_Action {
     
     protected $_id_campeonato;    
-    protected $_id_temporada;
-    protected $_id_fase_campeonato;
+    protected $_id_temporada;    
 
     public function init() {
         $this->_id_campeonato = $this->_getParam('campeonato');
-        $this->_id_temporada = $this->_getParam('temporada');
-        $this->_id_fase_campeonato = $this->_getParam("id_fase_campeonato", null);
+        $this->_id_temporada = $this->_getParam('temporada');        
         
         // busca o titulo do campeonato
         $modelCampeonato = new Model_Campeonato();
@@ -30,16 +28,26 @@ class Default_CampeonatosController extends Zend_Controller_Action {
     
     public function indexAction() {
         
-        // busca a tabela do campeonato
-        $modelVwTabela = new Model_VwTabela();
-        $tabelaCampeonato = $modelVwTabela->getTabelaCampeonatoTemporada($this->_id_campeonato, $this->_id_temporada);
+        $modelFaseCampeonato = new Model_FaseCampeonato();      
+        $modelGrupo = new Model_Grupo();
         
-        $modelPartida = new Model_Partida();
-        $this->view->partidas = $modelPartida->getPartidas($this->_id_campeonato, $this->_id_temporada);
+        $fases = $modelFaseCampeonato->getFasesCampeonatoByCampeonatoTemporadaId($this->_id_temporada);          
+        $id_fase_campeonato = $this->_getParam("id_fase_campeonato", $fases[0]->id_fase_campeonato);             
         
-        //Zend_Debug::dump($this->view->partidas); die();
-        $this->view->tabelaCampeonato = $tabelaCampeonato;
-        $this->view->pos = 1;
+        $this->view->fase_anterior = $modelFaseCampeonato->getIdFaseAnterior($id_fase_campeonato, $this->_id_campeonato, $this->_id_temporada);
+        $this->view->fase_seguinte = $modelFaseCampeonato->getIdFaseSeguinte($id_fase_campeonato, $this->_id_campeonato, $this->_id_temporada);
+        
+        $this->view->id_campeonato = $this->_id_campeonato;
+        $this->view->id_temporada = $this->_id_temporada;
+                                          
+        $faseCampeonato = $modelFaseCampeonato->getFaseCampeonatoByFaseCampeonatoId($id_fase_campeonato);               
+        
+        $this->view->faseCampeonato = $faseCampeonato;
+        
+        // grupos
+        $grupos = $modelGrupo->getGruposCampeonatoByFaseCampeonatoId($id_fase_campeonato);
+        $this->view->grupos = $grupos;
+        
         
     }
     

@@ -1,0 +1,111 @@
+<div class="col-lg-8">
+        <h5>TABELA</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-lg-1">Pos</th>
+                        <th class="col-lg-4">Equipe</th>
+                        <th class="col-lg-1">Pts</th>
+                        <th class="col-lg-1">J</th>
+                        <th class="col-lg-1">V</th>
+                        <th class="col-lg-1">D</th>
+                        <th class="col-lg-1">E</th>
+                        <th class="col-lg-1">GP</th>
+                        <th class="col-lg-1">GC</th>
+                        <th class="col-lg-1">SG</th>
+                        <th class="col-lg-2">%</th>
+                    </tr>
+                </thead>                
+                <tbody>
+                    <?php if ($this->tabelaCampeonato->count() > 0) : ?>                    
+                        <?php foreach ($this->tabelaCampeonato as $tabela) : ?>
+                        <tr style="font-size: 12px;" class="text-center">
+                            <td><span><?php echo $this->pos; ?>º</span></td>
+                            <td class="text-left">
+                                <?php if ($tabela->escudo_equipe) : ?>                                
+                                <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $tabela->escudo_equipe); ?>" />
+                                <?php else : ?>
+                                <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
+                                <?php endif; ?>
+                                <span><?php echo $tabela->nome_equipe; ?></span>
+                                <?php if ($tabela->jogador) : ?>
+                                <span style="font-size: 9px;"><?php echo '( ' . $tabela->jogador . ' )'; ?></span>
+                                <?php endif; ?>
+                            </td>
+                            <td><?php echo $tabela->pontos; ?></td>
+                            <td><?php echo $tabela->jogos; ?></td>
+                            <td><?php echo $tabela->vitorias; ?></td>
+                            <td><?php echo $tabela->derrotas; ?></td>
+                            <td><?php echo $tabela->empates; ?></td>
+                            <td><?php echo $tabela->gols_pro; ?></td>
+                            <td><?php echo $tabela->gols_contra; ?></td>
+                            <td><?php echo $tabela->saldo_gols; ?></td>
+                            <td><?php echo number_format($tabela->aproveitamento, 2, ',', ''); ?></td>
+                        </tr>
+                        <?php $this->pos++; ?>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                    <tr>
+                        <td colspan="11">Nenhum resultado encontrado</td>
+                    </tr>
+                    <?php endif; ?>
+                </tbody>                
+            </table>
+            <span>
+                <label>Legenda:</label>
+            </span><br />
+            <span class="small">
+                <label>J - jogos |</label>
+                <label>V - Vitórias |</label>
+                <label>D - Derrotas |</label>
+                <label>E - Empates |</label>
+                <label>GP - Gols pro |</label>
+                <label>GC - Gols contra |</label>
+                <label>SG - Saldo de gols |</label>
+                <label>% - Aproveitamento</label>
+            </span>
+            
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <h5>PARTIDAS</h5>
+        <?php if ($this->partidas->count() > 0) : ?>
+        <table class="table table-bordered">
+            <?php foreach ($this->partidas as $partida) : ?>            
+            <tr>
+                <td style="font-size: 10px;" class="text-muted small text-left" colspan="5">
+                    <?php echo $partida->rodada_partida; ?>ª rodada | 
+                    <?php echo $partida->data_partida ? $partida->data_partida . ' - ' : ''; ?>
+                    <?php echo $partida->horario_partida ? $partida->horario_partida . ' | ' : ''; ?> 
+                    <?php echo $partida->apelido_estadio; ?>
+                </td>
+            </tr>
+            <tr style="font-size: 11px;" class="text-center">                      
+                <td class="text-right">
+                    <?php if ($partida->escudo_mandante) : ?>
+                    <img class="img-thumbnail" style="float: left; width: 25px; padding: 0 5px;" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_mandante); ?>" />
+                    <?php else : ?>
+                    <img style="float: left; width: 25px; padding: 0 5px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
+                    <?php endif; ?>
+                    <?php echo $partida->mandante; ?>
+                </td>
+                <td><b><?php echo $partida->placar_equipe_mandante !== null ? $partida->placar_equipe_mandante : '-'; ?></b></td>
+                <td>X</td>
+                <td><b><?php echo $partida->placar_equipe_visitante !== null ? $partida->placar_equipe_visitante : '-'; ?></b></td>
+                <td class="text-left">
+                    <?php echo $partida->visitante; ?>
+                    <?php if ($partida->escudo_visitante) : ?>
+                    <img class="img-thumbnail" style="float: right; width: 25px; padding: 0 5px;" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_visitante); ?>" />
+                    <?php else : ?>
+                    <img style="float: right; width: 25px; padding: 0 5px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
+                    <?php endif; ?>
+                </td>
+                
+            </tr>            
+            <?php endforeach; ?>
+        </table>
+        <?php else : ?>
+        <span>Nenhuma partida encontrada</span>
+        <?php endif; ?>
+    </div>

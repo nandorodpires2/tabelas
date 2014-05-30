@@ -1,0 +1,27 @@
+<h3>Novo Estado</h3>
+<?php echo $this->formEstado; ?>
+<div class="row">
+    <div class="col-lg-12">
+        <h5>ESTADOS CADASTRADOS</h5>
+        <div class="table-responsive">
+            <table class=" table table-bordered">
+                <tr>
+                    <th>ID</th>
+                    <th>País</th>
+                    <th>Estado</th>
+                    <th>Sigle</th>                    
+                    <th>Ação</th>
+                </tr>
+                <?php foreach ($this->estados as $estado) : ?>
+                <tr>
+                    <td><?php echo $estado->id_estado; ?></td>
+                    <td><?php echo $estado->nome_pais; ?></td>
+                    <td><?php echo $estado->nome_estado; ?></td>
+                    <td><?php echo $estado->sigla_estado; ?></td>                    
+                    <td></td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+</div>

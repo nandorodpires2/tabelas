@@ -18,22 +18,18 @@ class Default_IndexController extends Zend_Controller_Action {
         if ($this->_request->isPost()) {
             $dadosRetrospecto = $this->_request->getPost();
             if ($formDefaultRetrospecto->isValid($dadosRetrospecto)) {
-                $dadosRetrospecto = $formDefaultRetrospecto->getValues();
-                
-                if ($dadosRetrospecto['jogador_1'] !== $dadosRetrospecto['jogador_2']) {
-                    
+                $dadosRetrospecto = $formDefaultRetrospecto->getValues();                
+                if ($dadosRetrospecto['jogador_1'] !== $dadosRetrospecto['jogador_2']) {                    
                     $modelVwRetrospecto = new Model_VwRetrospecto();
                     $retrospectos = $modelVwRetrospecto->getRetrospectos($dadosRetrospecto['jogador_1'], $dadosRetrospecto['jogador_2']);                    
                     $this->view->retrospectos = $retrospectos;                    
                 } else {
                     echo "Escolha jogadores diferentes";
-                }
-                
+                }                
             }
         }
         
     }
-
 
 }
 

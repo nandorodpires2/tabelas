@@ -1,0 +1,27 @@
+<h3>Nova Cidade</h3>
+<?php echo $this->formCidade; ?>
+<div class="row">
+    <div class="col-lg-12">
+        <h5>CIDADES CADASTRADOS</h5>
+        <div class="table-responsive">
+            <table class=" table table-bordered">
+                <tr>
+                    <th>ID</th>
+                    <th>País</th>
+                    <th>Estado</th>
+                    <th>Cidade</th>                    
+                    <th>Ação</th>
+                </tr>
+                <?php foreach ($this->cidades as $cidade) : ?>
+                <tr>
+                    <td><?php echo $cidade->id_cidade; ?></td>
+                    <td><?php echo $cidade->nome_pais; ?></td>
+                    <td><?php echo $cidade->nome_estado; ?></td>
+                    <td><?php echo $cidade->nome_cidade; ?></td>
+                    <td></td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+</div>

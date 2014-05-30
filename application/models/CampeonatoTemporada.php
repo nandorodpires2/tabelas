@@ -7,33 +7,33 @@
  */
 
 /**
- * Description of Grupo
+ * Description of CampeonatoTemporada
  *
  * @author Fernando Rodrigues
  */
-class Model_Grupo extends Zend_Db_Table_Abstract {
+class Model_CampeonatoTemporada extends Zend_Db_Table {
     
-    protected $_name = "grupo";
+    protected $_name = "campeonato_temporada";
     
-    protected $_primary = "id_grupo";
+    protected $_primary = "id_campeonato_temporada";
     
     public function getLastInsertId() {
     
         $select = $this->select()
                 ->from($this->_name, array(
-                    "last_id" => "last_insert_id(id_grupo)"
+                    "last_id" => "last_insert_id(id_campeonato_temporada)"
                 ))
-                ->order("id_grupo desc")
+                ->order("id_campeonato_temporada desc")
                 ->limit(1);
         
         $query = $this->fetchRow($select);
         
         return (int)$query->last_id;
         
-    }    
+    }
     
-    public function getGruposCampeonatoByFaseCampeonatoId($id_fase_campeonato) {
-        return $this->fetchAll($this->select()->where("id_fase_campeonato = ?", $id_fase_campeonato));
+    public function getTemporadasByCampeonatoId($id_campeonato) {
+        return $this->fetchAll("id_campeonato = {$id_campeonato}");
     }
     
 }

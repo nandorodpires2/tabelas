@@ -1,0 +1,37 @@
+<h3>Novo Estádio</h3>
+<?php echo $this->formEstadio; ?>
+<div class="row">
+    <div class="col-lg-12">
+        <h5>ESTÁDIOS CADASTRADOS</h5>
+        <div class="table-responsive">
+            <table class=" table table-bordered">
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Apelido</th>
+                    <th>Capacidade</th>
+                    <th>País</th>
+                    <th>Estado</th>
+                    <th>Cidade</th>
+                    <th>ID</th>
+                    <th>Ação</th>
+                </tr>
+                <?php foreach ($this->estadios as $estadio) : ?>
+                <tr>
+                    <td><?php echo $estadio->id_estadio; ?></td>
+                    <td><?php echo $estadio->nome_estadio; ?></td>
+                    <td><?php echo $estadio->apelido_estadio; ?></td>
+                    <td><?php echo $estadio->capacidade_estadio; ?></td>
+                    <td><?php echo $estadio->id_pais; ?></td>
+                    <td><?php echo $estadio->id_estado; ?></td>
+                    <td><?php echo $estadio->id_cidade; ?></td>
+                    <td></td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+

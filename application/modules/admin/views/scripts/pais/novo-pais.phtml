@@ -1,0 +1,27 @@
+<h3>Novo País</h3>
+<?php echo $this->formPais; ?>
+<div class="row">
+    <div class="col-lg-12">
+        <h5>PAÍSES CADASTRADAS</h5>
+        <div class="table-responsive">
+            <table class=" table table-bordered">
+                <tr>
+                    <th>ID</th>
+                    <th>País</th>
+                    <th>Continente</th>
+                    <th>Confederação</th>
+                    <th>Ação</th>
+                </tr>
+                <?php foreach ($this->paises as $pais) : ?>
+                <tr>
+                    <td><?php echo $pais->id_pais; ?></td>
+                    <td><?php echo $pais->nome_pais; ?></td>
+                    <td><?php echo $pais->continente_pais; ?></td>
+                    <td><?php echo $pais->federacao; ?></td>
+                    <td></td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+</div>

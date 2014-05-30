@@ -19,7 +19,9 @@
                     <?php foreach ($this->tabelaJogadores as $key => $jogador) : ?>
                         <tr class="text-center">
                             <td><?php echo $key+1; ?>º</td>
-                            <td class="text-left"><?php echo $jogador->jogador; ?></td>
+                            <td class="text-left">                                
+                                <?php echo $jogador->jogador; ?>
+                            </td>
                             <td><?php echo $jogador->pontos; ?></td>
                             <td><?php echo $jogador->jogos; ?></td>
                             <td><?php echo $jogador->vitorias; ?></td>
@@ -61,20 +63,30 @@
                 </thead>
                 <tbody>
                     <?php foreach ($this->retrospectos as $retrospecto) : ?>
-                    <tr class="text-center">
-                        <td></td>
-                        <td><?php echo $retrospecto->data_partida; ?></td>
-                        <td></td>
+                    <tr>
+                        <td><?php echo $retrospecto->nome_campeonato; ?></td>
+                        <td class="text-center"><?php echo $retrospecto->data_partida; ?></td>
+                        <td><?php echo $retrospecto->apelido_estadio; ?></td>
                         <td>
+                            <?php if ($retrospecto->escudo_mandante) : ?>                                
+                            <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $retrospecto->escudo_mandante); ?>" />
+                            <?php else : ?>
+                            <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
+                            <?php endif; ?>
                             <?php echo $retrospecto->mandante; ?>
                             <span style="font-size: 9px;"><?php echo '( ' . $retrospecto->jogador_1 . ' )'; ?></span>
                         </td>
-                        <td><?php echo $retrospecto->placar_mandante; ?></td>
-                        <td> X </td>
-                        <td><?php echo $retrospecto->placar_visitante; ?></td>
-                        <td>
-                            <?php echo $retrospecto->visitante; ?>
+                        <td class="text-center"><?php echo $retrospecto->placar_mandante; ?></td>
+                        <td class="text-center"> X </td>
+                        <td class="text-center"><?php echo $retrospecto->placar_visitante; ?></td>
+                        <td class="text-right">
                             <span style="font-size: 9px;"><?php echo '( ' . $retrospecto->jogador_2 . ' )'; ?></span>
+                            <?php echo $retrospecto->visitante; ?> 
+                            <?php if ($retrospecto->escudo_visitante) : ?>                                
+                            <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $retrospecto->escudo_visitante); ?>" />
+                            <?php else : ?>
+                            <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
+                            <?php endif; ?>
                         </td>                        
                     </tr>
                     <?php endforeach; ?>

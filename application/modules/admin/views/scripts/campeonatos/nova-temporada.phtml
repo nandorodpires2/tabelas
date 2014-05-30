@@ -1,0 +1,37 @@
+<h3>Temporada Campeonato</h3>
+<?php echo $this->formTemporada; ?>
+<div class="row">
+    <div class="col-lg-12">
+        <h5>TEMPORADAS CADASTRADAS</h5>
+        <div class="table-responsive">
+            <table class=" table table-bordered">
+                <tr>
+                    <th>ID</th>
+                    <th>Ano Temporada</th>                    
+                    <th>Ação</th>
+                </tr>
+                <?php foreach ($this->temporadas as $temporada) : ?>
+                <tr>
+                    <td><?php echo $temporada->id_campeonato_temporada; ?></td>
+                    <td><?php echo $temporada->ano_temporada; ?></td>
+                    <td>
+                        <a href="<?php echo $this->url(array(
+                            'module' => 'admin',
+                            'controller' => 'campeonatos',
+                            'action' => 'nova-fase-campeonato',
+                            'id_campeonato' => $temporada->id_campeonato,
+                            'id' => $temporada->id_campeonato_temporada
+                        )); ?>">Fases</a> | 
+                        <a href="<?php echo $this->url(array(
+                            'module' => 'admin',
+                            'controller' => 'campeonatos',
+                            'action' => 'finalizar-fase-campeonato',
+                            'id' => $temporada->id_campeonato_temporada
+                        )); ?>">Finalizar</a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+</div>

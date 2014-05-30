@@ -30,7 +30,7 @@
                                                 'action' => 'index',
                                                 'campeonato' => $campeonato['id_campeonato'],
                                                 'temporada' => $campeonato['id_campeonato_temporada']
-                                            )); ?>">
+                                            ), null, true); ?>">
                                             <?php echo $campeonato['nome_campeonato'] . ' ' . $campeonato['ano_temporada']; ?>
                                             <?php echo $campeonato['finalizado'] ? '(F)' : ''; ?>
                                         </a>

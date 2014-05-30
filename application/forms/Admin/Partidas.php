@@ -86,7 +86,7 @@ class Form_Admin_Partidas extends Zend_Form {
         $multioptions = array('' => 'selecione o campeonato...');
         
         $modelCampeonato = new Model_Campeonato();
-        $campeonatos = $modelCampeonato->getCampeonatos("finalizado = 0");
+        $campeonatos = $modelCampeonato->getCampeonatosNaoFinalizados();
         
         foreach ($campeonatos as $campeonato) {
             $multioptions[$campeonato->id_campeonato] = $campeonato->nome_campeonato;

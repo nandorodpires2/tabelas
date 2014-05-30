@@ -19,6 +19,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
            'basePath'   => APPLICATION_PATH
         ));
         
+        $autoloader->addResourceTypes(array(
+            'actionhelper' => array(
+                'path' => 'helpers/actions',
+                'namespace' => 'Controller_Helper'
+            ),
+            'viewhelper' => array(
+                'path' => 'helpers/views',
+                'namespace' => 'View_Helper'
+            )
+        ));
+        
     }
     
     /**
@@ -66,6 +77,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         
         $view->headLink()->appendStylesheet(PUBLIC_PATH . '/views/css/bootstrap/bootstrap.css');
         $view->headLink()->appendStylesheet(PUBLIC_PATH . '/views/css/bootstrap/bootstrap-theme.css');
+        
+        $view->addHelperPath('Helper/View', 'Helper_View');
         
         
         return $view;

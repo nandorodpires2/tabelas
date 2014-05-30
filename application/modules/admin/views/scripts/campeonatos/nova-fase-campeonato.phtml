@@ -1,0 +1,36 @@
+<h3>Fase do Campeonato</h3>
+<?php echo $this->formFaseCampeonato; ?>
+<div class="row">
+    <div class="col-lg-12">
+        <h5>FASES DO CAMPEONATO CADASTRADAS</h5>
+        <div class="table-responsive">
+            <table class=" table table-bordered">
+                <tr>
+                    <th>ID</th>
+                    <th>Descrição Fase</th>
+                    <th>Qtde Grupos</th>
+                    <th>Próx. Fase</th>
+                    <th>Equipes Grupo</th>
+                    <th>Ação</th>
+                </tr>
+                <?php foreach ($this->fasesCampeonato as $fase) : ?>
+                <tr>
+                    <td><?php echo $fase->id_fase_campeonato; ?></td>
+                    <td><?php echo $fase->descricao_fase; ?></td>
+                    <td><?php echo $fase->qtde_grupos; ?></td>
+                    <td><?php echo $fase->classificados_prox_fase_grupo; ?></td>
+                    <td><?php echo $fase->qtde_equipes_grupo; ?></td>
+                    <td>
+                        <a href="<?php echo $this->url(array(
+                            'module' => 'admin',
+                            'controller' => 'campeonatos',
+                            'action' => 'novo-grupo',
+                            'id' => $fase->id_fase_campeonato
+                        )); ?>">Grupos</a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+</div>

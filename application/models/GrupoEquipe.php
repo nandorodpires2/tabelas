@@ -16,6 +16,22 @@ class Model_GrupoEquipe extends Zend_Db_Table_Abstract {
     protected $_name = "grupo_equipe";
     protected $_primary = "id_grupo";
     
+    
+    public function getEquipesGrupo($id_grupo, $id_fase_campeonato) {
+        
+        $select = $this->select()
+                ->from(array('ge' => $this->_name), array('*'))
+                ->setIntegrityCheck(false)
+                ->joinInner(array('e' => 'equipe'), 'ge.id_equipe = e.id_equipe', array('*'))
+                ->joinInner(array('p' => 'pais'), 'e.id_pais = p.id_pais', array('*'))
+                ->joinInner(array('es' => 'estadio'), 'e.id_estadio = es.id_estadio', array('*'))
+                ->where("ge.id_grupo = ?", $id_grupo)
+                ->where("ge.id_fase_campeonato = ?", $id_fase_campeonato);
+        
+        return $this->fetchAll($select);
+        
+    }
+
     public function getJogadores() {
         
         $select = $this->select()

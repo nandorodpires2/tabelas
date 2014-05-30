@@ -1,80 +1,95 @@
 <h3><?php echo $this->nome_campeonato; ?></h3>
+<div class="col-lg-2">
+    <?php if ($this->fase_anterior) : ?>
+    <a href="<?php echo $this->url(array(
+        'module' => 'default',
+        'controller' => 'campeonatos',
+        'campeonato' => $this->id_campeonato,
+        'temporada' => $this->id_temporada,
+        'id_fase_campeonato' => $this->fase_anterior
+    ), null, true); ?>"><h4>< Fase anterior</h4></a>
+    <?php else : ?>
+    <h4>< Fase anterior</h4>
+    <?php endif; ?>
+</div>
+<div class="col-lg-8 text-center">
+    <h4><?php echo $this->faseCampeonato->descricao_fase; ?></h4>
+</div>
+<div class="col-lg-2">
+    <?php if ($this->fase_seguinte) : ?>
+    <a href="<?php echo $this->url(array(
+        'module' => 'default',
+        'controller' => 'campeonatos',
+        'campeonato' => $this->id_campeonato,
+        'temporada' => $this->id_temporada,
+        'id_fase_campeonato' => $this->fase_seguinte
+    ), null, true); ?>"><h4>Fase seguinte ></h4></a>
+    <?php else : ?>
+    <h4>Fase seguinte ></h4>
+    <?php endif; ?>
+</div>    
 <div class="row">
+    <?php if ($this->faseCampeonato->tipo_fase == 1) : ?>
     <div class="col-lg-8">
-        <h5>TABELA</h5>
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th class="col-lg-1">Pos</th>
-                        <th class="col-lg-4">Equipe</th>
-                        <th class="col-lg-1">Pts</th>
-                        <th class="col-lg-1">J</th>
-                        <th class="col-lg-1">V</th>
-                        <th class="col-lg-1">D</th>
-                        <th class="col-lg-1">E</th>
-                        <th class="col-lg-1">GP</th>
-                        <th class="col-lg-1">GC</th>
-                        <th class="col-lg-1">SG</th>
-                        <th class="col-lg-2">%</th>
-                    </tr>
-                </thead>                
-                <tbody>
-                    <?php if ($this->tabelaCampeonato->count() > 0) : ?>                    
-                        <?php foreach ($this->tabelaCampeonato as $tabela) : ?>
-                        <tr style="font-size: 12px;" class="text-center">
-                            <td><span><?php echo $this->pos; ?>º</span></td>
-                            <td class="text-left">
-                                <?php if ($tabela->escudo_equipe) : ?>                                
-                                <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $tabela->escudo_equipe); ?>" />
-                                <?php else : ?>
-                                <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
-                                <?php endif; ?>
-                                <span><?php echo $tabela->nome_equipe; ?></span>
-                                <?php if ($tabela->jogador) : ?>
-                                <span style="font-size: 9px;"><?php echo '( ' . $tabela->jogador . ' )'; ?></span>
-                                <?php endif; ?>
-                            </td>
-                            <td><?php echo $tabela->pontos; ?></td>
-                            <td><?php echo $tabela->jogos; ?></td>
-                            <td><?php echo $tabela->vitorias; ?></td>
-                            <td><?php echo $tabela->derrotas; ?></td>
-                            <td><?php echo $tabela->empates; ?></td>
-                            <td><?php echo $tabela->gols_pro; ?></td>
-                            <td><?php echo $tabela->gols_contra; ?></td>
-                            <td><?php echo $tabela->saldo_gols; ?></td>
-                            <td><?php echo number_format($tabela->aproveitamento, 2, ',', ''); ?></td>
-                        </tr>
-                        <?php $this->pos++; ?>
-                        <?php endforeach; ?>
+        <h5>Grupos</h5>        
+        <?php foreach ($this->grupos as $grupo) : ?>
+        <table class="table table-bordered">
+            <tr>
+                <th colspan="10" class="center"><?php echo $grupo->descricao_grupo; ?></th>
+            </tr>
+            <tr>
+                <th>Equipe</th>
+                <th>Pts</th>
+                <th>J</th>
+                <th>V</th>
+                <th>E</th>
+                <th>D</th>
+                <th>GF</th>
+                <th>GC</th>
+                <th>SG</th>
+                <th>Apr (%)</th>
+            </tr>
+            <?php $tabela = View_Helper_Tabela::getTabelaGrupo($grupo->id_grupo, $grupo->id_fase_campeonato); ?>
+            <?php foreach ($tabela as $equipe) : ?>
+            <tr class="text-center">
+                <td class="text-left">
+                    <?php if ($equipe->escudo_equipe) : ?>
+                    <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $equipe->escudo_equipe); ?>" />
                     <?php else : ?>
-                    <tr>
-                        <td colspan="11">Nenhum resultado encontrado</td>
-                    </tr>
+                    <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
                     <?php endif; ?>
-                </tbody>                
-            </table>
-            <span>
-                <label>Legenda:</label>
-            </span><br />
-            <span class="small">
-                <label>J - jogos |</label>
-                <label>V - Vitórias |</label>
-                <label>D - Derrotas |</label>
-                <label>E - Empates |</label>
-                <label>GP - Gols pro |</label>
-                <label>GC - Gols contra |</label>
-                <label>SG - Saldo de gols |</label>
-                <label>% - Aproveitamento</label>
-            </span>
-            
-        </div>
+                    <?php echo $equipe->nome_equipe; ?>
+                    <?php if ($equipe->jogador) : ?>
+                    <span style="font-size: 9px;"><?php echo '( ' . $equipe->jogador . ' )'; ?></span>
+                    <?php endif; ?>
+                </td>
+                <td><?php echo ($equipe->vitorias * 3) + $equipe->empates; ?></td>
+                <td><?php echo $equipe->jogos; ?></td>
+                <td><?php echo $equipe->vitorias; ?></td>
+                <td><?php echo $equipe->empates; ?></td>
+                <td><?php echo $equipe->derrotas; ?></td>
+                <td><?php echo $equipe->gols_pro; ?></td>
+                <td><?php echo $equipe->gols_contra; ?></td>
+                <td><?php echo $equipe->gols_pro - $equipe->gols_contra; ?></td>
+                <td>X %</td>
+            </tr>
+            <?php endforeach; ?>
+            <tr>
+                <th colspan="10">&nbsp;</th>
+            </tr>
+        </table>
+        <?php endforeach; ?>
+        
     </div>
     <div class="col-lg-4">
-        <h5>PARTIDAS</h5>
-        <?php if ($this->partidas->count() > 0) : ?>
+        <h5>Rodadas</h5>
+        <?php foreach ($this->grupos as $grupo) : ?>
         <table class="table table-bordered">
-            <?php foreach ($this->partidas as $partida) : ?>            
+            <tr>
+                <th colspan="5"><?php echo $grupo->descricao_grupo; ?></th>
+            </tr>
+            <?php $partidas = View_Helper_Partida::getRodadas($this->id_campeonato, $this->id_temporada, $grupo->id_grupo); ?>
+            <?php foreach ($partidas as $partida) : ?>            
             <tr>
                 <td style="font-size: 10px;" class="text-muted small text-left" colspan="5">
                     <?php echo $partida->rodada_partida; ?>ª rodada | 
@@ -102,13 +117,29 @@
                     <?php else : ?>
                     <img style="float: right; width: 25px; padding: 0 5px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
                     <?php endif; ?>
-                </td>
-                
-            </tr>            
+                </td>                
+            </tr> 
             <?php endforeach; ?>
         </table>
-        <?php else : ?>
-        <span>Nenhuma partida encontrada</span>
-        <?php endif; ?>
+        <?php endforeach; ?>
     </div>
+    <?php else : ?>
+    <div class="col-lg-12">
+        <h5>Jogos</h5>
+        <?php foreach ($this->grupos as $grupo) : ?>
+        <?php $jogo = View_Helper_Tabela::getJogosMataMata($grupo->id_grupo, $grupo->id_fase_campeonato); ?>        
+        <table class="table table-bordered">
+            <tr>
+                <td><?php echo $grupo->descricao_grupo; ?></td>
+                <td><?php echo $jogo[0]->nome_equipe; ?></td>
+                <td>&nbsp;</td>
+                <td> X </td>
+                <td>&nbsp;</td>
+                <td><?php echo $jogo[1]->nome_equipe; ?></td>
+            </tr>            
+        </table>
+        <?php endforeach; ?>            
+    </div>
+    <?php endif; ?>
 </div>
+

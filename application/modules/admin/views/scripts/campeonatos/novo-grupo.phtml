@@ -1,0 +1,31 @@
+<h3>Novo Grupo Campeonato</h3>
+<?php echo $this->formGrupo; ?>
+<div class="row">
+    <div class="col-lg-12">
+        <h5>FASES DO CAMPEONATO CADASTRADAS</h5>
+        <div class="table-responsive">
+            <table class=" table table-bordered">
+                <tr>
+                    <th>ID</th>
+                    <th>Descrição Grupo</th>
+                    <th>Ação</th>
+                </tr>
+                <?php foreach ($this->grupos as $grupo) : ?>
+                <tr>
+                    <td><?php echo $grupo->id_grupo; ?></td>
+                    <td><?php echo $grupo->descricao_grupo; ?></td>
+                    <td>
+                        <a href="<?php echo $this->url(array(
+                            'module' => 'admin',
+                            'controller' => 'campeonatos',
+                            'action' => 'novo-grupo-equipe',
+                            'id_fase_campeonato' => $grupo->id_fase_campeonato,
+                            'id' => $grupo->id_grupo
+                        )); ?>">Grupo Equipes</a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </table>            
+        </div>
+    </div>
+</div>

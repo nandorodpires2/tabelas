@@ -1,0 +1,32 @@
+<h3>Grupo Equipe</h3>
+<?php echo $this->formGrupoEquipe; ?>
+<div class="row">
+    <div class="col-lg-12">
+        <h5>EQUIPES DO GRUPO</h5>
+        <div class="table-responsive">
+            <table class=" table table-bordered">
+                <tr>
+                    <th>Equipe</th>
+                    <th>Estádio</th>
+                    <th>País</th>
+                    <th>Ação</th>
+                </tr>
+                <?php foreach ($this->equipes as $equipe) : ?>
+                <tr>
+                    <td>
+                        <?php echo $equipe->nome_equipe; ?>
+                        <?php if ($equipe->jogador) : ?>
+                        <span style="font-size: 9px;"><?php echo '( ' . $equipe->jogador . ' )'; ?></span>
+                        <?php endif; ?>
+                    </td>
+                    <td><?php echo $equipe->apelido_estadio; ?></td>
+                    <td><?php echo $equipe->nome_pais; ?></td>
+                    <td>
+                        
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+</div>

@@ -51,9 +51,8 @@ class Model_Partida extends Zend_Db_Table_Abstract {
         return $this->fetchRow($select);
     }
 
-
     // busca as partidas
-    public function getPartidas($id_campeonato, $id_temporada) {
+    public function getPartidas($id_campeonato, $id_temporada, $id_grupo = null) {
         
         $select = $this->select()
                 ->from(array('p' => $this->_name), array(
@@ -80,6 +79,10 @@ class Model_Partida extends Zend_Db_Table_Abstract {
                 ->where('fc.id_campeonato_temporada = ?', $id_temporada)
                 ->where('fc.id_campeonato = ?', $id_campeonato)
                 ->order('p.rodada_partida desc');
+        
+        if ($id_grupo) {
+            $select->where("p.id_grupo = ?", $id_grupo);
+        }
         
         return $this->fetchAll($select);
         

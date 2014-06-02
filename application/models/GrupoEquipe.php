@@ -23,8 +23,8 @@ class Model_GrupoEquipe extends Zend_Db_Table_Abstract {
                 ->from(array('ge' => $this->_name), array('*'))
                 ->setIntegrityCheck(false)
                 ->joinInner(array('e' => 'equipe'), 'ge.id_equipe = e.id_equipe', array('*'))
-                ->joinInner(array('p' => 'pais'), 'e.id_pais = p.id_pais', array('*'))
-                ->joinInner(array('es' => 'estadio'), 'e.id_estadio = es.id_estadio', array('*'))
+                ->joinLeft(array('p' => 'pais'), 'e.id_pais = p.id_pais', array('*'))
+                ->joinLeft(array('es' => 'estadio'), 'e.id_estadio = es.id_estadio', array('*'))
                 ->where("ge.id_grupo = ?", $id_grupo)
                 ->where("ge.id_fase_campeonato = ?", $id_fase_campeonato);
         

@@ -28,4 +28,22 @@ class Model_Equipe extends Zend_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
     
+    /**
+     * busca as equipes
+     */
+    public function getEquipes() {
+        
+        $select = $this->select()
+                ->from(array('e' => $this->_name), array('*'))
+                ->setIntegrityCheck(false)
+                ->joinLeft(array('p' => 'pais'), 'e.id_pais = p.id_pais', array('*'))
+                ->joinLeft(array('est' => 'estado'), 'e.id_estado = est.id_estado', array('*'))
+                ->joinLeft(array('cid' => 'cidade'), 'e.id_cidade = cid.id_cidade', array('*'))
+                ->joinLeft(array('esd' => 'estadio'), 'e.id_estadio = esd.id_estadio', array('*'))
+                ->order('e.nome_equipe asc');
+        
+        return $this->fetchAll($select);
+        
+    }
+    
 }

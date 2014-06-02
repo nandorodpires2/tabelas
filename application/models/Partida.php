@@ -77,8 +77,11 @@ class Model_Partida extends Zend_Db_Table_Abstract {
                     'e.apelido_estadio'
                 ))
                 ->where('fc.id_campeonato_temporada = ?', $id_temporada)
-                ->where('fc.id_campeonato = ?', $id_campeonato)
-                ->order('p.rodada_partida desc');
+                ->where('fc.id_campeonato = ?', $id_campeonato)                
+                ->order('p.rodada_partida desc')
+                ->order('p.realizada asc')
+                ->order('p.data_partida asc')
+                ->order('p.horario_partida asc');
         
         if ($id_grupo) {
             $select->where("p.id_grupo = ?", $id_grupo);

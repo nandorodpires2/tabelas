@@ -53,7 +53,7 @@ class Admin_PartidasController extends Zend_Controller_Action {
             $modelPartida = new Model_Partida();
             try {
                 $modelPartida->insert($dadosPartida);
-                $this->_redirect("index/");
+                $this->_redirect("admin/partidas/nova-partida");
             } catch (Zend_Db_Table_Exception $error) {
                 echo $error->getMessage();
             } catch (Exception $e) {

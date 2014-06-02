@@ -33,7 +33,11 @@ class Model_Grupo extends Zend_Db_Table_Abstract {
     }    
     
     public function getGruposCampeonatoByFaseCampeonatoId($id_fase_campeonato) {
-        return $this->fetchAll($this->select()->where("id_fase_campeonato = ?", $id_fase_campeonato));
+        return $this->fetchAll(
+            $this->select()
+                ->where("id_fase_campeonato = ?", $id_fase_campeonato)
+                ->order("descricao_grupo asc")                
+        );
     }
     
 }

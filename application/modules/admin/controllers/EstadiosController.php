@@ -26,6 +26,17 @@ class Admin_EstadiosController extends Zend_Controller_Action {
         $estadios = $modelEstadio->fetchAll();
         $this->view->estadios = $estadios;
         
+        if ($this->_request->isPost()) {
+            $dadosEstadios = $this->_request->getPost();
+            if ($formEstadio->isValid($dadosEstadios)) {
+                $dadosEstadios = $formEstadio->getValues();
+                
+                $modelEstadio->insert($dadosEstadios);
+                $this->_redirect("admin/estadios/novo-estadio");
+                
+            }
+        }
+        
     }
     
 }

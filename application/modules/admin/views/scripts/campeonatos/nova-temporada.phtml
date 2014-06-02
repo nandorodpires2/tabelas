@@ -1,3 +1,4 @@
+<?php echo $this->partial('partials/menu-admin.phtml'); ?>
 <h3>Temporada Campeonato</h3>
 <?php echo $this->formTemporada; ?>
 <div class="row">
@@ -7,13 +8,15 @@
             <table class=" table table-bordered">
                 <tr>
                     <th>ID</th>
-                    <th>Ano Temporada</th>                    
+                    <th>Ano Temporada</th>     
+                    <th>Status</th>     
                     <th>Ação</th>
                 </tr>
                 <?php foreach ($this->temporadas as $temporada) : ?>
                 <tr>
                     <td><?php echo $temporada->id_campeonato_temporada; ?></td>
                     <td><?php echo $temporada->ano_temporada; ?></td>
+                    <td><?php echo $temporada->finalizado ? 'Finalizada' : 'Em vigor'; ?></td>
                     <td>
                         <a href="<?php echo $this->url(array(
                             'module' => 'admin',
@@ -22,12 +25,14 @@
                             'id_campeonato' => $temporada->id_campeonato,
                             'id' => $temporada->id_campeonato_temporada
                         )); ?>">Fases</a> | 
+                        <?php if (!$temporada->finalizado) : ?>
                         <a href="<?php echo $this->url(array(
                             'module' => 'admin',
                             'controller' => 'campeonatos',
-                            'action' => 'finalizar-fase-campeonato',
+                            'action' => 'finalizar-temporada',
                             'id' => $temporada->id_campeonato_temporada
                         )); ?>">Finalizar</a>
+                        <?php endif; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

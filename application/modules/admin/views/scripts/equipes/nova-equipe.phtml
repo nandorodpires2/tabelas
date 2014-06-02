@@ -1,3 +1,4 @@
+<?php echo $this->partial('partials/menu-admin.phtml'); ?>
 <h3>Nova Equipe</h3>
 <?php echo $this->formEquipe; ?>
 <div class="row">
@@ -7,14 +8,33 @@
             <table class=" table table-bordered">
                 <tr>
                     <th>ID</th>
-                    <th>Nome Completo</th>
                     <th>Equipe</th>
+                    <th>Nome Completo</th>                    
                     <th>Estádio</th>
                     <th>Cidade</th>
                     <th>Estado</th>
                     <th>País</th>
                     <th>Ação</th>
                 </tr>
+                <?php foreach ($this->equipes as $equipe) : ?>
+                <tr>
+                    <td><?php echo $equipe->id_equipe; ?></td>
+                    <td>
+                        <?php if ($equipe->escudo_equipe) : ?>
+                        <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $equipe->escudo_equipe); ?>" width="30" />
+                        <?php else : ?>
+                        <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" width="30" />
+                        <?php endif; ?>
+                        <?php echo $equipe->nome_equipe; ?>
+                    </td>
+                    <td><?php echo $equipe->nome_completo_equipe; ?></td>
+                    <td><?php echo $equipe->apelido_estadio; ?></td>
+                    <td><?php echo $equipe->nome_cidade; ?></td>
+                    <td><?php echo $equipe->nome_estado; ?></td>
+                    <td><?php echo $equipe->nome_pais; ?></td>                    
+                    <td></td>
+                </tr>
+                <?php endforeach; ?>
             </table>
         </div>
     </div>

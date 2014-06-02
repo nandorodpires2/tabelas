@@ -26,9 +26,11 @@ class Form_Admin_Equipe extends Zend_Form {
         ));
         
         // upload
+        /*
         $this->addElement('file', 'escudo', array(
             'label' => 'Escudo Equipe: '
         ));
+        */
         
         // id_estadio
         $this->addElement('select', 'id_estadio', array(
@@ -64,7 +66,7 @@ class Form_Admin_Equipe extends Zend_Form {
     
     protected function getEstadios() {
         
-        $options = array('' => 'Selecione...');
+        $options = array(0 => 'Nenhum');
         
         $modelEstadio = new Model_Estadio();
         $estadios = $modelEstadio->fetchAll();

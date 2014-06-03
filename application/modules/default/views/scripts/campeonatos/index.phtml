@@ -125,9 +125,10 @@
     </div>
     <?php else : ?>
     <div class="col-lg-12">
-        <h5>Jogos</h5>
-        <?php foreach ($this->grupos as $grupo) : ?>
+        <h5>Jogos</h5>        
+        <?php foreach ($this->grupos as $grupo) : ?>        
         <?php $jogo = View_Helper_Tabela::getJogosMataMata($grupo->id_grupo, $grupo->id_fase_campeonato); ?>        
+        <?php if ($jogo->count() > 0) : ?>
         <table class="table table-bordered">
             <tr>
                 <td><?php echo $grupo->descricao_grupo; ?></td>
@@ -138,6 +139,7 @@
                 <td><?php echo $jogo[1]->nome_equipe; ?></td>
             </tr>            
         </table>
+        <?php endif; ?>
         <?php endforeach; ?>            
     </div>
     <?php endif; ?>

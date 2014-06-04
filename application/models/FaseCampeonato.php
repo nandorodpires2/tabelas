@@ -33,7 +33,7 @@ class Model_FaseCampeonato extends Zend_Db_Table_Abstract {
     }
     
     public function getFasesCampeonatoByCampeonatoTemporadaId($id_campeonato_temporada) {        
-        return $this->fetchAll($this->select()->where("id_campeonato_temporada = ?", $id_campeonato_temporada));
+        return $this->fetchAll($this->select()->where("id_campeonato_temporada = ?", $id_campeonato_temporada)->order('1 asc'));
     }
     
     public function getFaseCampeonatoByFaseCampeonatoId($id_fase_campeonato) {

@@ -22,7 +22,8 @@ class Model_Estado extends Zend_Db_Table {
                 ->setIntegrityCheck(false)
                 ->from(array('est' => $this->_name), array('*'))
                 ->joinInner(array('pa' => 'pais'), 'est.id_pais = pa.id_pais', array('*'))
-                ->order('pa.nome_pais asc');
+                ->order('pa.nome_pais asc')
+                ->order('est.nome_estado asc');
         
         return $this->fetchAll($select);
         

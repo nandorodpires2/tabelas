@@ -1,3 +1,6 @@
+<head>
+    <script type="text/javascript" src="<?php echo $this->baseUrl('views/js/default/campeonatos/index.js'); ?>"></script> 
+</head>
 <h3><?php echo $this->nome_campeonato; ?></h3>
 <div class="col-lg-2">
     <?php if ($this->fase_anterior) : ?>
@@ -29,100 +32,118 @@
     <?php endif; ?>
 </div>    
 <div class="row">
-    <?php if ($this->faseCampeonato->tipo_fase == 1) : ?>
-    <div class="col-lg-8">
-        <h5>Grupos</h5>        
+    
+    <?php if ($this->faseCampeonato->tipo_fase == 1) : ?>    
+    <div class="row">      
         <?php foreach ($this->grupos as $grupo) : ?>
-        <table class="table table-bordered">
-            <tr>
-                <th colspan="10" class="center"><?php echo $grupo->descricao_grupo; ?></th>
-            </tr>
-            <tr>
-                <th>Equipe</th>
-                <th>Pts</th>
-                <th>J</th>
-                <th>V</th>
-                <th>E</th>
-                <th>D</th>
-                <th>GF</th>
-                <th>GC</th>
-                <th>SG</th>
-                <th>Apr (%)</th>
-            </tr>
-            <?php $tabela = View_Helper_Tabela::getTabelaGrupo($grupo->id_grupo, $grupo->id_fase_campeonato); ?>            
-            <?php foreach ($tabela as $equipe) : ?>
-            <tr class="text-center">
-                <td class="text-left">
-                    <?php if ($equipe->escudo_equipe) : ?>
-                    <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $equipe->escudo_equipe); ?>" />
-                    <?php else : ?>
-                    <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
-                    <?php endif; ?>
-                    <?php echo $equipe->nome_equipe; ?>
-                    <?php if ($equipe->jogador) : ?>
-                    <span style="font-size: 9px;"><?php echo '( ' . $equipe->jogador . ' )'; ?></span>
-                    <?php endif; ?>
-                </td>
-                <td><?php echo ($equipe->vitorias * 3) + $equipe->empates; ?></td>
-                <td><?php echo $equipe->jogos; ?></td>
-                <td><?php echo $equipe->vitorias; ?></td>
-                <td><?php echo $equipe->empates; ?></td>
-                <td><?php echo $equipe->derrotas; ?></td>
-                <td><?php echo $equipe->gols_pro; ?></td>
-                <td><?php echo $equipe->gols_contra; ?></td>
-                <td><?php echo $equipe->gols_pro - $equipe->gols_contra; ?></td>
-                <td>X %</td>
-            </tr>
-            <?php endforeach; ?>
-            <tr>
-                <th colspan="10">&nbsp;</th>
-            </tr>
-        </table>
-        <?php endforeach; ?>
-        
-    </div>
-    <div class="col-lg-4">
-        <h5>Rodadas</h5>
-        <?php foreach ($this->grupos as $grupo) : ?>
-        <table class="table table-bordered">
-            <tr>
-                <th colspan="5"><?php echo $grupo->descricao_grupo; ?></th>
-            </tr>
-            <?php $partidas = View_Helper_Partida::getRodadas($this->id_campeonato, $this->id_temporada, $grupo->id_grupo); ?>
-            <?php foreach ($partidas as $partida) : ?>            
-            <tr>
-                <td style="font-size: 10px;" class="text-muted small text-left" colspan="5">
-                    <?php echo $partida->rodada_partida; ?>ª rodada | 
-                    <?php echo $partida->data_partida ? $partida->data_partida . ' - ' : ''; ?>
-                    <?php echo $partida->horario_partida ? $partida->horario_partida . ' | ' : ''; ?> 
-                    <?php echo $partida->apelido_estadio; ?>
-                </td>
-            </tr>
-            <tr style="font-size: 11px;" class="text-center">                      
-                <td class="text-right">
-                    <?php if ($partida->escudo_mandante) : ?>
-                    <img class="img-thumbnail" style="float: left; width: 25px; padding: 0 5px;" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_mandante); ?>" />
-                    <?php else : ?>
-                    <img style="float: left; width: 25px; padding: 0 5px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
-                    <?php endif; ?>
-                    <?php echo $partida->mandante; ?>
-                </td>
-                <td><b><?php echo $partida->placar_equipe_mandante !== null ? $partida->placar_equipe_mandante : '-'; ?></b></td>
-                <td>X</td>
-                <td><b><?php echo $partida->placar_equipe_visitante !== null ? $partida->placar_equipe_visitante : '-'; ?></b></td>
-                <td class="text-left">
-                    <?php echo $partida->visitante; ?>
-                    <?php if ($partida->escudo_visitante) : ?>
-                    <img class="img-thumbnail" style="float: right; width: 25px; padding: 0 5px;" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_visitante); ?>" />
-                    <?php else : ?>
-                    <img style="float: right; width: 25px; padding: 0 5px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
-                    <?php endif; ?>
-                </td>                
-            </tr> 
-            <?php endforeach; ?>
-        </table>
-        <?php endforeach; ?>
-    </div>
+        <div class="col-lg-12">
+            <div class="col-lg-8">
+                <table class="table table-bordered small">
+                    <tr>
+                        <th colspan="10" class="center"><?php echo $grupo->descricao_grupo; ?></th>
+                    </tr>
+                    <tr>
+                        <th class="col-lg-1">Pos</th>
+                        <th class="col-lg-3">Equipe</th>
+                        <th class="col-lg-1">Pts</th>
+                        <th class="col-lg-1">J</th>
+                        <th class="col-lg-1">V</th>
+                        <th class="col-lg-1">E</th>
+                        <th class="col-lg-1">D</th>
+                        <th class="col-lg-1">GF</th>
+                        <th class="col-lg-1">GC</th>
+                        <th class="col-lg-1">SG</th>
+                    </tr>
+                    <?php $tabela = View_Helper_Tabela::getTabelaGrupo($grupo->id_grupo, $grupo->id_fase_campeonato); ?>            
+                    <?php foreach ($tabela as $key => $equipe) : ?>
+                    <tr class="text-center">
+                        <td><?php echo $key + 1; ?>º</td>
+                        <td class="text-left">
+                            <?php if ($equipe->escudo_equipe) : ?>
+                            <img style="width: 20px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $equipe->escudo_equipe); ?>" />
+                            <?php else : ?>
+                            <img style="width: 20px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
+                            <?php endif; ?>
+                            <label style="padding: 3px 1px;">
+                            <?php echo $equipe->nome_equipe; ?>
+                            <?php if ($equipe->jogador) : ?>
+                            <span style="font-size: 9px;"><?php echo '( ' . $equipe->jogador . ' )'; ?></span>
+                            <?php endif; ?>
+                            </label>
+                        </td>
+                        <td><?php echo ($equipe->vitorias * 3) + $equipe->empates; ?></td>
+                        <td><?php echo $equipe->jogos; ?></td>
+                        <td><?php echo $equipe->vitorias; ?></td>
+                        <td><?php echo $equipe->empates; ?></td>
+                        <td><?php echo $equipe->derrotas; ?></td>
+                        <td><?php echo $equipe->gols_pro; ?></td>
+                        <td><?php echo $equipe->gols_contra; ?></td>
+                        <td><?php echo $equipe->gols_pro - $equipe->gols_contra; ?></td>                        
+                    </tr>
+                    <?php endforeach; ?>                    
+                </table>
+            </div>
+            <div class="col-lg-4">
+                <div id="<?php echo 'rodada_grupo_' . $grupo->id_grupo; ?>">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th colspan="5">
+                                <?php $rodadas = View_Helper_Partida::getRodadasCampeonatoTemporada($this->id_temporada, $grupo->id_grupo); ?>                            
+                                <div style="float: left; width: 70%;">
+                                    <?php echo $grupo->descricao_grupo; ?>
+                                </div>                           
+                                <div style="float: right; width: 30%; text-align: center">
+                                    <?php for ($i = 1; $i <= $rodadas; $i++) : ?>
+                                    <a id="rodada_prev" href="javascript:void(0);" style="padding: 0 10px;" onclick="buscaRodada(
+                                        <?php echo $this->id_campeonato; ?>,
+                                        <?php echo $this->id_temporada; ?>,
+                                        <?php echo $grupo->id_grupo; ?>,
+                                        <?php echo $i; ?>
+                                    );"><?php echo $i; ?></a>
+                                    <?php endfor; ?>
+                                </div>
+                            </th>
+                        </tr>
+                        <?php $partidas = View_Helper_Partida::getRodadas($this->id_campeonato, $this->id_temporada, $grupo->id_grupo, 1); ?>
+                        <?php foreach ($partidas as $partida) : ?>
+
+                            <tr>
+                                <td style="font-size: 10px;" class="text-muted small text-left" colspan="5">
+                                    <?php echo $partida->rodada_partida; ?>ª rodada | 
+                                    <?php echo $partida->data_partida ? $partida->data_partida . ' - ' : ''; ?>
+                                    <?php echo $partida->horario_partida ? $partida->horario_partida . ' | ' : ''; ?> 
+                                    <?php echo $partida->apelido_estadio; ?>
+                                </td>
+                            </tr>
+                            <tr style="font-size: 11px;" class="text-center">                      
+                                <td class="text-right">
+                                    <?php if ($partida->escudo_mandante) : ?>
+                                    <img class="img-thumbnail" style="float: left; width: 45px; padding: 0 5px;" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_mandante); ?>" />
+                                    <?php else : ?>
+                                    <img style="float: left; width: 25px; padding: 0 5px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
+                                    <?php endif; ?>
+                                    <?php echo $partida->mandante; ?>
+                                </td>
+                                <td><b><?php echo $partida->placar_equipe_mandante !== null ? $partida->placar_equipe_mandante : '-'; ?></b></td>
+                                <td>X</td>
+                                <td><b><?php echo $partida->placar_equipe_visitante !== null ? $partida->placar_equipe_visitante : '-'; ?></b></td>
+                                <td class="text-left">
+                                    <?php echo $partida->visitante; ?>
+                                    <?php if ($partida->escudo_visitante) : ?>
+                                    <img class="img-thumbnail" style="float: right; width: 45px; padding: 0 5px;" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_visitante); ?>" />
+                                    <?php else : ?>
+                                    <img style="float: right; width: 25px; padding: 0 5px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
+                                    <?php endif; ?>
+                                </td>                
+                            </tr>
+
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>        
+    </div>    
     <?php else : ?>
     <div class="col-lg-12">
         <h5>Jogos</h5>        
@@ -134,8 +155,8 @@
                 <?php if ($jogo->count() > 0) : ?>        
                     <td class="small col-lg-1"><?php echo $jogo[0]->data_partida; ?></td>
                     <td class="small col-lg-1"><?php echo $jogo[0]->horario_partida; ?></td>
-                    <td class="small col-lg-1"><?php echo $jogo[0]->apelido_estadio; ?></td>
-                    <td class="text-right">
+                    <td class="small col-lg-2"><?php echo $jogo[0]->apelido_estadio; ?></td>
+                    <td class="text-right col-lg-2">
                         <?php echo $jogo[0]->nome_equipe; ?>
                         <?php if ($jogo[0]->escudo_equipe) : ?>
                         <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $jogo[0]->escudo_equipe); ?>" width="35" />
@@ -146,7 +167,7 @@
                     <td class="col-lg-1"><?php echo $jogo[0]->placar_equipe_mandante; ?></td>
                     <td class="col-lg-1"> X </td>
                     <td class="col-lg-1"><?php echo $jogo[1]->placar_equipe_visitante; ?></td>
-                    <td class="text-left">                        
+                    <td class="text-left col-lg-2">                        
                         <?php if ($jogo[1]->escudo_equipe) : ?>
                         <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $jogo[1]->escudo_equipe); ?>" width="35" />
                         <?php else : ?>

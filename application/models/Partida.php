@@ -18,8 +18,20 @@ class Model_Partida extends Zend_Db_Table_Abstract {
     protected $_primary = "id_partida";
     
     // busca as rodadas
-    public function getRodadasCampeonatoTemporada($id_campeonato, $id_temporada) {
+    public function getRodadasCampeonatoTemporada($id_temporada, $id_grupo) {
+        $select = $this->select()
+                ->from(array('p' => $this->_name), array(
+                    'rodadas' => 'count(p.id_partida)'
+                ))
+                ->setIntegrityCheck(false)
+                ->joinInner(array('g' => 'grupo'), 'p.id_grupo = g.id_grupo')
+                ->joinInner(array('fc' => 'fase_campeonato'), 'g.id_fase_campeonato = fc.id_fase_campeonato')
+                ->where('fc.id_campeonato_temporada = ?', $id_temporada)
+                ->where('g.id_grupo = ?', $id_grupo)
+                ->group('g.id_grupo')
+                ->group('p.rodada_partida');
         
+        return $this->fetchAll($select);
     }
     
     /**
@@ -38,10 +50,12 @@ class Model_Partida extends Zend_Db_Table_Abstract {
                     '*'
                 ))
                 ->joinInner(array('e1' => 'equipe'), 'p.equipe_mandante = e1.id_equipe', array(
-                    'mandante' => 'e1.nome_equipe'
+                    'mandante' => 'e1.nome_equipe',
+                    'escudo_mandante' => 'e1.escudo_equipe'
                 ))
                 ->joinInner(array('e2' => 'equipe'), 'p.equipe_visitante = e2.id_equipe', array(
-                    'visitante' => 'e2.nome_equipe'
+                    'visitante' => 'e2.nome_equipe',
+                    'escudo_visitante' => 'e2.escudo_equipe'
                 ))
                 ->joinInner(array('e' => 'estadio'), 'p.id_estadio = e.id_estadio', array(
                     'e.apelido_estadio'
@@ -51,8 +65,13 @@ class Model_Partida extends Zend_Db_Table_Abstract {
         return $this->fetchRow($select);
     }
 
+    public function getRodadas() {
+        
+        
+    }
+
     // busca as partidas
-    public function getPartidas($id_campeonato, $id_temporada, $id_grupo = null) {
+    public function getPartidas($id_campeonato, $id_temporada, $id_grupo = null, $rodada) {
         
         $select = $this->select()
                 ->from(array('p' => $this->_name), array(
@@ -78,6 +97,7 @@ class Model_Partida extends Zend_Db_Table_Abstract {
                 ))
                 ->where('fc.id_campeonato_temporada = ?', $id_temporada)
                 ->where('fc.id_campeonato = ?', $id_campeonato)                
+                ->where('p.rodada_partida = ?', $rodada)                
                 ->order('p.rodada_partida desc')
                 ->order('p.realizada asc')
                 ->order('p.data_partida asc')
@@ -116,9 +136,9 @@ class Model_Partida extends Zend_Db_Table_Abstract {
                 ->joinInner(array('e' => 'estadio'), 'p.id_estadio = e.id_estadio', array(
                     'e.apelido_estadio'
                 ))
-                ->where("p.realizada = 0 or p.data_partida = '0000-00-00'")
-                ->where("p.data_partida <= now()");
-                
+                ->where("p.data_partida <= now()")        
+                ->where("p.realizada = 0 or p.data_partida = '0000-00-00'");
+        
         return $this->fetchAll($select);
         
     }

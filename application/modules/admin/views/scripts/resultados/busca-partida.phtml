@@ -1,12 +1,28 @@
 <form action="<?php echo $this->formResultados->getAction(); ?>" method="post">
     <?php echo $this->formResultados->id_partida; ?>
-    <table class="table-bordered">        
+    <table class="table">                
         <tr>
-            <td><?php echo $this->dadosPartida->mandante; ?></td>
+            <th colspan="10" class="small">Data da Partida: <?php echo $this->dadosPartida->data_partida; ?></th>
+        </tr>
+        <tr>
+            <th colspan="10" class="small">Local: <?php echo $this->dadosPartida->apelido_estadio; ?></th>
+        </tr>
+        <tr class="text-center">
+            <td>                
+                <?php if ($this->dadosPartida->escudo_mandante) : ?>
+                <img src="<?php echo $this->baseUrl('views/img/escudos/' . $this->dadosPartida->escudo_mandante); ?>" class="img-thumbnail" width="45" />
+                <?php endif; ?>
+                <?php echo $this->dadosPartida->mandante; ?>
+            </td>
             <td><?php echo $this->formResultados->placar_equipe_mandante; ?></td>
-            <td>X</td>
+            <td class="text-center">X</td>
             <td><?php echo $this->formResultados->placar_equipe_visitante; ?></td>
-            <td><?php echo $this->dadosPartida->visitante; ?></td>
+            <td>
+                <?php echo $this->dadosPartida->visitante; ?>
+                <?php if ($this->dadosPartida->escudo_visitante) : ?>
+                <img src="<?php echo $this->baseUrl('views/img/escudos/' . $this->dadosPartida->escudo_visitante); ?>" class="img-thumbnail" width="45" />
+                <?php endif; ?>
+            </td>
             <td><?php echo $this->formResultados->submit; ?></td>
         </tr>
     </table>

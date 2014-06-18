@@ -57,7 +57,7 @@ class Admin_ResultadosController extends Zend_Controller_Action {
             $modelPartida = new Model_Partida();
             $modelPartida->update($dadosResultado, $where);
             
-            $this->_redirect('index/');
+            $this->_redirect('admin/resultados');
             
         }
         

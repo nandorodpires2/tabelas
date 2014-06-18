@@ -42,7 +42,7 @@ class Admin_CampeonatosController extends Zend_Controller_Action {
                 $last_id = $modelCampeonato->getLastInsertId();
                 
                 // redireciona para o proximo passo
-                $this->_redirect("admin/campeonatos/nova-temporada/id/" . $last_id);
+                $this->_redirect("admin/campeonatos/novo-campeonato");
                 
             }
         }
@@ -73,7 +73,7 @@ class Admin_CampeonatosController extends Zend_Controller_Action {
                 $last_id = $modelCampeonatoTemporada->getLastInsertId();
                 
                 // redireciona para o proximo passo
-                $this->_redirect("admin/campeonatos/nova-fase-campeonato/id_campeonato/" . $id_campeonato . "/id/" . $last_id);
+                $this->_redirect("admin/campeonatos/nova-temporada/id/" . $id_campeonato);
                 
             }
         }
@@ -110,7 +110,7 @@ class Admin_CampeonatosController extends Zend_Controller_Action {
         $formFaseCampeonato = new Form_Admin_FaseCampeonato();
         $formFaseCampeonato->id_campeonato->setValue($id_campeonato);
         $formFaseCampeonato->id_campeonato_temporada->setValue($id_campeonato_temporada);
-        
+        $this->view->id_campeonato = $id_campeonato;
         $this->view->formFaseCampeonato = $formFaseCampeonato;
         
         if ($this->_request->isPost()) {
@@ -123,8 +123,7 @@ class Admin_CampeonatosController extends Zend_Controller_Action {
                 $last_id = $modelFaseCampeonato->getLastInsertId();
                 
                 // redireciona para o proximo passo
-                $this->_redirect("admin/campeonatos/novo-grupo/id/" . $last_id);
-                
+                $this->_redirect("admin/campeonatos/nova-fase-campeonato/id/" . $id_campeonato_temporada . "/id_campeonato/" . $id_campeonato);                
                 
             }
         }
@@ -134,6 +133,8 @@ class Admin_CampeonatosController extends Zend_Controller_Action {
     public function novoGrupoAction() {
         
         $id_fase_campeonato = $this->_getParam('id', null);
+        $id_campeonato = $this->_getParam('id_campeonato', null);
+        
         $modelGrupo = new Model_Grupo();
         
         // busca os grupos
@@ -142,6 +143,9 @@ class Admin_CampeonatosController extends Zend_Controller_Action {
         
         $formGrupo = new Form_Admin_Grupo();
         $formGrupo->id_fase_campeonato->setValue($id_fase_campeonato);
+        
+        $this->view->id_campeonato = $id_campeonato;
+        $this->view->id_fase_campeonato = $id_fase_campeonato;
         
         $this->view->formGrupo = $formGrupo;
         
@@ -156,7 +160,7 @@ class Admin_CampeonatosController extends Zend_Controller_Action {
                 $last_id = $modelGrupo->getLastInsertId();
                 
                 // redireciona para o proximo passo
-                $this->_redirect("admin/campeonatos/novo-grupo-equipe/id/" . $last_id . "/id_fase_campeonato/" . $id_fase_campeonato);
+                $this->_redirect("admin/campeonatos/novo-grupo/id/" . $id_fase_campeonato);
                 
             }
         }        

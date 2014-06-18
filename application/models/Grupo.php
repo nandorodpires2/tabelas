@@ -40,4 +40,6 @@ class Model_Grupo extends Zend_Db_Table_Abstract {
         );
     }
     
+    
+    
 }

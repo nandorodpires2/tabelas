@@ -3,6 +3,24 @@
 <?php echo $this->formGrupo; ?>
 <div class="row">
     <div class="col-lg-12">
+        <a href="<?php echo $this->url(array(
+            'module' => 'admin', 
+            'controller' => 'campeonatos',
+            'action' => 'novo-campeonato'
+        ), null, true); ?>">Campeonatos</a> | 
+        <a href="<?php echo $this->url(array(
+            'module' => 'admin', 
+            'controller' => 'campeonatos',
+            'action' => 'nova-temporada',
+            'id' => $this->id_campeonato
+        ), null, true); ?>">Temporadas</a> |
+        <a href="<?php echo $this->url(array(
+            'module' => 'admin', 
+            'controller' => 'campeonatos',
+            'action' => 'nova-fase-campeonato',
+            'id' => $this->id_fase_campeonato,
+            'id_campeonato' => $this->id_campeonato
+        ), null, true); ?>">Fases</a>
         <h5>FASES DO CAMPEONATO CADASTRADAS</h5>
         <div class="table-responsive">
             <table class=" table table-bordered">

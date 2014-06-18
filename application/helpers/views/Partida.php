@@ -13,10 +13,19 @@
  */
 class View_Helper_Partida extends Zend_View_Helper_Abstract {
     
-    public static function getRodadas($id_campeonato, $id_temporada, $id_grupo) {
+    public static function getRodadasCampeonatoTemporada($id_temporada, $id_grupo) {
         
         $modelPartida = new Model_Partida();
-        $partidas = $modelPartida->getPartidas($id_campeonato, $id_temporada, $id_grupo);
+        
+        $rodadas = $modelPartida->getRodadasCampeonatoTemporada($id_temporada, $id_grupo);
+        return $rodadas->count();
+        
+    }
+    
+    public static function getRodadas($id_campeonato, $id_temporada, $id_grupo, $rodada) {
+        
+        $modelPartida = new Model_Partida();
+        $partidas = $modelPartida->getPartidas($id_campeonato, $id_temporada, $id_grupo, $rodada);
         return $partidas;
         
     }

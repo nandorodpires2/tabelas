@@ -27,6 +27,7 @@ class Model_CampenatoTemporada extends Zend_Db_Table_Abstract {
                 ->from(array('ct' => $this->_name), array('*'))
                 ->joinInner(array('c' => 'campeonato'), 'ct.id_campeonato = c.id_campeonato', array('*'))                
                 ->where("c.id_reputacao = ?", $id_reputacao)               
+                ->order("ct.ano_temporada desc")
                 ->order("c.descricao_campeonato asc");
         
         return $this->fetchAll($select);

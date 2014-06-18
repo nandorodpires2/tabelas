@@ -5,11 +5,13 @@
  */
 $(document).ready(function(){
    
-    $("#rodada_prev").click(function(){
+    $("#rodada_select").change(function(){
+        var id_campeonato = $("#id_campeonato").val();
+        var id_temporada = $("#id_temporada").val();
+        var id_grupo = $("#id_grupo").val();
+        var rodada = $(this).val();
         
-    });
-    
-    $("#rodada_next").click(function(){
+        buscaRodada(id_campeonato, id_temporada, id_grupo, rodada);
         
     });
     

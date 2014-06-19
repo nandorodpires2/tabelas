@@ -25,6 +25,17 @@ class Form_Admin_Equipe extends Zend_Form {
             'label' => 'Nome Equipe: '
         ));
         
+        // selecao
+        $this->addElement('select', 'selecao', array(
+            'label' => 'Seleção: ',
+            'multioptions' => array(
+                '' => 'Selecione...',
+                1 => 'Sim',
+                0 => 'Não'
+            ),
+            'required' => true 
+        ));
+        
         // upload
         /*
         $this->addElement('file', 'escudo', array(

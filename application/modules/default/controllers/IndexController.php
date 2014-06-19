@@ -8,26 +8,19 @@ class Default_IndexController extends Zend_Controller_Action {
 
     public function indexAction() {
 
-        $modelVwTabelaJogadores = new Model_VwTabelaJogadores();        
-        $tabelaJogadores = $modelVwTabelaJogadores->fetchAll();
-        $this->view->tabelaJogadores = $tabelaJogadores;
+        $modelPartida = new Model_Partida();
         
-        $formDefaultRetrospecto = new Form_Default_Retrospecto();
-        $this->view->formDefaultRetrospecto = $formDefaultRetrospecto;
+        $data_ontem = date('Y-m-d', strtotime("-1 days"));
+        $data_hoje = date('Y-m-d');
+        $data_amanha = date('Y-m-d', strtotime("+1 days"));
         
-        if ($this->_request->isPost()) {
-            $dadosRetrospecto = $this->_request->getPost();
-            if ($formDefaultRetrospecto->isValid($dadosRetrospecto)) {
-                $dadosRetrospecto = $formDefaultRetrospecto->getValues();                
-                if ($dadosRetrospecto['jogador_1'] !== $dadosRetrospecto['jogador_2']) {                    
-                    $modelVwRetrospecto = new Model_VwRetrospecto();
-                    $retrospectos = $modelVwRetrospecto->getRetrospectos($dadosRetrospecto['jogador_1'], $dadosRetrospecto['jogador_2']);                    
-                    $this->view->retrospectos = $retrospectos;                    
-                } else {
-                    echo "Escolha jogadores diferentes";
-                }                
-            }
-        }
+        $partidasOntem = $modelPartida->getPartidadasByDate($data_ontem);
+        $partidasHoje = $modelPartida->getPartidadasByDate($data_hoje);
+        $partidasAmanha = $modelPartida->getPartidadasByDate($data_amanha);
+        
+        $this->view->partidasOntem = $partidasOntem;
+        $this->view->partidasHoje = $partidasHoje;
+        $this->view->partidasAmanha = $partidasAmanha;
         
     }
 

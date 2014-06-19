@@ -173,6 +173,11 @@ class Admin_CampeonatosController extends Zend_Controller_Action {
         $id_fase_campeonato = $this->_getParam('id_fase_campeonato', null);
         
         $modelGrupoEquipe = new Model_GrupoEquipe();
+        $modelFaseCampeonato = new Model_FaseCampeonato();
+        
+        // busca dados da fase do campeonato
+        $dadosFaseCampeonato = $modelFaseCampeonato->getFaseCampeonatoByFaseCampeonatoId($id_fase_campeonato);
+                
         // busca as equipes        
         $equipes = $modelGrupoEquipe->getEquipesGrupo($id_grupo, $id_fase_campeonato);
         $this->view->equipes = $equipes;
@@ -180,6 +185,9 @@ class Admin_CampeonatosController extends Zend_Controller_Action {
         $formGrupoEquipe = new Form_Admin_GrupoEquipe();
         $formGrupoEquipe->id_grupo->setValue($id_grupo);
         $formGrupoEquipe->id_fase_campeonato->setValue($id_fase_campeonato);
+        
+        $this->view->id_fase_campeonato = $id_fase_campeonato;
+        $this->view->id_campeonato = $dadosFaseCampeonato->id_campeonato;
         
         $this->view->formGrupoEquipe = $formGrupoEquipe;
         

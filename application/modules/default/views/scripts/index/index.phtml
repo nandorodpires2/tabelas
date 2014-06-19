@@ -1,98 +1,76 @@
 <div class="row">
     <div class="col-lg-12">
-        <h5>TABELA GERAL DOS JOGADORES</h5>
-        <div class="table-responsive">
-            <table class=" table table-bordered">
-                <thead>
-                    <tr class="text-center">
-                        <th>Pos</th>
-                        <th>Jogador</th>
-                        <th>Pts</th>
-                        <th>J</th>
-                        <th>V</th>
-                        <th>E</th>
-                        <th>D</th>
-                        <th>GP</th>
-                        <th>GF</th>
-                        <th>SG</th>
-                    </tr>
-                    <?php foreach ($this->tabelaJogadores as $key => $jogador) : ?>
-                        <tr class="text-center">
-                            <td><?php echo $key+1; ?>º</td>
-                            <td class="text-left">                                
-                                <?php echo $jogador->jogador; ?>
-                            </td>
-                            <td><?php echo $jogador->pontos; ?></td>
-                            <td><?php echo $jogador->jogos; ?></td>
-                            <td><?php echo $jogador->vitorias; ?></td>
-                            <td><?php echo $jogador->empates; ?></td>
-                            <td><?php echo $jogador->derrotas; ?></td>
-                            <td><?php echo $jogador->gols_proc; ?></td>
-                            <td><?php echo $jogador->gols_contra; ?></td>
-                            <td><?php echo $jogador->saldo_gols; ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </thead>
-            </table>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-2">
-        <h5>Jogadores</h5>
-        <form method="<?php echo $this->formDefaultRetrospecto->getMethod(); ?>">
-            <span><?php echo $this->formDefaultRetrospecto->jogador_1; ?></span>
-            <span><?php echo $this->formDefaultRetrospecto->jogador_2; ?></span>
-            <span><?php echo $this->formDefaultRetrospecto->submit; ?></span>
-        </form>
-    </div>
-    <div class="col-lg-10">
-        <?php if (isset($this->retrospectos) && $this->retrospectos->count() > 0) : ?>
-        <h5>Retrospectos</h5>
-        <div class="table-responsive">
-            <table class="table table-bordered">                
-                <thead>
-                    <tr>
-                        <th>Campeonato</th>
-                        <th>Data</th> 
-                        <th>Local</th> 
-                        <th colspan="2">Mandante</th>                        
-                        <th> X </th>
-                        <th colspan="2">Visitante</th>                        
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($this->retrospectos as $retrospecto) : ?>
-                    <tr>
-                        <td><?php echo $retrospecto->nome_campeonato; ?></td>
-                        <td class="text-center"><?php echo $retrospecto->data_partida; ?></td>
-                        <td><?php echo $retrospecto->apelido_estadio; ?></td>
-                        <td>
-                            <?php if ($retrospecto->escudo_mandante) : ?>                                
-                            <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $retrospecto->escudo_mandante); ?>" />
-                            <?php else : ?>
-                            <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
-                            <?php endif; ?>
-                            <?php echo $retrospecto->mandante; ?>
-                            <span style="font-size: 9px;"><?php echo '( ' . $retrospecto->jogador_1 . ' )'; ?></span>
-                        </td>
-                        <td class="text-center"><?php echo $retrospecto->placar_mandante; ?></td>
-                        <td class="text-center"> X </td>
-                        <td class="text-center"><?php echo $retrospecto->placar_visitante; ?></td>
-                        <td class="text-right">
-                            <span style="font-size: 9px;"><?php echo '( ' . $retrospecto->jogador_2 . ' )'; ?></span>
-                            <?php echo $retrospecto->visitante; ?> 
-                            <?php if ($retrospecto->escudo_visitante) : ?>                                
-                            <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $retrospecto->escudo_visitante); ?>" />
-                            <?php else : ?>
-                            <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
-                            <?php endif; ?>
-                        </td>                        
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-        <?php endif; ?>
+        <h3>Jogos de Ontem</h3>
+        <table class="table table-bordered">
+            <?php foreach ($this->partidasOntem as $partida) : ?>            
+            <tr class="text-center">
+                <td class="col-lg-1"><?php echo $partida->horario_partida; ?></td>
+                <td class="col-lg-3"><?php echo $partida->apelido_estadio; ?></td>                
+                <td class="text-left col-lg-3">
+                    <?php if ($partida->escudo_mandante) : ?>
+                    <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_mandante); ?>" />
+                    <?php endif; ?>
+                    <?php echo $partida->mandante; ?>
+                </td>
+                <td class="col-lg-1"><?php echo $partida->placar_equipe_mandante; ?></td>
+                <td> X </td>
+                <td class="col-lg-1"><?php echo $partida->placar_equipe_visitante; ?></td>
+                <td class="text-right col-lg-3">
+                    <?php echo $partida->visitante; ?>
+                    <?php if ($partida->escudo_visitante) : ?>
+                    <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_visitante); ?>" />
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <h3>Jogos de Hoje</h3>
+        <table class="table table-bordered">
+            <?php foreach ($this->partidasHoje as $partida) : ?>            
+            <tr class="text-center">
+                <td class="col-lg-1"><?php echo $partida->horario_partida; ?></td>
+                <td class="col-lg-3"><?php echo $partida->apelido_estadio; ?></td>                
+                <td class="text-left col-lg-3">
+                    <?php if ($partida->escudo_mandante) : ?>
+                    <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_mandante); ?>" />
+                    <?php endif; ?>
+                    <?php echo $partida->mandante; ?>
+                </td>
+                <td class="col-lg-1"><?php echo $partida->placar_equipe_mandante; ?></td>
+                <td> X </td>
+                <td class="col-lg-1"><?php echo $partida->placar_equipe_visitante; ?></td>
+                <td class="text-right col-lg-3">
+                    <?php echo $partida->visitante; ?>
+                    <?php if ($partida->escudo_visitante) : ?>
+                    <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_visitante); ?>" />
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <h3>Jogos de Amanhã</h3>
+        <table class="table table-bordered">
+            <?php foreach ($this->partidasAmanha as $partida) : ?>            
+            <tr class="text-center">
+                <td class="col-lg-1"><?php echo $partida->horario_partida; ?></td>
+                <td class="col-lg-3"><?php echo $partida->apelido_estadio; ?></td>                
+                <td class="text-left col-lg-3">
+                    <?php if ($partida->escudo_mandante) : ?>
+                    <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_mandante); ?>" />
+                    <?php endif; ?>
+                    <?php echo $partida->mandante; ?>
+                </td>
+                <td class="col-lg-1"><?php echo $partida->placar_equipe_mandante; ?></td>
+                <td> X </td>
+                <td class="col-lg-1"><?php echo $partida->placar_equipe_visitante; ?></td>
+                <td class="text-right col-lg-3">
+                    <?php echo $partida->visitante; ?>
+                    <?php if ($partida->escudo_visitante) : ?>
+                    <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_visitante); ?>" />
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
     </div>
 </div>

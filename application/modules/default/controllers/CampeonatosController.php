@@ -66,6 +66,7 @@ class Default_CampeonatosController extends Zend_Controller_Action {
         $this->view->id_grupo = $id_grupo;
         $this->view->id_temporada = $id_temporada;
         $this->view->id_campeonato = $id_campeonato;
+        $this->view->rodada = $rodada;
         
         $modelGrupo = new Model_Grupo();
         $this->view->dadosGrupo = $modelGrupo->fetchRow("id_grupo = {$id_grupo}");

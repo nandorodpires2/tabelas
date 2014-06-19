@@ -1,3 +1,6 @@
+<head>
+    <script type="text/javascript" src="<?php echo $this->baseUrl('views/js/default/campeonatos/index.js'); ?>"></script> 
+</head>
 <div id="<?php echo 'rodada_grupo_' . $this->id_grupo; ?>">
     <table class="table table-bordered">
         <tr>
@@ -23,8 +26,8 @@
                     <input type="hidden" name="id_temporada" id="id_temporada" value="<?php echo $this->id_temporada; ?>" />
                     <input type="hidden" name="id_grupo" id="id_grupo" value="<?php echo $this->id_grupo; ?>" />
                     <select name="rodada_select" id="rodada_select">
-                    <?php for ($i = 1; $i <= $rodadas; $i++) : ?>
-                    <option value="<?php echo $i; ?>">Rodada <?php echo $i; ?></option>
+                    <?php for ($i = 1; $i <= $rodadas; $i++) : ?>                        
+                    <option value="<?php echo $i; ?>" <?php echo $this->rodada == $i ? 'selected' : ''; ?>>Rodada <?php echo $i; ?></option>                        
                     <?php endfor; ?>
                 </select>
                 </div>

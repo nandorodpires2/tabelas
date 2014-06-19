@@ -17,11 +17,19 @@ defined('APPLICATION_ENV')
 // Define path to public directory
 defined('PUBLIC_PATH') || define('PUBLIC_PATH', realpath(dirname(__FILE__)));
 
-// Ensure library/ is on include_path
-set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(APPLICATION_PATH . '/../library'),
-    get_include_path(),
-)));
+if ($application_env == 'production') {
+    // Ensure library/ is on include_path
+    set_include_path(implode(PATH_SEPARATOR, array(
+        realpath(APPLICATION_PATH . '/../../../library'),
+        get_include_path(),
+    )));
+} else {
+    // Ensure library/ is on include_path
+    set_include_path(implode(PATH_SEPARATOR, array(
+        realpath(APPLICATION_PATH . '/../library'),
+        get_include_path(),
+    )));
+}
 
 /** Zend_Application */
 require_once 'Zend/Application.php';

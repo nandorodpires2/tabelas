@@ -22,13 +22,17 @@ class Model_CampenatoTemporada extends Zend_Db_Table_Abstract {
      */
     public function getCampeonatosTemporadaReputacao($id_reputacao) {
         
+        $limit = (int)Zend_Registry::get('config')->list->campeonato->limit;
+                
         $select = $this->select()
                 ->setIntegrityCheck(false)
                 ->from(array('ct' => $this->_name), array('*'))
                 ->joinInner(array('c' => 'campeonato'), 'ct.id_campeonato = c.id_campeonato', array('*'))                
-                ->where("c.id_reputacao = ?", $id_reputacao)               
+                ->where("c.id_reputacao = ?", $id_reputacao)
+                ->order("ct.finalizado asc")
                 ->order("ct.ano_temporada desc")
-                ->order("c.descricao_campeonato asc");
+                ->order("c.descricao_campeonato asc")
+                ->limit($limit);
         
         return $this->fetchAll($select);
         

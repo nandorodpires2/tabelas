@@ -132,6 +132,17 @@ class Admin_PartidasController extends Zend_Controller_Action {
         
     }
 
+    public function buscaPartidasTemporadaAction() {
+        $this->_helper->layout->disableLayout(true);
+        
+        $id_campeonato_temporada = $this->_getParam('id_temporada');
+        
+        $modelPartida = new Model_Partida();
+        $partidas = $modelPartida->getPartidadasByTemporada($id_campeonato_temporada);
+        $this->view->partidas = $partidas;
+        
+    }
+
     /**
      * 
      * @return type array

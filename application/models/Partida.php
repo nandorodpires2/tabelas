@@ -136,7 +136,6 @@ class Model_Partida extends Zend_Db_Table_Abstract {
                 ))
                 ->where("p.data_partida = ?", $date)               
                 ->order('p.rodada_partida desc')
-                ->order('p.realizada asc')
                 ->order('p.data_partida asc')
                 ->order('p.horario_partida asc');
                 

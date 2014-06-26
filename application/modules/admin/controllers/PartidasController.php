@@ -61,10 +61,52 @@ class Admin_PartidasController extends Zend_Controller_Action {
             }
             
         }
-        
-        
+                
     }
     
+    public function editarPartidaAction() {
+    
+        $id_partida = $this->_getParam('id_partida');
+        
+        $modelPartida = new Model_Partida();
+        $dadosPartida = $modelPartida->getPartidaById($id_partida)->toArray();
+        
+        $formPartida = new Form_Admin_Partidas();
+        
+        $formPartida->removeElement('id_campeonato_temporada');
+        $formPartida->removeElement('id_fase_campeonato');
+        $formPartida->removeElement('id_grupo');
+        
+        $modelEquipe = new Model_Equipe();
+        $equipes = $modelEquipe->fetchAll();
+        
+        $array_equipe = array();
+        foreach ($equipes as $equipe) {
+            $array_equipe[$equipe->id_equipe] = $equipe->nome_equipe;
+        }
+        
+        $formPartida->equipe_mandante->addMultioptions($array_equipe);
+        $formPartida->equipe_visitante->addMultioptions($array_equipe);
+        $formPartida->populate($dadosPartida);
+        $this->view->formPartida = $formPartida;        
+        
+        if ($this->_request->isPost()) {
+            $dadosUpdate = $this->_request->getPost();
+            if ($formPartida->isValid($dadosUpdate)) {
+                $dadosUpdate = $formPartida->getValues();
+                
+                unset($dadosUpdate['id_campeonato']);
+                
+                $where = "id_partida = " . $id_partida;
+                $modelPartida->update($dadosUpdate, $where);
+                
+                $this->_redirect('admin/partidas/nova-partida');
+                
+            }
+        }
+        
+    }
+
     public function buscaDadosCampeonatoAction() {
         
         $this->_helper->layout->disableLayout(true);

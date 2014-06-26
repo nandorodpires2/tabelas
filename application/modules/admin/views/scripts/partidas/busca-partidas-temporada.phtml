@@ -19,7 +19,12 @@
         <td><?php echo $partida->placar_equipe_visitante; ?></td>
         <td><?php echo $partida->visitante; ?></td>
         <td>
-            
+            <a href="<?php echo $this->url(array(
+                'module' => 'admin',
+                'controller' => 'partidas',
+                'action' => 'editar-partida',
+                'id_partida' => $partida->id_partida
+            ), null, true); ?>">Editar</a>
         </td>
     </tr>
     <?php endforeach; ?>

@@ -209,4 +209,48 @@ class Admin_CampeonatosController extends Zend_Controller_Action {
         
     }
     
+    public function excluirEquipeGrupoAction() {
+        
+        $this->_helper->viewRenderer->setNoRender(true);
+        $id_grupo = $this->_getParam('id_grupo');
+        $id_equipe = $this->_getParam('id_equipe');
+        $id_campeonato = $this->_getParam('id_campeonato');
+        $id_fase_campeonato = $this->_getParam('id_fase_campeonato');
+        
+        $modelGrupoEquipe = new Model_GrupoEquipe();
+        $where = "id_grupo = {$id_grupo} and id_equipe = {$id_equipe}";
+        $modelGrupoEquipe->delete($where);
+        
+        $this->_redirect("admin/campeonatos/novo-grupo-equipe/id/{$id_grupo}/id_campeonato/{$id_campeonato}/id_fase_campeonato/{$id_fase_campeonato}");
+        
+    }
+    
+    public function editarEquipeGrupoAction() {
+        
+        $id_grupo = $this->_getParam('id_grupo');
+        $id_equipe = $this->_getParam('id_equipe');
+        $id_campeonato = $this->_getParam('id_campeonato');
+        $id_fase_campeonato = $this->_getParam('id_fase_campeonato');
+        
+        $modelGrupoEquipe = new Model_GrupoEquipe();
+        $grupoEquipe = $modelGrupoEquipe->fetchRow("id_grupo = {$id_grupo} and id_equipe = {$id_equipe}")->toArray();
+        
+        $formGrupoEquipe = new Form_Admin_GrupoEquipe();
+        $formGrupoEquipe->populate($grupoEquipe);
+        $formGrupoEquipe->submit->setLabel('Editar');
+        $this->view->formEquipe = $formGrupoEquipe;
+        
+        if ($this->_request->isPost()) {
+            $dadosUpdate = $this->_request->getPost();
+            if ($formGrupoEquipe->isValid($dadosUpdate)) {
+                $dadosUpdate = $formGrupoEquipe->getValues();
+                $where = "id_grupo = {$id_grupo} and id_equipe = {$id_equipe}";
+                $modelGrupoEquipe->update($dadosUpdate, $where);
+                
+                $this->_redirect("admin/campeonatos/novo-grupo-equipe/id/{$id_grupo}/id_campeonato/{$id_campeonato}/id_fase_campeonato/{$id_fase_campeonato}");
+            }
+        }
+                
+    }
+    
 }

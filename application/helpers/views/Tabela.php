@@ -34,8 +34,8 @@ class View_Helper_Tabela extends Zend_View_Helper_Abstract {
     
     public static function getJogosMataMata($id_grupo, $id_fase_campeonato) {
         
-        $modelGrupoEquipe = new Model_GrupoEquipe();
-        $jogo = $modelGrupoEquipe->getEquipesGrupo($id_grupo, $id_fase_campeonato);
+        $modelPartida = new Model_Partida();
+        $jogo = $modelPartida->getPartidasByFaseCampeonato($id_fase_campeonato, $id_grupo);
         
         return $jogo;
         

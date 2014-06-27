@@ -12,7 +12,8 @@ $(document).ready(function (){
     
     $("#id_campeonato_temporada").change(function (){
         var id_campeonato_temporada = $(this).val();
-        buscaFasesCampeonato(id_campeonato_temporada);         
+        buscaFasesCampeonato(id_campeonato_temporada);   
+        buscaPartidasCampeonatoTemporada(id_campeonato_temporada);
     });
     
     $("#id_fase_campeonato").change(function (){
@@ -106,6 +107,25 @@ function buscaEquipesGrupo(id_grupo) {
         success: function(dados) { 
             $("#equipe_mandante").html(dados);
             $("#equipe_visitante").html(dados);
+        },
+        error: function(error) {
+            alert('Houve um erro');
+        }
+    });
+}
+
+function buscaPartidasCampeonatoTemporada(id_temporada) {
+    $.ajax({
+        url: baseUrl() + 'admin/partidas/busca-partidas-temporada',
+        type: "get",
+        data: {
+            id_temporada: id_temporada
+        },
+        dataType: "html",
+        beforeSend: function() {                        
+        },
+        success: function(dados) { 
+            $("#partidas-campeonato-temporada").html(dados);
         },
         error: function(error) {
             alert('Houve um erro');

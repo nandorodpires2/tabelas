@@ -1,5 +1,5 @@
 <div id="default-index-index">
-    <div class="container">
+    <div class="row">
         <h4>CADASTROS</h4>
         <div class="col-lg-4">                        
             <ul>
@@ -51,6 +51,17 @@
                     'controller' => 'equipes',
                     'action' => 'nova-equipe'
                 )); ?>">Equipe</a></li>                                
+            </ul>
+        </div>
+    </div>
+    <div class="row">        
+        <div class="col-lg-4">            
+            <ul>
+                <li><a href="<?php echo $this->url(array(
+                    'module' => 'admin',
+                    'controller' => 'reputacao',
+                    'action' => 'nova-reputacao'
+                )); ?>">Reputação</a></li>                              
             </ul>
         </div>
     </div>

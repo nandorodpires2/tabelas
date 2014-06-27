@@ -35,7 +35,7 @@
                     <th>Equipe</th>
                     <th>Estádio</th>
                     <th>País</th>
-                    <th>Ação</th>
+                    <th colspan="2">Ações</th>
                 </tr>
                 <?php foreach ($this->equipes as $equipe) : ?>
                 <tr>
@@ -48,8 +48,27 @@
                     <td><?php echo $equipe->apelido_estadio; ?></td>
                     <td><?php echo $equipe->nome_pais; ?></td>
                     <td>
-                        
+                        <a href="<?php echo $this->url(array(
+                            'module' => 'admin',
+                            'controller' => 'campeonatos',
+                            'action' => 'editar-equipe-grupo',
+                            'id_grupo' => $equipe->id_grupo,
+                            'id_equipe' => $equipe->id_equipe,
+                            'id_campeonato' => $this->id_campeonato,
+                            'id_fase_campeonato' => $this->id_fase_campeonato
+                        )); ?>">Editar</a>
                     </td>
+                    <td>
+                        <a href="<?php echo $this->url(array(
+                            'module' => 'admin',
+                            'controller' => 'campeonatos',
+                            'action' => 'excluir-equipe-grupo',
+                            'id_grupo' => $equipe->id_grupo,
+                            'id_equipe' => $equipe->id_equipe,
+                            'id_campeonato' => $this->id_campeonato,
+                            'id_fase_campeonato' => $this->id_fase_campeonato
+                        )); ?>">Excluir</a>
+                    </td>                    
                 </tr>
                 <?php endforeach; ?>
             </table>

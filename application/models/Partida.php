@@ -141,7 +141,7 @@ class Model_Partida extends Zend_Db_Table_Abstract {
                 ->where('fc.id_fase_campeonato = ?', $id_fase_campeonato)
                 ->where('g.id_grupo = ?', $id_grupo);
         
-        return $this->fetchAll($select);
+        return $this->fetchRow($select);
         
     }
     

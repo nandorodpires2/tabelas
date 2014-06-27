@@ -161,32 +161,33 @@
     <div class="col-lg-12">
         <h5>Jogos</h5>        
         <?php foreach ($this->grupos as $grupo) : ?>        
-        <?php $jogo = View_Helper_Tabela::getJogosMataMata($grupo->id_grupo, $grupo->id_fase_campeonato); ?>           
+        <?php $jogo = View_Helper_Tabela::getJogosMataMata($grupo->id_grupo, $grupo->id_fase_campeonato); ?> 
+        <?php //Zend_Debug::dump($jogo); die(); ?>
         <table class="table table-bordered">
             <tr class="text-center">
                 <td class="col-lg-1"><?php echo $grupo->descricao_grupo; ?></td>
-                <?php if ($jogo->count() > 0) : ?>        
-                    <td class="small col-lg-1"><?php echo $jogo[0]->data_partida; ?></td>
-                    <td class="small col-lg-1"><?php echo $jogo[0]->horario_partida; ?></td>
-                    <td class="small col-lg-2"><?php echo $jogo[0]->apelido_estadio; ?></td>
+                <?php if ($jogo) : ?>        
+                    <td class="small col-lg-1"><?php echo $jogo->data_partida; ?></td>
+                    <td class="small col-lg-1"><?php echo $jogo->horario_partida; ?></td>
+                    <td class="small col-lg-2"><?php echo $jogo->apelido_estadio; ?></td>
                     <td class="text-right col-lg-2">
-                        <?php echo $jogo[0]->nome_equipe; ?>
-                        <?php if ($jogo[0]->escudo_equipe) : ?>
-                        <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $jogo[0]->escudo_equipe); ?>" width="35" />
+                        <?php echo $jogo->mandante; ?>
+                        <?php if ($jogo->escudo_mandante) : ?>
+                        <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $jogo->escudo_mandante); ?>" width="35" />
                         <?php else : ?>
                         <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" width="35" />
                         <?php endif; ?>                        
                     </td>
-                    <td class="col-lg-1"><?php echo $jogo[0]->placar_equipe_mandante; ?></td>
+                    <td class="col-lg-1"><?php echo $jogo->placar_equipe_mandante; ?></td>
                     <td class="col-lg-1"> X </td>
-                    <td class="col-lg-1"><?php echo $jogo[1]->placar_equipe_visitante; ?></td>
+                    <td class="col-lg-1"><?php echo $jogo->placar_equipe_visitante; ?></td>
                     <td class="text-left col-lg-2">                        
-                        <?php if ($jogo[1]->escudo_equipe) : ?>
-                        <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $jogo[1]->escudo_equipe); ?>" width="35" />
+                        <?php if ($jogo->escudo_visitante) : ?>
+                        <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $jogo->escudo_visitante); ?>" width="35" />
                         <?php else : ?>
                         <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" width="35" />
                         <?php endif; ?>
-                        <?php echo $jogo[1]->nome_equipe; ?>
+                        <?php echo $jogo->visitante; ?>
                     </td>
                 <?php else : ?>
                     <td>A Definir</td>

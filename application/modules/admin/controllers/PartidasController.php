@@ -36,6 +36,8 @@ class Admin_PartidasController extends Zend_Controller_Action {
         $formAdminPartida->removeElement('rodada_partida');
         $formAdminPartida->removeElement('equipe_mandante');
         $formAdminPartida->removeElement('equipe_visitante');
+        $formAdminPartida->removeElement('placar_equipe_mandante');
+        $formAdminPartida->removeElement('placar_equipe_visitante');
         $formAdminPartida->removeElement('submit');
         
         $this->view->formAdminPartida = $formAdminPartida;
@@ -114,6 +116,8 @@ class Admin_PartidasController extends Zend_Controller_Action {
         $this->_id_campeonato = $this->_request->getParam('id_campeonato');
         
         $formAdminPartida = new Form_Admin_Partidas();
+        $formAdminPartida->removeElement('placar_equipe_mandante');
+        $formAdminPartida->removeElement('placar_equipe_visitante');
         $formAdminPartida->removeElement('id_campeonato');
         
         // temporada

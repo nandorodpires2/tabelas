@@ -68,10 +68,18 @@ class Form_Admin_Partidas extends Zend_Form {
             'multioptions' => array('' => 'selecione o mandante...')
         ));
         
+        $this->addElement('text', 'placar_equipe_mandante', array(
+            'label' => 'Placar Mandante: '
+        ));
+        
         $this->addElement('select', 'equipe_visitante', array(
             'label' => 'Visitante: ',
             'required' => true,
             'multioptions' => array('' => 'selecione o visitante...')
+        ));
+        
+        $this->addElement('text', 'placar_equipe_visitante', array(
+            'label' => 'Placar Visitante: '
         ));
         
         $this->addElement('submit', 'submit', array(

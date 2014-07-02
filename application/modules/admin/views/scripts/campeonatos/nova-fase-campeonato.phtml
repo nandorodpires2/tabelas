@@ -23,7 +23,7 @@
                     <th>Qtde Grupos</th>
                     <th>Próx. Fase</th>
                     <th>Equipes Grupo</th>
-                    <th>Ação</th>
+                    <th colspan="2">Ações</th>
                 </tr>
                 <?php foreach ($this->fasesCampeonato as $fase) : ?>
                 <tr>
@@ -40,6 +40,20 @@
                             'id' => $fase->id_fase_campeonato
                         )); ?>">Grupos</a>
                     </td>
+                    <?php if (!$fase->finalizado) : ?>
+                    <td>
+                        <a href="<?php echo $this->url(array(
+                            'module' => 'admin',
+                            'controller' => 'campeonatos',
+                            'action' => 'finalizar-fase-campeonato',
+                            'id_campeonato' => $this->id_campeonato,
+                            'id_temporada' => $this->id_campeonato_temporada,
+                            'id_fase_campeonato' => $fase->id_fase_campeonato
+                        )); ?>">Finalizar</a>
+                    </td>
+                    <?php else : ?>
+                    <td>Finalizado</td>
+                    <?php endif; ?>
                 </tr>
                 <?php endforeach; ?>
             </table>

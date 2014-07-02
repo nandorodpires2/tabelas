@@ -27,18 +27,41 @@ class Admin_ReputacaoController extends Zend_Controller_Action {
         $this->view->formReputacao = $formReputacao;
         
         $modelReputacao = new Model_Reputacao();
-        $this->view->reputacoes = $modelReputacao->fetchAll();
+        $this->view->reputacoes = $modelReputacao->fetchAll(null, 'ordem asc');
         
         if ($this->_request->isPost()) {
             $dadosReputacao = $this->_request->getPost();
             if ($formReputacao->isValid($dadosReputacao)) {
                 $dadosReputacao = $formReputacao->getValues();
                 
-                $modelReputacao->insert($dadosReputacao);
-                $this->redirect("admin/reputacao/nova-reputacao");
+                $modelReputacao->insert($dadosReputacao);                
+                $this->_redirect("admin/reputacao/nova-reputacao");
                 
             }
         }
+        
+    }
+    
+    public function editarReputacaoAction() {
+        
+    }
+    
+    public function excluirReputacaoAction() {
+        
+        $id_reputacao = $this->_getParam('id_reputacao');
+        
+        $modelCampeonato = new Model_Campeonato();
+        $campeonatosReputacao = $modelCampeonato->fetchAll("id_reputacao = " . $id_reputacao);
+        
+        if ($campeonatosReputacao->count() == 0) {            
+            $modelReputacao = new Model_Reputacao();
+            $where = "id_reputacao = " . $id_reputacao;
+            $modelReputacao->delete($where);
+        } else {
+            
+        }
+        
+        $this->_redirect('admin/reputacao/nova-reputacao');
         
     }
     

@@ -29,7 +29,8 @@ class Form_Admin_Pais extends Zend_Form {
                 'América do Sul' => 'América do Sul',
                 'África' => 'África',
                 'Ásia' => 'Ásia',
-                'Europa' => 'Europa'
+                'Europa' => 'Europa',
+                'Oceania' => 'Oceania'
             )
         ));
         
@@ -41,7 +42,8 @@ class Form_Admin_Pais extends Zend_Form {
                 'Commebol' => 'Commebol',
                 'CAF' => 'CAF',
                 'AFC' => 'AFC',
-                'UEFA' => 'UEFA'
+                'UEFA' => 'UEFA',
+                'OFC' => 'OFC'
             )
         ));
         

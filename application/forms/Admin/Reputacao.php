@@ -21,6 +21,12 @@ class Form_Admin_Reputacao extends Zend_Form {
             'required' => true
         ));
         
+        // ordem
+        $this->addElement('text', 'ordem', array(
+            'label' => 'Ordem: ',
+            'required' => true
+        ));
+        
         $this->addElement('submit', 'submit', array(
             'label' => 'Cadastrar'
         ));        

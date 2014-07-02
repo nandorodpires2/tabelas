@@ -178,9 +178,35 @@
                         <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" width="35" />
                         <?php endif; ?>                        
                     </td>
-                    <td class="col-lg-1"><?php echo $jogo->placar_equipe_mandante; ?></td>
+                    <?php if ($jogo->placar_equipe_mandante == $jogo->placar_equipe_visitante && $jogo->realizada) : ?>
+                    <td class="col-lg-1">
+                        <?php echo $jogo->placar_equipe_mandante; ?>
+                        <p style="font-style: italic; font-size: 11px;">
+                            <?php echo 'PR (' . $jogo->placar_pr_mandante . ')'; ?>
+                            <?php if ($jogo->placar_pr_mandante == $jogo->placar_pr_visitante) : ?>
+                            <?php echo 'PK (' . $jogo->placar_pk_mandante . ')'; ?>
+                            <?php endif; ?>
+                        </p>
+                    </td>
                     <td class="col-lg-1"> X </td>
-                    <td class="col-lg-1"><?php echo $jogo->placar_equipe_visitante; ?></td>
+                    <td class="col-lg-1">
+                        <?php echo $jogo->placar_equipe_visitante; ?>
+                        <p style="font-style: italic; font-size: 11px;">
+                            <?php echo 'PR (' . $jogo->placar_pr_visitante . ')'; ?>                            
+                            <?php if ($jogo->placar_pr_mandante == $jogo->placar_pr_visitante) : ?>
+                            <?php echo 'PK (' . $jogo->placar_pk_visitante . ')'; ?>
+                            <?php endif; ?>
+                        </p>
+                    </td>
+                    <?php else : ?>
+                    <td class="col-lg-1">
+                        <?php echo $jogo->placar_equipe_mandante; ?>
+                    </td>
+                    <td class="col-lg-1"> X </td>
+                    <td class="col-lg-1">
+                        <?php echo $jogo->placar_equipe_visitante; ?>
+                    </td>
+                    <?php endif; ?>
                     <td class="text-left col-lg-2">                        
                         <?php if ($jogo->escudo_visitante) : ?>
                         <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $jogo->escudo_visitante); ?>" width="35" />

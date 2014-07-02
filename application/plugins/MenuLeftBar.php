@@ -18,7 +18,7 @@ class Plugin_MenuLeftBar extends Zend_Controller_Plugin_Abstract {
         $modelReputacao = new Model_Reputacao();        
         $modelCampeonatoTemporada = new Model_CampenatoTemporada();
         
-        $reputacoes = $modelReputacao->fetchAll()->toArray();
+        $reputacoes = $modelReputacao->fetchAll(null, 'ordem asc')->toArray();
         $campeonatos = array();
         foreach ($reputacoes as $key => $reputacao) {
             $campeonatos[$key]['descricao_reputacao'] = $reputacao['descricao_reputacao']; 

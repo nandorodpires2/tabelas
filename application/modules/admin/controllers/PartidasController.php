@@ -70,12 +70,17 @@ class Admin_PartidasController extends Zend_Controller_Action {
         
         $modelPartida = new Model_Partida();
         $dadosPartida = $modelPartida->getPartidaById($id_partida)->toArray();
+        $this->view->dadosPartida = $dadosPartida;
         
         $formPartida = new Form_Admin_Partidas();
-        
+                
         $formPartida->removeElement('id_campeonato_temporada');
         $formPartida->removeElement('id_fase_campeonato');
         $formPartida->removeElement('id_grupo');
+        //$formPartida->removeElement('submit');
+        
+        $formResultado = new Form_Admin_Resultados();
+        $formResultado->removeElement('partida');
         
         $modelEquipe = new Model_Equipe();
         $equipes = $modelEquipe->fetchAll();
@@ -88,17 +93,26 @@ class Admin_PartidasController extends Zend_Controller_Action {
         $formPartida->equipe_mandante->addMultioptions($array_equipe);
         $formPartida->equipe_visitante->addMultioptions($array_equipe);
         $formPartida->populate($dadosPartida);
-        $this->view->formPartida = $formPartida;        
+        $this->view->formPartida = $formPartida;
+        
+        $formResultado->populate($dadosPartida);
+        $this->view->formResultado = $formResultado;
         
         if ($this->_request->isPost()) {
             $dadosUpdate = $this->_request->getPost();
+            
             if ($formPartida->isValid($dadosUpdate)) {
-                $dadosUpdate = $formPartida->getValues();
+                $dadosUpdate = array_merge($formPartida->getValues(), $formResultado->getValues());
                 
                 unset($dadosUpdate['id_campeonato']);
                 
                 $where = "id_partida = " . $id_partida;
-                $modelPartida->update($dadosUpdate, $where);
+                
+                try {
+                    $modelPartida->update($dadosUpdate, $where);                    
+                } catch (Zend_Db_Exception $error) {
+                    echo $error->getMessage();
+                }
                 
                 $this->_redirect('admin/partidas/nova-partida');
                 
@@ -177,10 +191,13 @@ class Admin_PartidasController extends Zend_Controller_Action {
     public function buscaPartidasTemporadaAction() {
         $this->_helper->layout->disableLayout(true);
         
-        $id_campeonato_temporada = $this->_getParam('id_temporada');
+        $id_campeonato_temporada = $this->_getParam('id_temporada', null);
+        $id_fase_campeonato = $this->_getParam('id_fase_campeonato', null);
+        $id_grupo = $this->_getParam('id_grupo', null);
+        $rodada = $this->_getParam('rodada', null);
         
         $modelPartida = new Model_Partida();
-        $partidas = $modelPartida->getPartidadasByTemporada($id_campeonato_temporada);
+        $partidas = $modelPartida->getPartidadasByTemporada($id_campeonato_temporada, $id_fase_campeonato, $id_grupo, $rodada);
         $this->view->partidas = $partidas;
         
     }

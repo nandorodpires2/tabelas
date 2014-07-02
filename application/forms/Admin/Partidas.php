@@ -41,6 +41,11 @@ class Form_Admin_Partidas extends Zend_Form {
             'multioptions' => array('' => 'Selecione o grupo')
         ));
         
+        $this->addElement('text', 'rodada_partida', array(
+            'label' => 'Rodada:',
+            'required' => true
+        ));
+        
         $this->addElement('text', 'data_partida', array(
             'label' => 'Data:',
             'required' => true
@@ -48,11 +53,6 @@ class Form_Admin_Partidas extends Zend_Form {
         
         $this->addElement('text', 'horario_partida', array(
             'label' => 'Horário:',
-            'required' => true
-        ));
-        
-        $this->addElement('text', 'rodada_partida', array(
-            'label' => 'Rodada:',
             'required' => true
         ));
         

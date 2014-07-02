@@ -31,8 +31,8 @@ class Default_CampeonatosController extends Zend_Controller_Action {
         $modelFaseCampeonato = new Model_FaseCampeonato();      
         $modelGrupo = new Model_Grupo();
         
-        $fases = $modelFaseCampeonato->getFasesCampeonatoByCampeonatoTemporadaId($this->_id_temporada);          
-        $id_fase_campeonato = $this->_getParam("id_fase_campeonato", $fases[0]->id_fase_campeonato);             
+        $fase = $modelFaseCampeonato->getInicioShowFaseCampeonato($this->_id_temporada);          
+        $id_fase_campeonato = $this->_getParam("id_fase_campeonato", $fase->id_fase_campeonato);             
         
         $this->view->fase_anterior = $modelFaseCampeonato->getIdFaseAnterior($id_fase_campeonato, $this->_id_campeonato, $this->_id_temporada);
         $this->view->fase_seguinte = $modelFaseCampeonato->getIdFaseSeguinte($id_fase_campeonato, $this->_id_campeonato, $this->_id_temporada);

@@ -49,6 +49,54 @@ class Form_Admin_Resultados extends Zend_Form {
             )
         ));
         
+        $this->addElement('text', 'placar_pr_mandante', array(
+            'required' => true,
+            'size' => 2,
+            'decorators' => array(
+                'ViewHelper',
+                'Description',
+                'Errors',
+                array(array('td' => 'HtmlTag'), array('tag' => 'td')),
+                array('Label', array('tag' => 'td')),
+            )
+        ));
+        
+        $this->addElement('text', 'placar_pr_visitante', array(
+            'required' => true,
+            'size' => 2,
+            'decorators' => array(
+                'ViewHelper',
+                'Description',
+                'Errors',
+                array(array('td' => 'HtmlTag'), array('tag' => 'td')),
+                array('Label', array('tag' => 'td')),
+            )
+        ));
+        
+        $this->addElement('text', 'placar_pk_mandante', array(
+            'required' => true,
+            'size' => 2,
+            'decorators' => array(
+                'ViewHelper',
+                'Description',
+                'Errors',
+                array(array('td' => 'HtmlTag'), array('tag' => 'td')),
+                array('Label', array('tag' => 'td')),
+            )
+        ));
+        
+        $this->addElement('text', 'placar_pk_visitante', array(
+            'required' => true,
+            'size' => 2,
+            'decorators' => array(
+                'ViewHelper',
+                'Description',
+                'Errors',
+                array(array('td' => 'HtmlTag'), array('tag' => 'td')),
+                array('Label', array('tag' => 'td')),
+            )
+        ));
+        
         $this->addElement('submit', 'submit', array(
             'label' => 'Cadastrar',
             'class' => 'submit',

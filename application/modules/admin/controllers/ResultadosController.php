@@ -22,6 +22,10 @@ class Admin_ResultadosController extends Zend_Controller_Action {
         $formAdminResultados = new Form_Admin_Resultados();
         $formAdminResultados->removeElement('placar_equipe_mandante');
         $formAdminResultados->removeElement('placar_equipe_visitante');
+        $formAdminResultados->removeElement('placar_pr_mandante');
+        $formAdminResultados->removeElement('placar_pr_visitante');
+        $formAdminResultados->removeElement('placar_pk_mandante');
+        $formAdminResultados->removeElement('placar_pk_visitante');
         $formAdminResultados->removeElement('submit');
         $this->view->formResultados = $formAdminResultados;
         

@@ -15,13 +15,22 @@ class View_Helper_Tabela extends Zend_View_Helper_Abstract {
     
     public static function getTabelaGrupo($id_grupo, $id_fase_campeonato) {
         
+        $modelFaseCampeonato = new Model_FaseCampeonato();
+        $dadosFaseCampeonato = $modelFaseCampeonato->find($id_fase_campeonato);
+        
         $modelVwTabela = new Model_VwTabela();
         $where = " 
             id_fase_campeonato = {$id_fase_campeonato} 
             and id_grupo = {$id_grupo}
         ";
-        $order = " 
-            (vitorias * 3) + empates desc,
+            
+        $order = "(vitorias * 3) + empates desc,";
+        
+        if ($dadosFaseCampeonato[0]->id_campeonato == 16 || $dadosFaseCampeonato[0]->id_campeonato == 17) {        
+            $order .= "vitorias desc, ";
+        } 
+        
+        $order .= "             
             (gols_pro - gols_contra) desc,
             vitorias desc
         ";

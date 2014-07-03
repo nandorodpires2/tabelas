@@ -36,6 +36,18 @@ class Model_FaseCampeonato extends Zend_Db_Table_Abstract {
         return $this->fetchAll($this->select()->where("id_campeonato_temporada = ?", $id_campeonato_temporada)->order('1 asc'));
     }
     
+    public function getInicioShowFaseCampeonato($id_campeonato_temporda) {
+        
+        $select = $this->select()
+                ->from($this->_name, array('*'))
+                ->where("id_campeonato_temporada = ?", $id_campeonato_temporda)
+                ->where("finalizado = ?", 0);
+        
+        return $this->fetchRow($select);
+        
+        
+    }
+    
     public function getFaseCampeonatoByFaseCampeonatoId($id_fase_campeonato) {
         return $this->fetchRow($this->select()->where("id_fase_campeonato = ?", $id_fase_campeonato));
     }

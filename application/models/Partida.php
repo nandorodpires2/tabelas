@@ -176,7 +176,7 @@ class Model_Partida extends Zend_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
     
-    public function getPartidadasByTemporada($id_temporada) {
+    public function getPartidadasByTemporada($id_temporada, $id_fase_campeonato, $id_grupo, $rodada) {
         $select = $this->select()
                 ->from(array('p' => $this->_name), array(
                     '*'
@@ -199,10 +199,25 @@ class Model_Partida extends Zend_Db_Table_Abstract {
                 ->joinInner(array('e' => 'estadio'), 'p.id_estadio = e.id_estadio', array(
                     'e.apelido_estadio'
                 ))
-                ->where("fc.id_campeonato_temporada = ?", $id_temporada)                               
                 ->order('p.data_partida asc')
                 ->order('p.horario_partida asc');
-                
+        
+        if ($id_temporada) {
+            $select->where("fc.id_campeonato_temporada = ?", $id_temporada);
+        }
+        
+        if ($id_fase_campeonato) {
+            $select->where("fc.id_fase_campeonato = ?", $id_fase_campeonato);
+        }
+        
+        if ($id_grupo) {
+            $select->where("p.id_grupo = ?", $id_grupo);
+        }
+        
+        if ($rodada) {
+            $select->where("p.rodada_partida = ?", $rodada);
+        }
+        
         return $this->fetchAll($select);
     }
 

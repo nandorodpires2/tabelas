@@ -6,17 +6,24 @@
             <tr>
                 <th>ID</th>
                 <th>Reputação</th>
+                <th>Ordem</th>
                 <th colspan="2">Ações</th>
             </tr>
             <?php foreach ($this->reputacoes as $reputacao) : ?>
             <tr>
                 <td><?php echo $reputacao->id_reputacao; ?></td>
                 <td><?php echo $reputacao->descricao_reputacao; ?></td>
+                <td><?php echo $reputacao->ordem; ?></td>
                 <td>
                     <a href="">Editar</a>
                 </td>
                 <td>
-                    <a href="">Excluir</a>
+                    <a href="<?php echo $this->url(array(
+                        'module' => 'admin',
+                        'controller' => 'reputacao',
+                        'action' => 'excluir-reputacao',
+                        'id_reputacao' => $reputacao->id_reputacao
+                    )); ?>">Excluir</a>
                 </td>
             </tr>
             <?php endforeach; ?>

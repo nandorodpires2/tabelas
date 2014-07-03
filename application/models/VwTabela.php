@@ -30,12 +30,16 @@ class Model_VwTabela extends Zend_Db_Table_Abstract {
                 ))
                 ->where("id_campeonato = ?", $id_campeonato)
                 ->where("id_campeonato_temporada = ?", $id_campeonato_temporada)
-                ->order("((vitorias * 3) + empates) desc")
-                ->order("(gols_pro - gols_contra) desc")
-                ->order("gols_pro desc")
-                ->order("gols_contra desc")
-                ->order("vitorias desc")
-                ->order("nome_equipe asc");
+                ->order("((vitorias * 3) + empates) desc");
+        if ($id_campeonato == 16 || $id_campeonato == 17) {            
+            $select->order("vitorias desc");
+        }
+        
+        $select->order("(gols_pro - gols_contra) desc");
+        $select->order("gols_pro desc");
+        $select->order("gols_contra desc");
+        $select->order("vitorias desc");
+        $select->order("nome_equipe asc");
         
         return $this->fetchAll($select);              
         

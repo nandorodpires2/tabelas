@@ -2,10 +2,10 @@
     <?php echo $this->formResultados->id_partida; ?>
     <table class="table">                
         <tr>
-            <th colspan="10" class="small">Data da Partida: <?php echo $this->dadosPartida->data_partida; ?></th>
+            <th colspan="11" class="small">Data da Partida: <?php echo $this->dadosPartida->data_partida; ?></th>
         </tr>
         <tr>
-            <th colspan="10" class="small">Local: <?php echo $this->dadosPartida->apelido_estadio; ?></th>
+            <th colspan="11" class="small">Local: <?php echo $this->dadosPartida->apelido_estadio; ?></th>
         </tr>
         <tr class="text-center">
             <td>                
@@ -23,7 +23,23 @@
                 <img src="<?php echo $this->baseUrl('views/img/escudos/' . $this->dadosPartida->escudo_visitante); ?>" class="img-thumbnail" width="45" />
                 <?php endif; ?>
             </td>
-            <td><?php echo $this->formResultados->submit; ?></td>
+            <td><?php echo $this->dadosPartida->tipo_fase == 1 ? $this->formResultados->submit : ''; ?></td>
         </tr>
+        <?php if ($this->dadosPartida->tipo_fase == 2) : ?>
+        <tr class="text-center">
+            <th>Prorrogação</th>
+            <td><?php echo $this->formResultados->placar_pr_mandante; ?></td>
+            <td> X </td>
+            <td><?php echo $this->formResultados->placar_pr_visitante; ?></td>
+            <td colspan="3"></td>
+        </tr>
+        <tr class="text-center">
+            <th>Penaltes</th>
+            <td><?php echo $this->formResultados->placar_pk_mandante; ?></td>
+            <td> X </td>
+            <td><?php echo $this->formResultados->placar_pk_visitante; ?></td>
+            <td class="text-right"><?php echo $this->dadosPartida->tipo_fase == 2 ? $this->formResultados->submit : ''; ?></td>
+        </tr>
+        <?php endif; ?>
     </table>
 </form>

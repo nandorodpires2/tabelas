@@ -99,8 +99,8 @@ class Admin_CampeonatosController extends Zend_Controller_Action {
 
     public function novaFaseCampeonatoAction() {
         
-        $id_campeonato = $this->_getParam('id_campeonato', null);
-        $id_campeonato_temporada = $this->_getParam('id', null);
+        $this->view->id_campeonato = $id_campeonato = $this->_getParam('id_campeonato', null);
+        $this->view->id_campeonato_temporada = $id_campeonato_temporada = $this->_getParam('id', null);
         
         $modelFaseCampeonato = new Model_FaseCampeonato();
         // busca as fases do campeonato
@@ -130,6 +130,23 @@ class Admin_CampeonatosController extends Zend_Controller_Action {
         
     }
     
+    public function finalizarFaseCampeonatoAction() {
+        $this->_helper->layout->disableLayout(true);
+        $this->_helper->viewRenderer->setNoRender(true);
+        
+        $id_fase_campeonato = $this->_getParam('id_fase_campeonato');
+        $id_campeonato = $this->_getParam('id_campeonato');
+        $id_campeonato_temporada = $this->_getParam('id_temporada');
+        
+        $modelFaseCampeonato = new Model_FaseCampeonato();
+        $dadosUpdate['finalizado'] = 1;
+        $where = "id_fase_campeonato = {$id_fase_campeonato}";
+        $modelFaseCampeonato->update($dadosUpdate, $where);
+        
+        $this->_redirect("admin/campeonatos/nova-fase-campeonato/id/" . $id_campeonato_temporada . "/id_campeonato/" . $id_campeonato);                 
+        
+    }
+
     public function novoGrupoAction() {
         
         $id_fase_campeonato = $this->_getParam('id', null);

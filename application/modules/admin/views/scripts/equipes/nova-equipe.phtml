@@ -1,8 +1,10 @@
 <?php echo $this->partial('partials/menu-admin.phtml'); ?>
 <h3>Nova Equipe</h3>
-<?php echo $this->formEquipe; ?>
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-3">
+        <?php echo $this->formEquipe; ?>
+    </div>
+    <div class="col-lg-9">
         <h5>EQUIPES CADASTRADAS</h5>
         <div class="table-responsive">
             <table class=" table table-bordered">
@@ -11,8 +13,6 @@
                     <th>Equipe</th>
                     <th>Nome Completo</th>                    
                     <th>Estádio</th>
-                    <th>Cidade</th>
-                    <th>Estado</th>
                     <th>País</th>
                     <th>Federação</th>
                     <th>Ação</th>
@@ -30,11 +30,16 @@
                     </td>
                     <td><?php echo $equipe->nome_completo_equipe; ?></td>
                     <td><?php echo $equipe->apelido_estadio; ?></td>
-                    <td><?php echo $equipe->nome_cidade; ?></td>
-                    <td><?php echo $equipe->nome_estado; ?></td>
                     <td><?php echo $equipe->nome_pais; ?></td>    
                     <td><?php echo $equipe->federacao; ?></td>
-                    <td></td>
+                    <td>
+                        <a href="<?php echo $this->url(array(
+                            'module' => 'admin',
+                            'controller' => 'equipes',
+                            'action' => 'editar-equipe',
+                            'id_equipe' => $equipe->id_equipe
+                        )); ?>">Editar</a>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
             </table>

@@ -1,8 +1,10 @@
 <?php echo $this->partial('partials/menu-admin.phtml'); ?>
-<h3>Novo Campeonato</h3>
-<?php echo $this->formCampeonato; ?>
 <div class="row">
-    <div class="col-lg-12">
+    <h3>Novo Campeonato</h3>
+    <div class="col-lg-3">
+        <?php echo $this->formCampeonato; ?>    
+    </div>
+    <div class="col-lg-9">
         <h5>CAMPEONATOS CADASTRADOS</h5>
         <div class="table-responsive">
             <table class=" table table-bordered">

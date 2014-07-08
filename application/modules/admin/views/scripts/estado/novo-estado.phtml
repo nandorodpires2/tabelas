@@ -1,8 +1,11 @@
 <?php echo $this->partial('partials/menu-admin.phtml'); ?>
-<h3>Novo Estado</h3>
-<?php echo $this->formEstado; ?>
 <div class="row">
-    <div class="col-lg-12">
+    <h3>Novo Estado</h3>
+    <div class="col-lg-2">
+        <h5>DADOS DO ESTADO</h5>
+        <?php echo $this->formEstado; ?>
+    </div>
+    <div class="col-lg-10">
         <h5>ESTADOS CADASTRADOS</h5>
         <div class="table-responsive">
             <table class=" table table-bordered">

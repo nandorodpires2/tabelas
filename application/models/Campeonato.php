@@ -73,4 +73,21 @@ class Model_Campeonato extends Zend_Db_Table_Abstract {
         
     }
     
+    public function getCampeonatosFinalizados() {
+        
+        $select = $this->select()
+                ->from(array('c' => $this->_name), '*')
+                ->setIntegrityCheck(false)                
+                ->joinInner(array('rep' => 'reputacao'), 'c.id_reputacao = rep.id_reputacao', array('*'))
+                ->joinInner(array('ct' => 'campeonato_temporada'), 'c.id_campeonato = ct.id_campeonato', array('*'))
+                ->joinLeft(array('cp' => 'campeao'), 'ct.id_campeonato_temporada = cp.id_campeonato_temporada', array('*'))
+                ->where("ct.finalizado = ?", 1)
+                ->where("cp.id_equipe is null")
+                ->where("rep.id_reputacao <> ?", 5)
+                ->order('c.nome_campeonato asc');
+        
+        return $this->fetchAll($select);
+        
+    }
+    
 }

@@ -47,6 +47,16 @@ class Form_Admin_FaseCampeonato extends Zend_Form {
             )
         ));
         
+        $this->addElement('select', 'tipo_jogos', array(
+            'label' => 'Tipo de Jogos: ',
+            'multioptions' => array(
+                'ida' => 'Ida',
+                'ida_volta' => 'Ida e volta',
+                'turno' => 'Turno',
+                'turno_returno' => 'Turno e Returno'
+            )
+        ));
+        
         // id_campeonato_temporada
         $this->addElement('hidden', 'id_campeonato_temporada');
         

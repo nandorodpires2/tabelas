@@ -23,6 +23,7 @@
                     <th>Qtde Grupos</th>
                     <th>Próx. Fase</th>
                     <th>Equipes Grupo</th>
+                    <th>Tipo Jogos</th>
                     <th colspan="2">Ações</th>
                 </tr>
                 <?php foreach ($this->fasesCampeonato as $fase) : ?>
@@ -32,6 +33,7 @@
                     <td><?php echo $fase->qtde_grupos; ?></td>
                     <td><?php echo $fase->classificados_prox_fase_grupo; ?></td>
                     <td><?php echo $fase->qtde_equipes_grupo; ?></td>
+                    <td><?php echo $fase->tipo_jogos; ?></td>
                     <td>
                         <a href="<?php echo $this->url(array(
                             'module' => 'admin',

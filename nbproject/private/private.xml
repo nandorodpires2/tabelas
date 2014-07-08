@@ -2,20 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
         <group>
-            <file>file:/C:/wamp/www/tabelas/application/modules/default/views/scripts/campeonatos/index.phtml</file>
-            <file>file:/C:/wamp/www/tabelas/application/modules/default/controllers/IndexController.php</file>
-            <file>file:/C:/wamp/www/tabelas/application/models/Partida.php</file>
-            <file>file:/C:/wamp/www/tabelas/application/modules/default/views/scripts/index/index.phtml</file>
-            <file>file:/C:/wamp/www/tabelas/application/modules/admin/controllers/PartidasController.php</file>
-            <file>file:/C:/wamp/www/tabelas/application/modules/default/controllers/CampeonatosController.php</file>
-            <file>file:/C:/wamp/www/tabelas/application/helpers/views/Tabela.php</file>
-            <file>file:/C:/wamp/www/tabelas/application/forms/Admin/Partidas.php</file>
-            <file>file:/C:/wamp/www/tabelas/application/modules/admin/views/scripts/partidas/nova-partida.phtml</file>
+            <file>file:/C:/wamp/www/tabelas/application/modules/admin/views/scripts/partials/menu-admin.phtml</file>
+            <file>file:/C:/wamp/www/tabelas/application/modules/admin/views/scripts/campeoes/index.phtml</file>
+            <file>file:/C:/wamp/www/tabelas/application/forms/Admin/Campeoes.php</file>
+            <file>file:/C:/wamp/www/tabelas/application/models/Campeao.php</file>
+            <file>file:/C:/wamp/www/tabelas/application/models/Campeonato.php</file>
+            <file>file:/C:/wamp/www/tabelas/application/modules/admin/controllers/CampeoesController.php</file>
+            <file>file:/C:/wamp/www/tabelas/application/modules/admin/views/scripts/campeonatos/nova-fase-campeonato.phtml</file>
         </group>
-=======
-        <group/>
->>>>>>> aecaee599de1c11d3e04857ab158789cd6efe021
     </open-files>
 </project-private>

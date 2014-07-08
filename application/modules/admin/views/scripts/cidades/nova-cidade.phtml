@@ -1,10 +1,13 @@
 <?php echo $this->partial('partials/menu-admin.phtml'); ?>
-<h3>Nova Cidade</h3>
-<?php echo $this->formCidade; ?>
 <div class="row">
-    <div class="col-lg-12">
-        <h5>CIDADES CADASTRADOS</h5>
+    <h3>Nova Cidade</h3>
+    <div class="col-lg-2">
+        <h5>DADOS DA CIDADE</h5>
+        <?php echo $this->formCidade; ?>
+    </div>
+    <div class="col-lg-10">        
         <div class="table-responsive">
+            <h5>CIDADES CADASTRADAS</h5>
             <table class=" table table-bordered">
                 <tr>
                     <th>ID</th>

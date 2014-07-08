@@ -46,7 +46,7 @@ class Model_CampenatoTemporada extends Zend_Db_Table_Abstract {
                     'ano_temporada'
                 ))
                 ->where("id_campeonato = ?", $id_campeonato);
-        
+
         return $this->fetchAll($select);
         
     }

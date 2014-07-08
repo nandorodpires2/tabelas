@@ -50,7 +50,6 @@ class Form_Admin_Campeoes extends Zend_Form {
         
         $modelCampeonato = new Model_Campeonato();
         $campeonatos = $modelCampeonato->getCampeonatosFinalizados();
-        
         foreach ($campeonatos as $campeonato) {
             $options[$campeonato->id_campeonato] = $campeonato->descricao_campeonato;
         }

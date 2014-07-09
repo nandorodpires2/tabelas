@@ -82,7 +82,10 @@ class Model_Campeonato extends Zend_Db_Table_Abstract {
                 ->joinLeft(array('cp' => 'campeao'), 'ct.id_campeonato = cp.id_campeonato', array())
                 ->where("ct.finalizado = ?", 1)
                 ->where("c.id_reputacao <> ?", 5)
+                ->where("cp.id_equipe is null")
                 ->order('c.nome_campeonato asc');
+        
+        //echo $select->__toString();
         return $this->fetchAll($select);
         
     }

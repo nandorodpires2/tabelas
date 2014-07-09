@@ -20,9 +20,10 @@
             <?php if ($this->campeoes->count() > 0) : ?>
             <?php foreach ($this->campeoes as $campeao) : ?>
             <tr>
-                <td><?php echo $campeao->descricao_campeoanto; ?></td>
+                <td><?php echo $campeao->descricao_campeonato; ?></td>
                 <td><?php echo $campeao->ano_temporada; ?></td>
                 <td><?php echo $campeao->nome_equipe; ?></td>
+                <td></td>
             </tr>
             <?php endforeach; ?>
             <?php else : ?>

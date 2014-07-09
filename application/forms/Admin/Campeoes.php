@@ -28,12 +28,14 @@ class Form_Admin_Campeoes extends Zend_Form {
         // id_temporada
         $this->addElement('select', 'id_campeonato_temporada', array(
             'label' => 'Temporada: ',
+            'registerInArrayValidator' => false,
             'multioptions' => array()
         ));
         
         // id_equipe
         $this->addElement('select', 'id_equipe', array(
             'label' => 'Campeão: ',
+            'registerInArrayValidator' => false,
             'multioptions' => array()
         ));
         

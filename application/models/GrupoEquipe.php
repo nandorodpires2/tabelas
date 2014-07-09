@@ -32,6 +32,18 @@ class Model_GrupoEquipe extends Zend_Db_Table_Abstract {
         return $this->fetchAll($select);
         
     }
+    
+    public function getEquipesTemporada($id_campeonato_temporada) {
+        $select = $this->select()
+                ->from(array('ge' => 'grupo_equipe'), array('*'))
+                ->setIntegrityCheck(false)
+                ->joinInner(array('fc' => 'fase_campeonato'), 'ge.id_fase_campeonato = fc.id_fase_campeonato', array('*'))
+                ->joinInner(array('e' => 'equipe'), 'ge.id_equipe = e.id_equipe', array('*'))
+                ->where("fc.id_campeonato_temporada = ?", $id_campeonato_temporada)
+                ->order("e.nome_equipe asc");
+        
+        return $this->fetchAll($select);
+    }
 
     public function getJogadores() {
         

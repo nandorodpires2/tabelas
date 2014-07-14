@@ -118,6 +118,11 @@ class Admin_CampeonatosController extends Zend_Controller_Action {
             if ($formFaseCampeonato->isValid($dadosFaseCampeonato)) {
                 $dadosFaseCampeonato = $formFaseCampeonato->getValues();
                 
+                $dadosFaseCampeonato['jogos_grupo'] = $this->calculaJogosFaseCampeonato($dadosFaseCampeonato['qtde_equipes_grupo'], $dadosFaseCampeonato['tipo_jogos']);
+                $dadosFaseCampeonato['jogos_totais_fase'] = $dadosFaseCampeonato['jogos_grupo'] * $dadosFaseCampeonato['qtde_grupos'];
+                
+                //Zend_Debug::dump($dadosFaseCampeonato); die();
+                
                 $modelFaseCampeonato->insert($dadosFaseCampeonato);
                 
                 $last_id = $modelFaseCampeonato->getLastInsertId();
@@ -268,6 +273,23 @@ class Admin_CampeonatosController extends Zend_Controller_Action {
             }
         }
                 
+    }
+    
+    /**
+     * Calcula a qtde de jogos da fase
+     */
+    protected function calculaJogosFaseCampeonato($equipes, $tipo) {
+        
+        $jogos_rodada = $equipes / 2; 
+        
+        if ($tipo == 'turno_returno' || $tipo == 'ida_volta') {
+            $jogos_grupo = (($equipes - 1)*2) * $jogos_rodada;
+        } else {
+            $jogos_grupo = ($equipes - 1) * $jogos_rodada;
+        }
+        
+        return $jogos_grupo;
+        
     }
     
 }

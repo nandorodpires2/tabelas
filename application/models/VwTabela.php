@@ -19,19 +19,22 @@ class Model_VwTabela extends Zend_Db_Table_Abstract {
     /**
      * retorna a tabela do campeonato
      */
-    public function getTabelaCampeonatoTemporada($id_campeonato, $id_campeonato_temporada) {
+    public function getTabelaCampeonatoTemporada($id_campeonato, $id_campeonato_temporada, $id_grupo, $id_fase_campeonato) {
         
         $select = $this->select()
                 ->from($this->_name, array(
                     '*',
                     'pontos' => "((vitorias * 3) + empates)",
                     'saldo_gols' => '(gols_pro - gols_contra)',
-                    'aproveitamento' => 'ifnull((((vitorias * 3) + empates) * 100)/(jogos * 3), 0)'
+                    'aprv' => 'format(ifnull((((vitorias * 3) + empates) * 100)/(jogos * 3), 0), 2)'
                 ))
                 ->where("id_campeonato = ?", $id_campeonato)
                 ->where("id_campeonato_temporada = ?", $id_campeonato_temporada)
+                ->where("id_grupo = ?", $id_grupo)
+                ->where("id_fase_campeonato = ?", $id_fase_campeonato)
                 ->order("((vitorias * 3) + empates) desc");
-        if ($id_campeonato == 16 || $id_campeonato == 17) {            
+        
+        if ($id_campeonato == 2 || $id_campeonato == 39) {            
             $select->order("vitorias desc");
         }
         

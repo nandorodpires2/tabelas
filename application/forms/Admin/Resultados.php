@@ -122,7 +122,7 @@ class Form_Admin_Resultados extends Zend_Form {
         
             foreach ($partidasPendentes as $partida) {
 
-                $descricao = $partida->mandante . ' X ' . $partida->visitante . ' - ' . $partida->apelido_estadio;
+                $descricao = 'Rodada ' . $partida->rodada_partida . ' | ' . $partida->mandante . ' X ' . $partida->visitante . ' (' . $partida->apelido_estadio . ')';
 
                 $multiOptions[$partida->id_partida] = $descricao;
             }

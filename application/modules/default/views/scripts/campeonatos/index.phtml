@@ -40,7 +40,7 @@
             <div class="col-lg-8">
                 <table class="table table-bordered small">
                     <tr>
-                        <th colspan="10" class="center"><?php echo $grupo->descricao_grupo; ?></th>
+                        <th colspan="11" class="center"><?php echo $grupo->descricao_grupo; ?></th>
                     </tr>
                     <tr>
                         <th class="col-lg-1">Pos</th>
@@ -53,6 +53,7 @@
                         <th class="col-lg-1">GF</th>
                         <th class="col-lg-1">GC</th>
                         <th class="col-lg-1">SG</th>
+                        <th class="col-lg-1">Apr(%)</th>
                     </tr>
                     <?php $tabela = View_Helper_Tabela::getTabelaGrupo($grupo->id_grupo, $grupo->id_fase_campeonato); ?>            
                     <?php foreach ($tabela as $key => $equipe) : ?>
@@ -78,7 +79,8 @@
                         <td><?php echo $equipe->derrotas; ?></td>
                         <td><?php echo $equipe->gols_pro; ?></td>
                         <td><?php echo $equipe->gols_contra; ?></td>
-                        <td><?php echo $equipe->gols_pro - $equipe->gols_contra; ?></td>                        
+                        <td><?php echo $equipe->gols_pro - $equipe->gols_contra; ?></td> 
+                        <td><?php echo $equipe->aprv; ?></td> 
                     </tr>
                     <?php endforeach; ?>                    
                 </table>
@@ -121,31 +123,32 @@
                         <?php foreach ($partidas as $partida) : ?>
 
                             <tr>
-                                <td style="font-size: 10px;" class="text-muted small text-left" colspan="5">
-                                    <?php echo $partida->rodada_partida; ?>ª rodada | 
-                                    <?php echo $partida->data_partida ? $partida->data_partida . ' - ' : ''; ?>
+                                <td style="font-size: 10px;" class="text-muted small text-left" colspan="5">                                
+                                    <?php echo $partida->data_partida ? ucfirst(View_Helper_Date::date($partida->data_partida, Zend_Date::WEEKDAY_NAME)) . ' - ' : ''; ?>
+                                    <?php echo $partida->data_partida ? View_Helper_Date::date($partida->data_partida, Zend_Date::DATE_SHORT) . ' - ' : ''; ?>
                                     <?php echo $partida->horario_partida ? $partida->horario_partida . ' | ' : ''; ?> 
                                     <?php echo $partida->apelido_estadio; ?>
                                 </td>
                             </tr>
                             <tr style="font-size: 11px;" class="text-center">                      
-                                <td class="text-right">
-                                    <?php if ($partida->escudo_mandante) : ?>
-                                    <img class="img-thumbnail" style="float: left; width: 45px; padding: 0 5px;" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_mandante); ?>" />
+                                <td class="text-left">
+                                    <?php if ($partida->escudo_mandante) : ?>                                    
+                                    <img class="img-thumbnail" style="width: 45px;" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_mandante); ?>" />
                                     <?php else : ?>
-                                    <img style="float: left; width: 25px; padding: 0 5px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
+                                    <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
                                     <?php endif; ?>
-                                    <?php echo $partida->mandante; ?>
+                                    </span>
+                                    <span><?php echo $partida->mandante; ?></span>
                                 </td>
                                 <td><b><?php echo $partida->placar_equipe_mandante !== null ? $partida->placar_equipe_mandante : '-'; ?></b></td>
                                 <td>X</td>
                                 <td><b><?php echo $partida->placar_equipe_visitante !== null ? $partida->placar_equipe_visitante : '-'; ?></b></td>
-                                <td class="text-left">
+                                <td class="text-right">
                                     <?php echo $partida->visitante; ?>
                                     <?php if ($partida->escudo_visitante) : ?>
-                                    <img class="img-thumbnail" style="float: right; width: 45px; padding: 0 5px;" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_visitante); ?>" />
+                                    <img class="img-thumbnail" style="width: 45px;" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_visitante); ?>" />
                                     <?php else : ?>
-                                    <img style="float: right; width: 25px; padding: 0 5px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
+                                    <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
                                     <?php endif; ?>
                                 </td>                
                             </tr>
@@ -163,13 +166,18 @@
         <?php foreach ($this->grupos as $grupo) : ?>        
         <?php $jogo = View_Helper_Tabela::getJogosMataMata($grupo->id_grupo, $grupo->id_fase_campeonato); ?> 
         <?php //Zend_Debug::dump($jogo); die(); ?>
-        <table class="table table-bordered">
+        <table class="table table-bordered small">
             <tr class="text-center">
-                <td class="col-lg-1"><?php echo $grupo->descricao_grupo; ?></td>
+                <td class="col-lg-1">
+                    <p><?php echo $grupo->descricao_grupo; ?></p>
+                </td>
                 <?php if ($jogo) : ?>        
-                    <td class="small col-lg-1"><?php echo $jogo->data_partida; ?></td>
-                    <td class="small col-lg-1"><?php echo $jogo->horario_partida; ?></td>
-                    <td class="small col-lg-2"><?php echo $jogo->apelido_estadio; ?></td>
+                    <td class="col-lg-2">
+                        <?php echo View_Helper_Date::date($jogo->data_partida, Zend_Date::WEEKDAY_NAME); ?> 
+                        <?php echo View_Helper_Date::date($jogo->data_partida, Zend_Date::DATE_MEDIUM); ?>                             
+                        <p><?php echo View_Helper_Date::date($jogo->data_partida . ' ' . $jogo->horario_partida, Zend_Date::TIME_SHORT); ?>h</p>
+                    </td>
+                    <td class="col-lg-2"><?php echo $jogo->apelido_estadio; ?></td>
                     <td class="text-right col-lg-2">
                         <?php echo $jogo->mandante; ?>
                         <?php if ($jogo->escudo_mandante) : ?>

@@ -124,7 +124,7 @@ class Admin_CampeonatosController extends Zend_Controller_Action {
                 //Zend_Debug::dump($dadosFaseCampeonato); die();
                 
                 $modelFaseCampeonato->insert($dadosFaseCampeonato);
-                
+                                
                 $last_id = $modelFaseCampeonato->getLastInsertId();
                 
                 // redireciona para o proximo passo
@@ -176,11 +176,24 @@ class Admin_CampeonatosController extends Zend_Controller_Action {
             if ($formGrupo->isValid($dadosGrupo)) {
                 $dadosGrupo = $formGrupo->getValues();
                 
+                $modelFaseCampeonato = new Model_FaseCampeonato();
+                $dadosFase = $modelFaseCampeonato->find($dadosGrupo['id_fase_campeonato']);
+                $jogos_fase = $this->calculaJogosFaseCampeonato($dadosFase[0]->qtde_equipes_grupo, $dadosFase[0]->tipo_jogos);
+                $rodadas = $jogos_fase / ($dadosFase[0]->qtde_equipes_grupo / 2);
                 
                 $modelGrupo->insert($dadosGrupo);
                 
                 $last_id = $modelGrupo->getLastInsertId();
                 
+                $modelRodadaGrupo = new Model_RodadaGrupo();
+                
+                for ($i = 1; $i <= $rodadas; $i++) {
+                    $dadosRodadaGrupo = array(
+                        'id_grupo' => $last_id,
+                        'rodada' => $i
+                    );               
+                    $modelRodadaGrupo->insert($dadosRodadaGrupo);
+                }
                 // redireciona para o proximo passo
                 $this->_redirect("admin/campeonatos/novo-grupo/id/" . $id_fase_campeonato);
                 

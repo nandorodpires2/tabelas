@@ -37,9 +37,9 @@
         <?php foreach ($this->partidas as $partida) : ?>
 
             <tr>
-                <td style="font-size: 10px;" class="text-muted small text-left" colspan="5">
-                    <?php echo $partida->rodada_partida; ?>ª rodada | 
-                    <?php echo $partida->data_partida ? $partida->data_partida . ' - ' : ''; ?>
+                <td style="font-size: 10px;" class="text-muted small text-left" colspan="5">                                
+                    <?php echo $partida->data_partida ? ucfirst(View_Helper_Date::date($partida->data_partida, Zend_Date::WEEKDAY_NAME)) . ' - ' : ''; ?>
+                    <?php echo $partida->data_partida ? View_Helper_Date::date($partida->data_partida, Zend_Date::DATE_SHORT) . ' - ' : ''; ?>
                     <?php echo $partida->horario_partida ? $partida->horario_partida . ' | ' : ''; ?> 
                     <?php echo $partida->apelido_estadio; ?>
                 </td>

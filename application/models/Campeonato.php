@@ -35,9 +35,17 @@ class Model_Campeonato extends Zend_Db_Table_Abstract {
     /**
      * retorna o nome do campeonato
      */
-    public function getNomeCampeonato($id_campeonato) {        
-        $row = $this->fetchRow("id_campeonato = {$id_campeonato}");
-        return $row->descricao_campeonato;        
+    public function getNomeCampeonato($id_temporada) {        
+        
+        $select = $this->select()
+                ->from(array('c' => 'campeonato'), array('c.descricao_campeonato'))
+                ->setIntegrityCheck(false)
+                ->joinInner(array('ct' => 'campeonato_temporada'), 'c.id_campeonato = ct.id_campeonato', array('ct.ano_temporada'))
+                ->where("ct.id_campeonato_temporada = ?", $id_temporada);
+        
+        $query = $this->fetchRow($select);
+        return $query->descricao_campeonato . ' ' . $query->ano_temporada;
+        
     }
     
     /**
@@ -67,7 +75,7 @@ class Model_Campeonato extends Zend_Db_Table_Abstract {
                 ->joinInner(array('rep' => 'reputacao'), 'c.id_reputacao = rep.id_reputacao', array('*'))
                 ->joinInner(array('ct' => 'campeonato_temporada'), 'c.id_campeonato = ct.id_campeonato', array('*'))
                 ->where("ct.finalizado = ?", 0)
-                ->order('c.nome_campeonato asc');
+                ->order('c.descricao_campeonato asc');
                 
         return $this->fetchAll($select);
         

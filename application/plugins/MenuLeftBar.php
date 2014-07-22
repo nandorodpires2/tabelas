@@ -26,8 +26,7 @@ class Plugin_MenuLeftBar extends Zend_Controller_Plugin_Abstract {
         }   
         
         $layout = Zend_Layout::getMvcInstance();
-        $view = $layout->getView();
-        
+        $view = $layout->getView();        
         $view->campeonatos = $campeonatos;
         
         

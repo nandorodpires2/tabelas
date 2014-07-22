@@ -22,7 +22,7 @@ class Default_CampeonatosController extends Zend_Controller_Action {
         
         // busca o titulo do campeonato
         $modelCampeonato = new Model_Campeonato();
-        $this->view->nome_campeonato = $modelCampeonato->getNomeCampeonato($this->_id_campeonato);
+        $this->view->nome_campeonato = $modelCampeonato->getNomeCampeonato($this->_id_temporada);
         
     }
     

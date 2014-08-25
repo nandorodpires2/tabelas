@@ -12,42 +12,26 @@
     <body>        
         <div class="container-fluid">            
             <div class="row">
-                <div class="col-lg-2 small">
+                <div class="col-lg-2 small">                    
                     <ul class="list-group-item">
-                        <li class="list-inline">
-                            <a href="<?php echo $this->url(array(
-                                'module' => 'default',
-                                'controller' => 'index',
-                                'action' => 'index'
-                            )); ?>">Home</a> | 
-                            <a href="<?php echo $this->url(array(
-                                'module' => 'default',
-                                'controller' => 'jogadores',
-                                'action' => 'index'
-                            ), null, true); ?>">Jogadores</a> |
-                            <a href="<?php echo $this->url(array(
-                                'module' => 'admin',
-                                'controller' => 'index',
-                                'action' => 'index'
-                            ), null, true); ?>">Admin</a>
-                        </li>
-                        <hr />
                         <?php foreach ($this->campeonatos as $reputacao) : ?>
-                            <li class="list-inline"><?php echo $reputacao['descricao_reputacao']; ?></li>
+                            <li class="list-inline">
+                                <div class="well-sm bg-success"><b><?php echo $reputacao['descricao_reputacao']; ?></b></div>
+                            </li>
                             <ul class="">
                                 <?php foreach ($reputacao['campeonatos'] as $campeonato) : ?>
+                                    <?php
+                                        $class = $campeonato['finalizado'] ? 'text-danger' : 'text-info';
+                                    ?>
                                     <li style="margin-left: -30px;" class="list-inline">
-                                        <a href="<?php echo $this->url(array(
+                                        <a class="<?php echo $class; ?>" href="<?php echo $this->url(array(
                                                 'module' => 'default',
                                                 'controller' => 'campeonatos',
                                                 'action' => 'index',
                                                 'campeonato' => $campeonato['id_campeonato'],
                                                 'temporada' => $campeonato['id_campeonato_temporada']
                                             ), null, true); ?>">
-                                            <?php echo $campeonato['nome_campeonato'] . ' ' . $campeonato['ano_temporada']; ?>
-                                            <label class="small">
-                                                <font style="color: red;"><?php echo $campeonato['finalizado'] ? '(Finalizado)' : ''; ?></font>
-                                            </label>
+                                            <?php echo $campeonato['nome_campeonato'] . ' ' . $campeonato['ano_temporada']; ?>                                            
                                         </a>
                                     </li>
                                     <hr style="margin: 5px 0; "/>
@@ -55,7 +39,7 @@
                             </ul>
                         <?php endforeach; ?>
                         <hr />
-                    </ul>
+                    </ul>                    
                 </div>
                 <div class="col-lg-10">
                     <?php echo $this->layout()->content; ?>

@@ -48,6 +48,8 @@ class Admin_ReputacaoController extends Zend_Controller_Action {
     
     public function excluirReputacaoAction() {
         
+        $this->_helper->viewRenderer->setNoRender(true);
+        
         $id_reputacao = $this->_getParam('id_reputacao');
         
         $modelCampeonato = new Model_Campeonato();
@@ -57,12 +59,13 @@ class Admin_ReputacaoController extends Zend_Controller_Action {
             $modelReputacao = new Model_Reputacao();
             $where = "id_reputacao = " . $id_reputacao;
             $modelReputacao->delete($where);
-        } else {
             
+            $this->_redirect('admin/reputacao/nova-reputacao');
+            
+        } else {
+            echo "Existe(m) campeonatos cadastrados para esta reputação";
         }
-        
-        $this->_redirect('admin/reputacao/nova-reputacao');
-        
+
     }
     
 }

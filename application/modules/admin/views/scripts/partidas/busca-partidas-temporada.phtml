@@ -1,23 +1,37 @@
-<table class="table table-bordered">
+<table class="table table-responsive table-striped">
     <tr>
         <th>Data</th>
         <th>Horário</th>
         <th>Estádio</th>
-        <th>Mandante</th>
+        <th colspan="2">Mandante</th>
         <th colspan="3">&nbsp;</th>
-        <th>Visitante</th>
+        <th colspan="2">Visitante</th>
         <th>Ações</th>
     </tr>
     <?php foreach ($this->partidas as $partida) : ?>
     <tr>
-        <td><?php echo $partida->data_partida; ?></td>
+        <td><?php echo View_Helper_Date::date($partida->data_partida); ?></td>
         <td><?php echo $partida->horario_partida; ?></td>
         <td><?php echo $partida->apelido_estadio; ?></td>
         <td><?php echo $partida->mandante; ?></td>
+        <td>
+            <?php if ($partida->escudo_mandante) : ?>
+            <img src="<?php echo $this->baseUrl('views/img/escudos/'.$partida->escudo_mandante); ?>" class="img img-responsive img-thumbnail" />
+            <?php else : ?>
+            <img src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" class="img img-responsive img-thumbnail" />
+            <?php endif; ?>
+        </td>
         <td><?php echo $partida->placar_equipe_mandante; ?></td>
         <td> X </td>
         <td><?php echo $partida->placar_equipe_visitante; ?></td>
-        <td><?php echo $partida->visitante; ?></td>
+        <td>
+            <?php if ($partida->escudo_visitante) : ?>
+            <img src="<?php echo $this->baseUrl('views/img/escudos/'.$partida->escudo_visitante); ?>" class="img img-responsive img-thumbnail" />
+            <?php else : ?>
+            <img src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" class="img img-responsive img-thumbnail" />
+            <?php endif; ?>
+        </td>
+        <td><?php echo $partida->visitante; ?></td>        
         <td>
             <a href="<?php echo $this->url(array(
                 'module' => 'admin',

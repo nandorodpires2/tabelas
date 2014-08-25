@@ -20,71 +20,84 @@ class Form_Admin_Partidas extends Zend_Form {
         
         $this->addElement('select', 'id_campeonato', array(
             'label' => 'Campeonato: ',
-            'multioptions' => $this->getCampeonatos() 
+            'multioptions' => $this->getCampeonatos(),
+            'class' => 'form-control'
         ));
         
         $this->addElement('select', 'id_campeonato_temporada', array(
             'label' => 'Temporada: ',
             'required' => true,
-            'multioptions' => array('' => 'Selecione a temporada')
+            'multioptions' => array('' => 'Selecione a temporada'),
+            'class' => 'form-control'
         ));
         
         $this->addElement('select', 'id_fase_campeonato', array(
             'label' => 'Fase Campeonato: ',
             'required' => true,
-            'multioptions' => array('' => 'Selecione a fase')
+            'multioptions' => array('' => 'Selecione a fase'),
+            'class' => 'form-control'
         ));
         
         $this->addElement('select', 'id_grupo', array(
             'label' => 'Grupo: ',
             'required' => true,
-            'multioptions' => array('' => 'Selecione o grupo')
+            'multioptions' => array('' => 'Selecione o grupo'),
+            'class' => 'form-control'
         ));
         
         $this->addElement('text', 'rodada_partida', array(
             'label' => 'Rodada:',
-            'required' => true
+            'required' => true,
+            'class' => 'form-control'
         ));
         
         $this->addElement('text', 'data_partida', array(
             'label' => 'Data:',
-            'required' => true
+            'required' => true,
+            'class' => 'form-control'
         ));
         
         $this->addElement('text', 'horario_partida', array(
             'label' => 'Horário:',
-            'required' => true
+            'required' => true,
+            'class' => 'form-control'
         ));
         
         $this->addElement('select', 'id_estadio', array(
             'label' => 'Estádio: ',
             'required' => true,
-            'multioptions' => $this->getEstadios()
+            'multioptions' => $this->getEstadios(),
+            'class' => 'form-control'
         ));
         
         $this->addElement('select', 'equipe_mandante', array(
             'label' => 'Mandante: ',
             'required' => true,
-            'multioptions' => array('' => 'selecione o mandante...')
+            'multioptions' => array('' => 'selecione o mandante...'),
+            'class' => 'form-control'
         ));
         
         $this->addElement('text', 'placar_equipe_mandante', array(
-            'label' => 'Placar Mandante: '
+            'label' => 'Placar Mandante: ',
+            'class' => 'form-control'
         ));
         
         $this->addElement('select', 'equipe_visitante', array(
             'label' => 'Visitante: ',
             'required' => true,
-            'multioptions' => array('' => 'selecione o visitante...')
+            'multioptions' => array('' => 'selecione o visitante...'),
+            'class' => 'form-control'
         ));
         
         $this->addElement('text', 'placar_equipe_visitante', array(
-            'label' => 'Placar Visitante: '
+            'label' => 'Placar Visitante: ',
+            'class' => 'form-control'
         ));
         
         $this->addElement('submit', 'submit', array(
             'label' => 'Cadastrar',
-            'class' => 'submit'
+            'class' => 'submit',
+            'class' => 'btn btn-success pull-rigth'
         ));
                         
     }

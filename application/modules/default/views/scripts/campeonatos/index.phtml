@@ -2,6 +2,7 @@
     <script type="text/javascript" src="<?php echo $this->baseUrl('views/js/default/campeonatos/index.js'); ?>"></script> 
 </head>
 <h3><?php echo $this->nome_campeonato; ?></h3>
+<?php if ($this->qtdeFases > 1) : ?>
 <div class="col-lg-2">
     <?php if ($this->fase_anterior) : ?>
     <a href="<?php echo $this->url(array(
@@ -31,6 +32,7 @@
     <h4>Fase seguinte ></h4>
     <?php endif; ?>
 </div>    
+<?php endif; ?>
 <div class="row">
     
     <?php if ($this->faseCampeonato->tipo_fase == 1) : ?>    

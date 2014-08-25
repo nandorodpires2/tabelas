@@ -22,7 +22,7 @@ class View_Helper_Date extends Zend_View_Helper_Abstract {
         }
         
         if (!$date_format) {
-            $date_format = Zend_Date::DATETIME_MEDIUM;
+            $date_format = Zend_Date::DATE_MEDIUM;
         }
         
         return $zendDate->get($date_format);        

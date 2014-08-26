@@ -2,6 +2,7 @@
     <script type="text/javascript" src="<?php echo $this->baseUrl('views/js/default/campeonatos/index.js'); ?>"></script> 
 </head>
 <h3><?php echo $this->nome_campeonato; ?></h3>
+<?php if ($this->qtdeFases > 1) : ?>
 <div class="col-lg-2">
     <?php if ($this->fase_anterior) : ?>
     <a href="<?php echo $this->url(array(
@@ -31,6 +32,7 @@
     <h4>Fase seguinte ></h4>
     <?php endif; ?>
 </div>    
+<?php endif; ?>
 <div class="row">
     
     <?php if ($this->faseCampeonato->tipo_fase == 1) : ?>    
@@ -108,13 +110,13 @@
                                 <?php else : ?>
                                 <div style="float: right; width: 30%; text-align: center">
                                     <input type="hidden" name="id_campeonato" id="id_campeonato" value="<?php echo $this->id_campeonato; ?>" />
-                                <input type="hidden" name="id_temporada" id="id_temporada" value="<?php echo $this->id_temporada; ?>" />
-                                <input type="hidden" name="id_grupo" id="id_grupo" value="<?php echo $grupo->id_grupo; ?>" />
-                                <select name="rodada_select" id="rodada_select">
-                                    <?php for ($i = 1; $i <= $rodadas; $i++) : ?>
-                                    <option value="<?php echo $i; ?>">Rodada <?php echo $i; ?></option>
-                                    <?php endfor; ?>
-                                </select>
+                                    <input type="hidden" name="id_temporada" id="id_temporada" value="<?php echo $this->id_temporada; ?>" />
+                                    <input type="hidden" name="id_grupo" id="id_grupo" value="<?php echo $grupo->id_grupo; ?>" />
+                                    <select name="rodada_select" id="rodada_select">
+                                        <?php for ($i = 1; $i <= $rodadas; $i++) : ?>
+                                        <option value="<?php echo $i; ?>">Rodada <?php echo $i; ?></option>
+                                        <?php endfor; ?>
+                                    </select>
                                 </div>
                                 <?php endif; ?>
                             </th>

@@ -38,6 +38,7 @@ class Admin_PartidasController extends Zend_Controller_Action {
         $formAdminPartida->removeElement('equipe_visitante');
         $formAdminPartida->removeElement('placar_equipe_mandante');
         $formAdminPartida->removeElement('placar_equipe_visitante');
+        $formAdminPartida->removeElement('tipo_partida');
         $formAdminPartida->removeElement('submit');
         
         $this->view->formAdminPartida = $formAdminPartida;

@@ -96,6 +96,23 @@ class Admin_CampeonatosController extends Zend_Controller_Action {
         $this->_redirect("admin/campeonatos/novo-campeonato");
         
     }
+    
+    public function excluirTemporadaAction() {
+        $this->_helper->layout->disableLayout(true);
+        $this->_helper->viewRenderer->setNoRender(true);
+        
+        $id_campeonato_temporada = $this->_getParam("id");
+        
+        $modelCampeonatoTemporada = new Model_CampenatoTemporada();        
+        $where = $modelCampeonatoTemporada->getAdapter()->quoteInto("id_campeonato_temporada = {$id_campeonato_temporada}", null);     
+        
+        //Zend_Debug::dump($where); die();
+        
+        $modelCampeonatoTemporada->delete($where);
+        
+        $this->_redirect("admin/campeonatos/novo-campeonato");
+        
+    }
 
     public function novaFaseCampeonatoAction() {
         

@@ -36,8 +36,14 @@
                             'controller' => 'campeonatos',
                             'action' => 'finalizar-temporada',
                             'id' => $temporada->id_campeonato_temporada
-                        )); ?>">Finalizar</a>
+                        )); ?>">Finalizar</a> |                       
                         <?php endif; ?>
+                        <a href="<?php echo $this->url(array(
+                            'module' => 'admin',
+                            'controller' => 'campeonatos',
+                            'action' => 'excluir-temporada',
+                            'id' => $temporada->id_campeonato_temporada
+                        )); ?>">Excluir</a> |
                     </td>
                 </tr>
                 <?php endforeach; ?>

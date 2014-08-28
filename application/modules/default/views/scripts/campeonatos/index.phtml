@@ -165,71 +165,131 @@
     <?php else : ?>
     <div class="col-lg-12">
         <h5>Jogos</h5>        
-        <?php foreach ($this->grupos as $grupo) : ?>        
-        <?php $jogo = View_Helper_Tabela::getJogosMataMata($grupo->id_grupo, $grupo->id_fase_campeonato); ?> 
-        <?php //Zend_Debug::dump($jogo); die(); ?>
-        <table class="table table-bordered small">
-            <tr class="text-center">
-                <td class="col-lg-1">
-                    <p><?php echo $grupo->descricao_grupo; ?></p>
-                </td>
-                <?php if ($jogo) : ?>        
-                    <td class="col-lg-2">
+        <?php foreach ($this->grupos as $grupo) : ?>  
+            <?php $jogo = View_Helper_Tabela::getJogoMataMata($grupo->id_grupo, $grupo->id_fase_campeonato); ?> 
+            <?php if ($jogo->tipo_jogos == 'ida_volta') : ?>        
+            <?php $jogos = View_Helper_Tabela::getJogosMataMata($grupo->id_grupo, $grupo->id_fase_campeonato); ?>             
+            <table class="table table-bordered small">                 
+            <?php foreach ($jogos as $jogo) : ?>       
+                <tr class="text-center">               
+                    <td class="col-md-1 text-center">
+                        <?php echo $grupo->descricao_grupo; ?>
+                    </td>                    
+                    <td class="col-md-1 text-center">
+                        <?php echo $jogo->tipo_partida; ?>
+                    </td>                           
+                    <td class="col-md-1">
                         <?php echo View_Helper_Date::date($jogo->data_partida, Zend_Date::WEEKDAY_NAME); ?> 
                         <?php echo View_Helper_Date::date($jogo->data_partida, Zend_Date::DATE_MEDIUM); ?>                             
                         <p><?php echo View_Helper_Date::date($jogo->data_partida . ' ' . $jogo->horario_partida, Zend_Date::TIME_SHORT); ?>h</p>
                     </td>
-                    <td class="col-lg-2"><?php echo $jogo->apelido_estadio; ?></td>
-                    <td class="text-right col-lg-2">
+                    <td class="col-md-2"><?php echo $jogo->apelido_estadio; ?></td>
+                    <td class="text-right col-md-2">
                         <?php echo $jogo->mandante; ?>
                         <?php if ($jogo->escudo_mandante) : ?>
                         <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $jogo->escudo_mandante); ?>" width="35" />
                         <?php else : ?>
                         <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" width="35" />
                         <?php endif; ?>                        
-                    </td>
-                    <?php if ($jogo->placar_equipe_mandante == $jogo->placar_equipe_visitante && $jogo->realizada) : ?>
-                    <td class="col-lg-1">
-                        <?php echo $jogo->placar_equipe_mandante; ?>
+                    </td>                        
+                    <td class="col-md-1">
+                        <?php echo $jogo->placar_equipe_mandante; ?>                            
                         <p style="font-style: italic; font-size: 11px;">
+                            <?php if ($jogo->placar_pr_mandante && $jogo->realizada) : ?>
                             <?php echo 'PR (' . $jogo->placar_pr_mandante . ')'; ?>
-                            <?php if ($jogo->placar_pr_mandante == $jogo->placar_pr_visitante) : ?>
+                            <?php endif; ?>
+                            <?php if ($jogo->placar_pk_mandante && $jogo->realizada) : ?>
                             <?php echo 'PK (' . $jogo->placar_pk_mandante . ')'; ?>
                             <?php endif; ?>
                         </p>
                     </td>
-                    <td class="col-lg-1"> X </td>
-                    <td class="col-lg-1">
+                    <td class="col-md-1"> X </td>
+                    <td class="col-md-1">
                         <?php echo $jogo->placar_equipe_visitante; ?>
                         <p style="font-style: italic; font-size: 11px;">
-                            <?php echo 'PR (' . $jogo->placar_pr_visitante . ')'; ?>                            
-                            <?php if ($jogo->placar_pr_mandante == $jogo->placar_pr_visitante) : ?>
+                            <?php if ($jogo->placar_pr_visitante && $jogo->realizada) : ?>
+                            <?php echo 'PR (' . $jogo->placar_pr_visitante . ')'; ?>
+                            <?php endif; ?>
+                            <?php if ($jogo->placar_pk_visitante && $jogo->realizada) : ?>
                             <?php echo 'PK (' . $jogo->placar_pk_visitante . ')'; ?>
                             <?php endif; ?>
                         </p>
-                    </td>
-                    <?php else : ?>
-                    <td class="col-lg-1">
-                        <?php echo $jogo->placar_equipe_mandante; ?>
-                    </td>
-                    <td class="col-lg-1"> X </td>
-                    <td class="col-lg-1">
-                        <?php echo $jogo->placar_equipe_visitante; ?>
-                    </td>
-                    <?php endif; ?>
-                    <td class="text-left col-lg-2">                        
+
+                    <td class="text-left col-md-2">                        
                         <?php if ($jogo->escudo_visitante) : ?>
                         <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $jogo->escudo_visitante); ?>" width="35" />
                         <?php else : ?>
                         <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" width="35" />
                         <?php endif; ?>
                         <?php echo $jogo->visitante; ?>
+                    </td>                    
+                </tr>     
+            <?php endforeach; ?>
+            </table>
+            <?php else : ?>            
+            <table class="table table-bordered small">
+                <tr class="text-center">
+                    <td class="col-lg-1">
+                        <p><?php echo $grupo->descricao_grupo; ?></p>
                     </td>
-                <?php else : ?>
-                    <td>A Definir</td>
-                <?php endif; ?>
-            </tr>            
-        </table>        
+                    <?php if ($jogo) : ?>        
+                        <td class="col-lg-2">
+                            <?php echo View_Helper_Date::date($jogo->data_partida, Zend_Date::WEEKDAY_NAME); ?> 
+                            <?php echo View_Helper_Date::date($jogo->data_partida, Zend_Date::DATE_MEDIUM); ?>                             
+                            <p><?php echo View_Helper_Date::date($jogo->data_partida . ' ' . $jogo->horario_partida, Zend_Date::TIME_SHORT); ?>h</p>
+                        </td>
+                        <td class="col-lg-2"><?php echo $jogo->apelido_estadio; ?></td>
+                        <td class="text-right col-lg-2">
+                            <?php echo $jogo->mandante; ?>
+                            <?php if ($jogo->escudo_mandante) : ?>
+                            <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $jogo->escudo_mandante); ?>" width="35" />
+                            <?php else : ?>
+                            <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" width="35" />
+                            <?php endif; ?>                        
+                        </td>
+                        <?php if ($jogo->placar_equipe_mandante == $jogo->placar_equipe_visitante && $jogo->realizada) : ?>
+                        <td class="col-lg-1">
+                            <?php echo $jogo->placar_equipe_mandante; ?>
+                            <p style="font-style: italic; font-size: 11px;">
+                                <?php echo 'PR (' . $jogo->placar_pr_mandante . ')'; ?>
+                                <?php if ($jogo->placar_pr_mandante == $jogo->placar_pr_visitante) : ?>
+                                <?php echo 'PK (' . $jogo->placar_pk_mandante . ')'; ?>
+                                <?php endif; ?>
+                            </p>
+                        </td>
+                        <td class="col-lg-1"> X </td>
+                        <td class="col-lg-1">
+                            <?php echo $jogo->placar_equipe_visitante; ?>
+                            <p style="font-style: italic; font-size: 11px;">
+                                <?php echo 'PR (' . $jogo->placar_pr_visitante . ')'; ?>                            
+                                <?php if ($jogo->placar_pr_mandante == $jogo->placar_pr_visitante) : ?>
+                                <?php echo 'PK (' . $jogo->placar_pk_visitante . ')'; ?>
+                                <?php endif; ?>
+                            </p>
+                        </td>
+                        <?php else : ?>
+                        <td class="col-lg-1">
+                            <?php echo $jogo->placar_equipe_mandante; ?>
+                        </td>
+                        <td class="col-lg-1"> X </td>
+                        <td class="col-lg-1">
+                            <?php echo $jogo->placar_equipe_visitante; ?>
+                        </td>
+                        <?php endif; ?>
+                        <td class="text-left col-lg-2">                        
+                            <?php if ($jogo->escudo_visitante) : ?>
+                            <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $jogo->escudo_visitante); ?>" width="35" />
+                            <?php else : ?>
+                            <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" width="35" />
+                            <?php endif; ?>
+                            <?php echo $jogo->visitante; ?>
+                        </td>
+                    <?php else : ?>
+                        <td>A Definir</td>
+                    <?php endif; ?>
+                </tr>            
+            </table>  
+            <?php endif; ?>            
         <?php endforeach; ?>            
     </div>
     <?php endif; ?>

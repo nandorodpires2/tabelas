@@ -34,4 +34,13 @@ class View_Helper_Tabela extends Zend_View_Helper_Abstract {
         
     }
     
+    public static function getJogoMataMata($id_grupo, $id_fase_campeonato) {
+        
+        $modelPartida = new Model_Partida();
+        $jogo = $modelPartida->getPartidaByFaseCampeonato($id_fase_campeonato, $id_grupo);
+        
+        return $jogo;
+        
+    }
+    
 }

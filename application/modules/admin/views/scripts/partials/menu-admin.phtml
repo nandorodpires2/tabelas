@@ -1,8 +1,7 @@
 <div id="default-index-index">
-    <div class="row">
-        <h4>CADASTROS</h4>
-        <div class="col-lg-4">                        
-            <ul>
+    <div class="navbar navbar-default background-color-blue">
+        <div class="collapse navbar-collapse">                  
+            <ul class="nav navbar-nav">
                 <li><a href="<?php echo $this->url(array(
                     'module' => 'admin',
                     'controller' => 'campeonatos',
@@ -22,11 +21,7 @@
                     'module' => 'admin',
                     'controller' => 'campeoes',
                     'action' => 'index'
-                )); ?>">Campeões</a></li>      
-            </ul>
-        </div>
-        <div class="col-lg-4">            
-            <ul>
+                )); ?>">Campeões</a></li>                  
                 <li><a href="<?php echo $this->url(array(
                     'module' => 'admin',
                     'controller' => 'pais',
@@ -41,11 +36,7 @@
                     'module' => 'admin',
                     'controller' => 'cidades',
                     'action' => 'nova-cidade'
-                )); ?>">Cidade</a></li>                
-            </ul>
-        </div>
-        <div class="col-lg-4">            
-            <ul>
+                )); ?>">Cidade</a></li>                            
                 <li><a href="<?php echo $this->url(array(
                     'module' => 'admin',
                     'controller' => 'estadios',
@@ -56,12 +47,6 @@
                     'controller' => 'equipes',
                     'action' => 'nova-equipe'
                 )); ?>">Equipe</a></li>                                
-            </ul>
-        </div>
-    </div>
-    <div class="row">        
-        <div class="col-lg-4">            
-            <ul>
                 <li><a href="<?php echo $this->url(array(
                     'module' => 'admin',
                     'controller' => 'reputacao',

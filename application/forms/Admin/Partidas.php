@@ -63,6 +63,16 @@ class Form_Admin_Partidas extends Zend_Form {
             'class' => 'form-control'
         ));
         
+        $this->addElement('select', 'tipo_partida', array(
+            'label' => 'Tipo de Partida:',
+            'required' => true,
+            'multioptions' => array(
+                'ida' => 'Ida',
+                'volta' => 'Volta'
+            ),
+            'class' => 'form-control'
+        ));
+        
         $this->addElement('select', 'id_estadio', array(
             'label' => 'Estádio: ',
             'required' => true,

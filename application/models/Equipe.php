@@ -29,9 +29,27 @@ class Model_Equipe extends Zend_Db_Table_Abstract {
     }
     
     /**
+     * busca as iniciais das letras das equipes
+     */
+    public function getLetrasEquipe() {
+
+        $select = $this->select()
+                ->from($this->_name, array(
+                    'letras' => 'substring(nome_equipe, 1, 1)',
+                    'equipes' => 'count(id_equipe)'
+                ))
+                ->where("substring(nome_equipe, 1, 1) not in ('1','2')")
+                ->group("substring(nome_equipe, 1, 1)")
+                ->order("substring(nome_equipe, 1, 1) asc");        
+        
+        return $this->fetchAll($select);
+        
+    }
+
+    /**
      * busca as equipes
      */
-    public function getEquipes() {
+    public function getEquipes($letra = null) {
         
         $select = $this->select()
                 ->from(array('e' => $this->_name), array('*'))
@@ -41,6 +59,10 @@ class Model_Equipe extends Zend_Db_Table_Abstract {
                 ->joinLeft(array('cid' => 'cidade'), 'e.id_cidade = cid.id_cidade', array('*'))
                 ->joinLeft(array('esd' => 'estadio'), 'e.id_estadio = esd.id_estadio', array('*'))
                 ->order('e.nome_equipe asc');
+        
+        if ($letra) {
+            $select->where("substring(nome_equipe, 1, 1) = ?", $letra);
+        }
         
         return $this->fetchAll($select);
         

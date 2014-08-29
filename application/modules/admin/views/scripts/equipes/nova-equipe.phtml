@@ -1,49 +1,47 @@
 <?php echo $this->partial('partials/menu-admin.phtml'); ?>
-<h3>Nova Equipe</h3>
+<head>
+    <script type="text/javascript" src="<?php echo $this->baseUrl('views/js/admin/equipes/equipes.js'); ?>"></script> 
+</head>
 <div class="row">
     <div class="col-lg-3">
-        <h5>DADOS DA EQUIPE</h5>
-        <?php echo $this->formEquipe; ?>
+        <div class="panel panel-default">
+            <div class="panel-heading">Nova Equipe</div>
+            <div class="panel-body">
+                <?php echo $this->formEquipe; ?>
+            </div>
+        </div>
     </div>
     <div class="col-lg-9">
-        <h5>EQUIPES CADASTRADAS</h5>
-        <div class="table-responsive">
-            <table class=" table table-bordered">
-                <tr>
-                    <th>ID</th>
-                    <th>Equipe</th>
-                    <th>Nome Completo</th>                    
-                    <th>Estádio</th>
-                    <th>País</th>
-                    <th>Federação</th>
-                    <th>Ação</th>
-                </tr>
-                <?php foreach ($this->equipes as $equipe) : ?>
-                <tr>
-                    <td><?php echo $equipe->id_equipe; ?></td>
-                    <td>
-                        <?php if ($equipe->escudo_equipe) : ?>
-                        <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $equipe->escudo_equipe); ?>" width="30" />
-                        <?php else : ?>
-                        <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" width="30" />
-                        <?php endif; ?>
-                        <?php echo $equipe->nome_equipe; ?>
-                    </td>
-                    <td><?php echo $equipe->nome_completo_equipe; ?></td>
-                    <td><?php echo $equipe->apelido_estadio; ?></td>
-                    <td><?php echo $equipe->nome_pais; ?></td>    
-                    <td><?php echo $equipe->federacao; ?></td>
-                    <td>
-                        <a href="<?php echo $this->url(array(
-                            'module' => 'admin',
-                            'controller' => 'equipes',
-                            'action' => 'editar-equipe',
-                            'id_equipe' => $equipe->id_equipe
-                        )); ?>">Editar</a>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </table>
+        <div class="panel panel-default">
+            <div class="panel-heading">Equipes</div>
+            <div class="panel-body">
+                <div class="col-lg-12" style="margin: 5px 0;">
+                    <input class="form-control form-horizontal" type="text" name="busca_equipe" id="busca_equipe" placeholder="Buscar Equipe" />
+                </div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <?php foreach ($this->letras as $key => $letra) : ?>                                        
+                    <?php $active = $key == 0 ? 'active' : ''; ?>
+                    <li class="<?php echo $active; ?>">
+                        <a id="<?php echo $letra->letras; ?>" class="aba_equipe" href="#<?php echo $letra->letras; ?>" role="tab" data-toggle="tab">                            
+                            <?php echo $letra->letras; ?>
+                        </a>
+                    </li>
+                    <?php endforeach; ?>                    
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <?php foreach ($this->letras as $key => $letra) : ?>                    
+                    <?php $active = $key == 0 ? 'active' : ''; ?>                    
+                    <div class="tab-pane fade <?php echo $active; ?> in" id="<?php echo $letra->letras; ?>">
+                        <div class="col-lg-12">                            
+                            <div id="table_equipes"></div>      
+                        </div>
+                    </div>
+                    <?php endforeach; ?>                                        
+                </div>
+            </div>
         </div>
     </div>
 </div>

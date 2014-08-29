@@ -17,12 +17,14 @@ class Form_Admin_Equipe extends Zend_Form {
         
         // nome_completo_equipe
         $this->addElement('text', 'nome_completo_equipe', array(
-            'label' => 'Nome Completo: '
+            'label' => 'Nome Completo: ',
+            'class' => 'form-control'
         ));
         
         // nome_equipe
         $this->addElement('text', 'nome_equipe', array(
-            'label' => 'Nome Equipe: '
+            'label' => 'Nome Equipe: ',
+            'class' => 'form-control'
         ));
         
         // selecao
@@ -33,7 +35,8 @@ class Form_Admin_Equipe extends Zend_Form {
                 1 => 'Sim',
                 0 => 'Não'
             ),
-            'required' => true 
+            'required' => true,
+            'class' => 'form-control' 
         ));
         
         // upload
@@ -46,30 +49,35 @@ class Form_Admin_Equipe extends Zend_Form {
         // id_estadio
         $this->addElement('select', 'id_estadio', array(
             'label' => 'Estádio: ',
-            'multioptions' => $this->getEstadios()
+            'multioptions' => $this->getEstadios(),
+            'class' => 'form-control'
         ));
         
         // id_pais
         $this->addElement('select', 'id_pais', array(
             'label' => 'País: ',
-            'multioptions' => $this->getPaises()
+            'multioptions' => $this->getPaises(),
+            'class' => 'form-control'
         ));
 
         // id_estado
         $this->addElement('select', 'id_estado', array(
             'label' => 'Estado: ',
-            'multioptions' => $this->getEstados()
+            'multioptions' => $this->getEstados(),
+            'class' => 'form-control'
         ));
         
         // id_cidade
         $this->addElement('select', 'id_cidade', array(
             'label' => 'Cidade: ',
-            'multioptions' => $this->getCidades()
+            'multioptions' => $this->getCidades(),
+            'class' => 'form-control'
         ));
         
         // submit
         $this->addElement('submit', 'submit', array(
-            'label' => 'Cadastrar'
+            'label' => 'Cadastrar',
+            'class' => 'btn btn-success pull-rigth'
         )); 
         
         

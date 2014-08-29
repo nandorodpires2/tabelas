@@ -1,0 +1,34 @@
+<table class="table table-striped table-responsive" style="margin: 10px 0;">
+    <tr>
+        <th>ID</th>
+        <th>Equipe</th>
+        <th colspan="2">Estádio</th>
+        <th>País</th>
+        <th>Federação</th>        
+        <th>Ações</th>
+    </tr>
+    <?php foreach ($this->equipes as $equipe) : ?>
+    <tr>
+        <td><?php echo $equipe->id_equipe; ?></td>
+        <td>
+            <?php if ($equipe->escudo_equipe) : ?>
+            <img class="img-rounded" src="<?php echo $this->baseUrl('views/img/escudos/' . $equipe->escudo_equipe); ?>" width="25" />
+            <?php else : ?>
+            <img class="img-rounded" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" width="25" />
+            <?php endif; ?>
+        </td>
+        <td><?php echo $equipe->nome_equipe; ?></td>
+        <td><?php echo $equipe->nome_estadio; ?></td>
+        <td><?php echo $equipe->nome_pais; ?></td>
+        <td><?php echo $equipe->federacao; ?></td>
+        <td>
+            <a href="<?php echo $this->url(array(
+                'module' => 'admin',
+                'controller' => 'equipes',
+                'action' => 'editar-equipe',
+                'id_equipe' => $equipe->id_equipe
+            ), null, true); ?>">Editar</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>

@@ -4,19 +4,37 @@
         <script type="text/javascript" src="<?php echo $this->baseUrl('views/js/jquery-2.0.3.js'); ?>"></script> 
         <script type="text/javascript" src="<?php echo $this->baseUrl('views/js/jquery-ui-1.10.3.js'); ?>"></script> 
         <script type="text/javascript" src="<?php echo $this->baseUrl('views/js/jquery.ui.datepicker-pt-BR.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('views/js/bootstrap/bootstrap.js'); ?>"></script>
         <script type="text/javascript" src="<?php echo $this->baseUrl('views/js/jquery.maskedinput.min.js'); ?>"></script>
         <script type="text/javascript" src="<?php echo $this->baseUrl('views/js/functions.js'); ?>"></script> 
+        
         <link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('views/css/bootstrap/bootstrap.css'); ?>" />
         <link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('views/css/bootstrap/bootstrap-theme.css'); ?>" />
     </head>
     <body>        
+        <div class="navbar navbar-default background-color-blue">
+            <div class="collapse navbar-collapse">                  
+                <ul class="nav navbar-nav">
+                    <li><a href="<?php echo $this->url(array(
+                        'module' => 'default',
+                        'controller' => 'index',
+                        'action' => 'index'
+                    )); ?>">Home</a></li>                
+                    <li><a href="<?php echo $this->url(array(
+                        'module' => 'admin',
+                        'controller' => 'index',
+                        'action' => 'index'
+                    )); ?>">Admin</a></li>                                                              
+                </ul>
+            </div>
+        </div>
         <div class="container-fluid">            
             <div class="row">
                 <div class="col-lg-2 small">                    
                     <ul class="list-group-item">
                         <?php foreach ($this->campeonatos as $reputacao) : ?>
                             <li class="list-inline">
-                                <div class="well-sm bg-success"><b><?php echo $reputacao['descricao_reputacao']; ?></b></div>
+                                <div class="well-sm bg-info"><b><?php echo $reputacao['descricao_reputacao']; ?></b></div>
                             </li>
                             <ul class="">
                                 <?php foreach ($reputacao['campeonatos'] as $campeonato) : ?>

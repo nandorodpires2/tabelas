@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-        <h4>Jogos de Ontem(<?php echo $this->partidasOntem->count(); ?>)</h4>
+        <div class="alert alert-success">Jogos de Ontem <span class="badge"><?php echo $this->partidasOntem->count(); ?></span></div>
         <table class="table table-bordered small">
             <?php if ($this->partidasOntem->count() > 0) : ?>
             <?php foreach ($this->partidasOntem as $partida) : ?>            
@@ -61,7 +61,7 @@
             </tr>
             <?php endif; ?>
         </table>
-        <h4>Jogos de Hoje(<?php echo $this->partidasHoje->count(); ?>)</h4>
+        <div class="alert alert-success">Jogos de Hoje <span class="badge"><?php echo $this->partidasHoje->count(); ?></span></div>
         <table class="table table-bordered small">
             <?php if ($this->partidasHoje->count() > 0) : ?>
             <?php foreach ($this->partidasHoje as $partida) : ?>            
@@ -122,7 +122,7 @@
             </tr>
             <?php endif; ?>
         </table>
-        <h4>Jogos de Amanhã(<?php echo $this->partidasAmanha->count(); ?>)</h4>
+        <div class="alert alert-success">Jogos de Amanhã <span class="badge"><?php echo $this->partidasAmanha->count(); ?></span></div>
         <table class="table table-bordered small">
             <?php if ($this->partidasAmanha->count() > 0) : ?>
             <?php foreach ($this->partidasAmanha as $partida) : ?>            

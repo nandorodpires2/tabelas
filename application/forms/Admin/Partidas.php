@@ -67,6 +67,7 @@ class Form_Admin_Partidas extends Zend_Form {
             'label' => 'Tipo de Partida:',
             'required' => true,
             'multioptions' => array(
+                '' => 'Nenhum',
                 'ida' => 'Ida',
                 'volta' => 'Volta'
             ),

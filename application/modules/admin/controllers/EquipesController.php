@@ -23,9 +23,10 @@ class Admin_EquipesController extends Zend_Controller_Action {
         $this->view->formEquipe = $formEquipe;
         
         $modelEquipe = new Model_Equipe();
-        $equipes = $modelEquipe->getEquipes();
-        $this->view->equipes = $equipes;
-                
+        
+        $letras = $modelEquipe->getLetrasEquipe();
+        $this->view->letras = $letras;
+        
         if ($this->_request->isPost()) {
             $dadosEquipe = $this->_request->getPost();
             if ($formEquipe->isValid($dadosEquipe)) {
@@ -74,8 +75,23 @@ class Admin_EquipesController extends Zend_Controller_Action {
                 $this->_redirect('admin/equipes/nova-equipe');
                 
             }
-        }
+        }        
         
+    }
+    
+    public function buscaEquipesAction() {
+        
+        $this->_helper->layout->disableLayout(true);
+        
+        $letra = $this->_getParam('letra', null);
+        
+        if ($letra) {
+            
+            $modelEquipe = new Model_Equipe();
+            $equipes = $modelEquipe->getEquipes($letra);
+            $this->view->equipes = $equipes;
+            
+        }
         
     }
     

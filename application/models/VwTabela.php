@@ -44,7 +44,6 @@ class Model_VwTabela extends Zend_Db_Table_Abstract {
         $select->order("vitorias desc");
         $select->order("nome_equipe asc");
         
-        echo $select->__toString();
         return $this->fetchAll($select);              
         
     }

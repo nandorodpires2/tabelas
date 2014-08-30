@@ -43,6 +43,24 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         //$controller->registerPlugin(new Plugin_Admin());
     }
        
+    public function _initCache() { 
+
+        mb_internal_encoding("UTF-8");
+
+        $frontend = array('lifetime' => 7200, 'automatic_serialization' => true);
+        $cachedir = realpath(APPLICATION_PATH . '/data/cache');
+
+        $backend = array('cache_dir' => $cachedir);
+        $cache = Zend_Cache::factory('Core', 'File', $frontend, $backend);
+
+        Zend_Db_Table_Abstract::setDefaultMetadataCache($cache);
+        Zend_Registry::set('cache', $cache);
+
+        // Cache dos Objetos Date. Utilize sempre. A não utilizaçao causa erros no zend cache.
+        Zend_Locale::setCache($cache);
+
+    }
+    
     /**
      * Definindo a configuracao de Layout
      */

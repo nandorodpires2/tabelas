@@ -16,10 +16,11 @@ $(document).ready(function (){
             },
             dataType: "html",
             beforeSend: function() {            
-                $("#dados-campeonato").html("Buscando os dados do campeonato. Aguarde...");
+                $("#dados-campeonato").html("Buscando os dados do campeonato. Aguarde...");                
             },
             success: function(dados) { 
                 $("#dados-campeonato").html(dados);
+                $("#placar_equipe_mandante").focus();
             },
             error: function(error) {
                 alert('Houve um erro');

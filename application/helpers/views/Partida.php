@@ -22,6 +22,14 @@ class View_Helper_Partida extends Zend_View_Helper_Abstract {
         
     }
     
+    public static function getRodadaAtualGrupo($id_grupo) {
+        
+        $modelRodadaGrupo = new Model_RodadaGrupo();
+        $rodada = $modelRodadaGrupo->getRodadaAtualGrupo($id_grupo);           
+        return $rodada->rodada ? $rodada->rodada : 1;
+        
+    }
+
     public static function getRodadas($id_campeonato, $id_temporada, $id_grupo, $rodada) {
         
         $modelPartida = new Model_Partida();

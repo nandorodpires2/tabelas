@@ -1,38 +1,43 @@
 <?php echo $this->partial('partials/menu-admin.phtml'); ?>
 <div class="row">
-    <h3>Novo Campeonato</h3>
-    <div class="col-lg-2">
-        <h5>DADOS CAMPEONATO</h5>
-        <?php echo $this->formCampeonato; ?>    
-    </div>
-    <div class="col-lg-10">
-        <h5>CAMPEONATOS CADASTRADOS</h5>
-        <div class="table-responsive">
-            <table class=" table table-bordered">
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Descrição</th>
-                    <th>Reputação</th>
-                    <th>Ação</th>
-                </tr>
-                <?php foreach ($this->campeonato as $campeonato) : ?>
-                    <tr>
-                        <td><?php echo $campeonato->id_campeonato; ?></td>
-                        <td><?php echo $campeonato->nome_campeonato; ?></td>
-                        <td><?php echo $campeonato->descricao_campeonato; ?></td>
-                        <td><?php echo $campeonato->descricao_reputacao; ?></td>
-                        <td>
-                            <a href="<?php echo $this->url(array(
-                                'module' => 'admin',
-                                'controller' => 'campeonatos',
-                                'action' => 'nova-temporada',
-                                'id' => $campeonato->id_campeonato                                
-                            )); ?>">Temporada</a>
-                        </td>                                                
-                    </tr>
-                <?php endforeach; ?>
-            </table>
+    <div class="col-lg-3">   
+        <div class="panel panel-default">
+            <div class="panel-heading">Novo Campeonato</div>
+            <div class="panel-body">
+                <?php echo $this->formCampeonato; ?>
+            </div>
         </div>
+    </div>
+    <div class="col-lg-9">        
+        <div class="panel panel-default">
+            <div class="panel-heading">Compeonatos Cadastrados</div>
+            <div class="panel-body">                
+                <table class=" table table-responsive table-bordered">
+                    <tr>
+                        <th>ID</th>
+                        <th>Reputação</th>                        
+                        <th>Nome</th>
+                        <th>Descrição</th>                        
+                        <th>Ação</th>
+                    </tr>
+                    <?php foreach ($this->campeonato as $campeonato) : ?>
+                        <tr>
+                            <td><?php echo $campeonato->id_campeonato; ?></td>
+                            <td><?php echo $campeonato->descricao_reputacao; ?></td>                            
+                            <td><?php echo $campeonato->nome_campeonato; ?></td>
+                            <td><?php echo $campeonato->descricao_campeonato; ?></td>                            
+                            <td>
+                                <a href="<?php echo $this->url(array(
+                                    'module' => 'admin',
+                                    'controller' => 'campeonatos',
+                                    'action' => 'nova-temporada',
+                                    'id' => $campeonato->id_campeonato                                
+                                )); ?>">Temporada</a>
+                            </td>                                                
+                        </tr>
+                    <?php endforeach; ?>
+                </table>                
+            </div>
+        </div>        
     </div>
 </div>

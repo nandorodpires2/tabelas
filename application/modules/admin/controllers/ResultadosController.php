@@ -29,6 +29,10 @@ class Admin_ResultadosController extends Zend_Controller_Action {
         $formAdminResultados->removeElement('submit');
         $this->view->formResultados = $formAdminResultados;
         
+        $modelPartida = new Model_Partida();
+        $partidasPendentes = $modelPartida->getPartidasPendentes();
+        $this->view->partidasPendentes = $partidasPendentes->count();
+        
     }    
     
     public function buscaPartidaAction() {        
@@ -50,18 +54,25 @@ class Admin_ResultadosController extends Zend_Controller_Action {
         
     }
     
-    public function resultadoAction() {
+    public function resultadoAction() {        
         
-        if ($this->_request->isPost()) {
+        $this->_helper->viewRenderer->setNoRender(true);
+        
+        if ($this->_request->isPost()) {  
+            
             $dadosResultado = $this->_request->getPost();
             unset($dadosResultado['submit']);
             $dadosResultado['realizada'] = 1;
             $where = "id_partida = " . $dadosResultado['id_partida'];
             
             $modelPartida = new Model_Partida();
-            $modelPartida->update($dadosResultado, $where);
             
-            $this->_redirect('admin/resultados');
+            try {
+                $modelPartida->update($dadosResultado, $where);
+                $this->_redirect('admin/resultados');
+            } catch (Exception $exc) {
+                echo $exc->getTraceAsString(); die();
+            }
             
         }
         

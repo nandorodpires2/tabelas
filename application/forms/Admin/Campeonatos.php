@@ -21,25 +21,29 @@ class Form_Admin_Campeonatos extends Zend_Form {
         // nome_campeonato
         $this->addElement('text', 'nome_campeonato', array(
             'label' => 'Nome Campeonato: ',
-            'required' => true
+            'required' => true,
+            'class' => 'form-control'
         ));
         
         // descricao_campeonato
         $this->addElement('text', 'descricao_campeonato', array(
             'label' => 'Descrição Campeonato: ',
-            'required' => true
+            'required' => true,
+            'class' => 'form-control'
         ));
         
         // id_reputacao
         $this->addElement('select', 'id_reputacao', array(
             'label' => 'Reputação: ',
             'required' => true,
-            'multioptions' => $this->getReputacao()
+            'multioptions' => $this->getReputacao(),
+            'class' => 'form-control'
         ));
         
         // submit
         $this->addElement('submit', 'submit', array(
-            'label' => 'Cadastrar'
+            'label' => 'Cadastrar',
+            'class' => 'btn btn-success pull-rigth'
         ));
         
     }

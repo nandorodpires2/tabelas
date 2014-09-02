@@ -57,6 +57,7 @@ class Model_Campeonato extends Zend_Db_Table_Abstract {
                 ->from(array('c' => $this->_name), '*')
                 ->setIntegrityCheck(false)                
                 ->joinInner(array('rep' => 'reputacao'), 'c.id_reputacao = rep.id_reputacao', array('*'))
+                ->order('rep.ordem asc')
                 ->order('c.nome_campeonato asc');
         
         if ($where) {

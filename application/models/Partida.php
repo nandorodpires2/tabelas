@@ -49,6 +49,9 @@ class Model_Partida extends Zend_Db_Table_Abstract {
                 ->joinInner(array('fc' => 'fase_campeonato'), 'g.id_fase_campeonato = fc.id_fase_campeonato', array(
                     '*'
                 ))
+                ->joinInner(array('c' => 'campeonato'), 'fc.id_campeonato = c.id_campeonato', array(
+                    '*'
+                ))
                 ->joinInner(array('e1' => 'equipe'), 'p.equipe_mandante = e1.id_equipe', array(
                     'mandante' => 'e1.nome_equipe',
                     'escudo_mandante' => 'e1.escudo_equipe'
@@ -269,6 +272,9 @@ class Model_Partida extends Zend_Db_Table_Abstract {
                     '*'
                 ))
                 ->joinInner(array('fc' => 'fase_campeonato'), 'g.id_fase_campeonato = fc.id_fase_campeonato', array(
+                    '*'
+                ))
+                 ->joinInner(array('c' => 'campeonato'), 'fc.id_campeonato = c.id_campeonato', array(
                     '*'
                 ))
                 ->joinInner(array('e1' => 'equipe'), 'p.equipe_mandante = e1.id_equipe', array(

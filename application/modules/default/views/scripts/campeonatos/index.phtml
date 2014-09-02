@@ -63,9 +63,9 @@
                         <td><?php echo $key + 1; ?>º</td>
                         <td class="text-left">
                             <?php if ($equipe->escudo_equipe) : ?>
-                            <img style="width: 20px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $equipe->escudo_equipe); ?>" />
+                            <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $equipe->escudo_equipe); ?>" />
                             <?php else : ?>
-                            <img style="width: 20px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
+                            <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
                             <?php endif; ?>
                             <label style="padding: 3px 1px;">
                             <?php echo $equipe->nome_equipe; ?>
@@ -92,7 +92,8 @@
                     <table class="table table-bordered">
                         <tr>
                             <th colspan="5">
-                                <?php $rodadas = View_Helper_Partida::getRodadasCampeonatoTemporada($this->id_temporada, $grupo->id_grupo); ?>                                
+                                <?php $rodadas = View_Helper_Partida::getRodadasCampeonatoTemporada($this->id_temporada, $grupo->id_grupo); ?>     
+                                <?php $rodada_atual = View_Helper_Partida::getRodadaAtualGrupo($grupo->id_grupo); ?>
                                 <div style="float: left; width: 70%;">
                                     <?php echo $grupo->descricao_grupo; ?>
                                 </div>                           
@@ -114,14 +115,14 @@
                                     <input type="hidden" name="id_grupo" id="id_grupo" value="<?php echo $grupo->id_grupo; ?>" />
                                     <select name="rodada_select" id="rodada_select">
                                         <?php for ($i = 1; $i <= $rodadas; $i++) : ?>
-                                        <option value="<?php echo $i; ?>">Rodada <?php echo $i; ?></option>
+                                        <option value="<?php echo $i; ?>" <?php echo $i == $rodada_atual ? 'selected' : ''; ?>>Rodada <?php echo $i; ?></option>
                                         <?php endfor; ?>
                                     </select>
                                 </div>
                                 <?php endif; ?>
                             </th>
-                        </tr>
-                        <?php $partidas = View_Helper_Partida::getRodadas($this->id_campeonato, $this->id_temporada, $grupo->id_grupo, 1); ?>
+                        </tr>                        
+                        <?php $partidas = View_Helper_Partida::getRodadas($this->id_campeonato, $this->id_temporada, $grupo->id_grupo, $rodada_atual); ?>
                         <?php foreach ($partidas as $partida) : ?>
 
                             <tr>
@@ -135,7 +136,7 @@
                             <tr style="font-size: 11px;" class="text-center">                      
                                 <td class="text-left">
                                     <?php if ($partida->escudo_mandante) : ?>                                    
-                                    <img class="img-thumbnail" style="width: 45px;" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_mandante); ?>" />
+                                    <img class="img-thumbnail" style="width: 35px;" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_mandante); ?>" />
                                     <?php else : ?>
                                     <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
                                     <?php endif; ?>
@@ -148,7 +149,7 @@
                                 <td class="text-right">
                                     <?php echo $partida->visitante; ?>
                                     <?php if ($partida->escudo_visitante) : ?>
-                                    <img class="img-thumbnail" style="width: 45px;" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_visitante); ?>" />
+                                    <img class="img-thumbnail" style="width: 35px;" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_visitante); ?>" />
                                     <?php else : ?>
                                     <img style="width: 25px;" class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" />
                                     <?php endif; ?>

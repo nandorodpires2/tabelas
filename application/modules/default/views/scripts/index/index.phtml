@@ -79,7 +79,7 @@
                     <?php endif; ?>
                     <?php echo $partida->mandante; ?>
                 </td>
-                <?php if ($partida->placar_equipe_mandante == $partida->placar_equipe_visitante && $partida->realizada) : ?>
+                <?php if ($partida->placar_equipe_mandante == $partida->placar_equipe_visitante && $partida->realizada && $partida->tipo_fase == 2) : ?>
                     <td class="col-lg-1">
                         <?php echo $partida->placar_equipe_mandante; ?>
                         <p style="font-style: italic; font-size: 11px;">
@@ -124,7 +124,7 @@
         </table>
         <div class="alert alert-success">Jogos de Amanhã <span class="badge"><?php echo $this->partidasAmanha->count(); ?></span></div>
         <table class="table table-bordered small">
-            <?php if ($this->partidasAmanha->count() > 0) : ?>
+            <?php if ($this->partidasHoje->count() > 0) : ?>
             <?php foreach ($this->partidasAmanha as $partida) : ?>            
             <tr class="text-center">
                 <td class="col-lg-1 text-muted small">
@@ -133,14 +133,42 @@
                 <td class="col-lg-3">
                     <p><span class="text-muted small"><?php echo $partida->descricao_campeonato; ?></span></p> 
                     <span class="text-muted small"><?php echo $partida->apelido_estadio; ?></span> 
-                </td>                                
+                </td>       
                 <td class="text-left col-lg-3">
                     <?php if ($partida->escudo_mandante) : ?>
                     <img class="img-thumbnail" src="<?php echo $this->baseUrl('views/img/escudos/' . $partida->escudo_mandante); ?>" />
                     <?php endif; ?>
                     <?php echo $partida->mandante; ?>
-                </td>                
-                <td> X </td>                
+                </td>
+                <?php if ($partida->placar_equipe_mandante == $partida->placar_equipe_visitante && $partida->realizada && $partida->tipo_fase == 2) : ?>
+                    <td class="col-lg-1">
+                        <?php echo $partida->placar_equipe_mandante; ?>
+                        <p style="font-style: italic; font-size: 11px;">
+                            <?php echo 'PR (' . $partida->placar_pr_mandante . ')'; ?>
+                            <?php if ($partida->placar_pr_mandante == $partida->placar_pr_visitante) : ?>
+                            <?php echo 'PK (' . $partida->placar_pk_mandante . ')'; ?>
+                            <?php endif; ?>
+                        </p>
+                    </td>
+                    <td class="col-lg-1"> X </td>
+                    <td class="col-lg-1">
+                        <?php echo $partida->placar_equipe_visitante; ?>
+                        <p style="font-style: italic; font-size: 11px;">
+                            <?php echo 'PR (' . $partida->placar_pr_visitante . ')'; ?>                            
+                            <?php if ($partida->placar_pr_mandante == $partida->placar_pr_visitante) : ?>
+                            <?php echo 'PK (' . $partida->placar_pk_visitante . ')'; ?>
+                            <?php endif; ?>
+                        </p>
+                    </td>
+                    <?php else : ?>
+                    <td class="col-lg-1">
+                        <?php echo $partida->placar_equipe_mandante; ?>
+                    </td>
+                    <td class="col-lg-1"> X </td>
+                    <td class="col-lg-1">
+                        <?php echo $partida->placar_equipe_visitante; ?>
+                    </td>
+                <?php endif; ?>
                 <td class="text-right col-lg-3">
                     <?php echo $partida->visitante; ?>
                     <?php if ($partida->escudo_visitante) : ?>
@@ -151,7 +179,7 @@
             <?php endforeach; ?>
             <?php else : ?>
             <tr>
-                <td>Nenhum jogo amanhã</td>
+                <td>Nenhum jogo hoje</td>
             </tr>
             <?php endif; ?>
         </table>

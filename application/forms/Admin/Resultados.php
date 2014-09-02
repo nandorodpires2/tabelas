@@ -23,78 +23,86 @@ class Form_Admin_Resultados extends Zend_Form {
         $this->addElement('select', 'partida', array(
             'label' => 'Partida: ',
             'required' => true,
-            'multioptions' => $this->getPartidasPendentes()
+            'multioptions' => $this->getPartidasPendentes(),
+            'class' => 'form-control'
         ));
         
         $this->addElement('text', 'placar_equipe_mandante', array(
             'required' => true,
-            'size' => 2,
+            'size' => 1,
             'decorators' => array(
                 'ViewHelper',
                 'Description',
                 'Errors',
-                array(array('td' => 'HtmlTag'), array('tag' => 'td')),
-                array('Label', array('tag' => 'td')),
-            )
+                array(array('td' => 'HtmlTag'), array('tag' => 'div')),
+                
+            ),
+            'class' => 'form-control text-center'
         ));
+        
         $this->addElement('text', 'placar_equipe_visitante', array(
             'required' => true,
-            'size' => 2,
+            'size' => 1,
             'decorators' => array(
                 'ViewHelper',
                 'Description',
                 'Errors',
-                array(array('td' => 'HtmlTag'), array('tag' => 'td')),
-                array('Label', array('tag' => 'td')),
-            )
+                array(array('td' => 'HtmlTag'), array('tag' => 'div')),
+                
+            ),
+            'class' => 'form-control text-center'
         ));
         
         $this->addElement('text', 'placar_pr_mandante', array(
             'required' => true,
-            'size' => 2,
+            'size' => 1,
             'decorators' => array(
                 'ViewHelper',
                 'Description',
                 'Errors',
-                array(array('td' => 'HtmlTag'), array('tag' => 'td')),
-                array('Label', array('tag' => 'td')),
-            )
+                array(array('td' => 'HtmlTag'), array('tag' => 'div')),
+                array('Label', array('tag' => 'div')),
+            ),
+            'class' => 'form-control text-center'
         ));
         
         $this->addElement('text', 'placar_pr_visitante', array(
             'required' => true,
-            'size' => 2,
+            'size' => 1,
             'decorators' => array(
                 'ViewHelper',
                 'Description',
                 'Errors',
-                array(array('td' => 'HtmlTag'), array('tag' => 'td')),
-                array('Label', array('tag' => 'td')),
-            )
+                array(array('td' => 'HtmlTag'), array('tag' => 'div')),
+                array('Label', array('tag' => 'div')),
+            ),
+            'class' => 'form-control text-center'
         ));
         
         $this->addElement('text', 'placar_pk_mandante', array(
             'required' => true,
-            'size' => 2,
+            'size' => 1,
             'decorators' => array(
                 'ViewHelper',
                 'Description',
                 'Errors',
-                array(array('td' => 'HtmlTag'), array('tag' => 'td')),
-                array('Label', array('tag' => 'td')),
-            )
+                array(array('td' => 'HtmlTag'), array('tag' => 'div')),
+                array('Label', array('tag' => 'div')),
+            ),
+            'class' => 'form-control text-center'
         ));
         
         $this->addElement('text', 'placar_pk_visitante', array(
             'required' => true,
-            'size' => 2,
+            'size' => 1,
             'decorators' => array(
                 'ViewHelper',
                 'Description',
                 'Errors',
-                array(array('td' => 'HtmlTag'), array('tag' => 'td')),
-                array('Label', array('tag' => 'td')),
-            )
+                array(array('td' => 'HtmlTag'), array('tag' => 'div')),
+                array('Label', array('tag' => 'div')),
+            ),
+            'class' => 'form-control text-center'
         ));
         
         $this->addElement('submit', 'submit', array(
@@ -104,26 +112,22 @@ class Form_Admin_Resultados extends Zend_Form {
                 'ViewHelper',
                 'Description',
                 'Errors',
-                array(array('td' => 'HtmlTag'), array('tag' => 'td'))
-            )
+                array(array('td' => 'HtmlTag'), array('tag' => 'div'))
+            ),
+            'class' => 'btn btn-success'
         ));
         
     }
     
     protected function getPartidasPendentes() {
         
-        
-        
         $modelPartida = new Model_Partida();
         $partidasPendentes = $modelPartida->getPartidasPendentes();
         
         if ($partidasPendentes->count() > 0) {
-            $multiOptions = array('' => 'Selecione a partida...');
-        
-            foreach ($partidasPendentes as $partida) {
-
-                $descricao = 'Rodada ' . $partida->rodada_partida . ' | ' . $partida->mandante . ' X ' . $partida->visitante . ' (' . $partida->apelido_estadio . ')';
-
+            $multiOptions = array('' => 'selectione...');            
+            foreach ($partidasPendentes as $partida) {                
+                $descricao = $partida->nome_campeonato . ' - Rodada ' . $partida->rodada_partida . ' | ' . $partida->mandante . ' X ' . $partida->visitante . ' (' . $partida->apelido_estadio . ')';
                 $multiOptions[$partida->id_partida] = $descricao;
             }
         } else {

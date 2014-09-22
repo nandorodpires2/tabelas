@@ -34,14 +34,17 @@
                 <?php endif; ?>
             </th>
         </tr>
-        <?php foreach ($this->partidas as $partida) : ?>
-
+        <?php foreach ($this->partidas as $partida) : ?>            
             <tr>
-                <td style="font-size: 10px;" class="text-muted small text-left" colspan="5">                                
+                <td style="font-size: 10px;" class="text-muted small text-left" colspan="5">                                                    
+                    <?php if ($partida->adiada) : ?>
+                    <span class="text-danger">JOGO ADIADO</span>
+                    <?php else : ?>
                     <?php echo $partida->data_partida ? ucfirst(View_Helper_Date::date($partida->data_partida, Zend_Date::WEEKDAY_NAME)) . ' - ' : ''; ?>
                     <?php echo $partida->data_partida ? View_Helper_Date::date($partida->data_partida, Zend_Date::DATE_SHORT) . ' - ' : ''; ?>
                     <?php echo $partida->horario_partida ? $partida->horario_partida . ' | ' : ''; ?> 
                     <?php echo $partida->apelido_estadio; ?>
+                    <?php endif; ?>
                 </td>
             </tr>
             <tr style="font-size: 11px;" class="text-center">                      

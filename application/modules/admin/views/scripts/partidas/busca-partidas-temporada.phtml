@@ -1,17 +1,15 @@
-<table class="table table-responsive table-striped">
+<table class="table table-responsive table-bordered">
     <tr>
-        <th>Data</th>
-        <th>Horário</th>
+        <th>Data/Horário</th>
         <th>Estádio</th>
         <th colspan="2">Mandante</th>
         <th colspan="3">&nbsp;</th>
         <th colspan="2">Visitante</th>
-        <th>Ações</th>
+        <th colspan="2">Ações</th>
     </tr>
     <?php foreach ($this->partidas as $partida) : ?>
     <tr>
-        <td><?php echo View_Helper_Date::date($partida->data_partida); ?></td>
-        <td><?php echo $partida->horario_partida; ?></td>
+        <td class="small"><?php echo View_Helper_Date::date($partida->data_partida); ?> <?php echo $partida->horario_partida; ?></td>        
         <td><?php echo $partida->apelido_estadio; ?></td>
         <td><?php echo $partida->mandante; ?></td>
         <td>
@@ -39,6 +37,23 @@
                 'action' => 'editar-partida',
                 'id_partida' => $partida->id_partida
             ), null, true); ?>">Editar</a>
+        </td>
+        <td>
+            <?php if ($partida->adiada) : ?>
+            <a href="<?php echo $this->url(array(
+                'module' => 'admin',
+                'controller' => 'partidas',
+                'action' => 'remarcar-partida',
+                'id_partida' => $partida->id_partida
+            ), null, true); ?>">Remarcar</a>
+            <?php else : ?>
+            <a href="<?php echo $this->url(array(
+                'module' => 'admin',
+                'controller' => 'partidas',
+                'action' => 'adiar-partida',
+                'id_partida' => $partida->id_partida
+            ), null, true); ?>">Adiar</a>
+            <?php endif; ?>
         </td>
     </tr>
     <?php endforeach; ?>

@@ -20,7 +20,7 @@ class View_Helper_Tabela extends Zend_View_Helper_Abstract {
         
         $modelVwTabela = new Model_VwTabela();
         $tabela = $modelVwTabela->getTabelaCampeonatoTemporada($dadosFaseCampeonato[0]->id_campeonato, $dadosFaseCampeonato[0]->id_campeonato_temporada, $id_grupo, $id_fase_campeonato);
-                
+        //Zend_Debug::Dump($tabela); 
         return $tabela;
         
     }

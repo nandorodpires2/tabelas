@@ -54,6 +54,11 @@
                     <?php endif; ?>
                 </td>
             </tr>
+            <?php if ($partida->observacoes) : ?>
+            <tr>
+                <td colspan="7" class="small text-danger text-right"><?php echo $partida->observacoes; ?></td>
+            </tr>
+            <?php endif; ?>
             <?php endforeach; ?>
             <?php else : ?>
             <tr>
@@ -115,6 +120,11 @@
                     <?php endif; ?>
                 </td>
             </tr>
+            <?php if ($partida->observacoes) : ?>
+            <tr>
+                <td colspan="7" class="small text-danger text-right"><?php echo $partida->observacoes; ?></td>
+            </tr>
+            <?php endif; ?>
             <?php endforeach; ?>
             <?php else : ?>
             <tr>
@@ -176,6 +186,11 @@
                     <?php endif; ?>
                 </td>
             </tr>
+            <?php if ($partida->observacoes) : ?>
+            <tr>
+                <td colspan="7" class="small text-danger text-right"><?php echo $partida->observacoes; ?></td>
+            </tr>
+            <?php endif; ?>
             <?php endforeach; ?>
             <?php else : ?>
             <tr>

@@ -39,6 +39,7 @@ class Admin_PartidasController extends Zend_Controller_Action {
         $formAdminPartida->removeElement('placar_equipe_mandante');
         $formAdminPartida->removeElement('placar_equipe_visitante');
         $formAdminPartida->removeElement('tipo_partida');
+        $formAdminPartida->removeElement('observacoes');
         $formAdminPartida->removeElement('submit');
         
         $this->view->formAdminPartida = $formAdminPartida;
@@ -122,6 +123,29 @@ class Admin_PartidasController extends Zend_Controller_Action {
             }
         }
         
+    }
+    
+    public function adiarPartidaAction() {
+        $this->_helper->layout->disableLayout(true);
+        $this->_helper->viewRenderer->setNoRender(true);
+        
+        $id_partida = $this->_getParam('id_partida');
+        
+        $modelPartida = new Model_Partida();
+        $partida = $modelPartida->getPartidaById($id_partida);
+        
+        if ($partida) {
+            $dadosUpdate['adiada'] = 1;
+            $where = "id_partida = " . $id_partida;
+            
+            try {
+                $modelPartida->update($dadosUpdate, $where);
+                $this->_redirect('admin/partidas/nova-partida');
+            } catch (Exception $ex) {
+                echo $ex->getMessage();
+            }
+            
+        }
     }
 
     public function buscaDadosCampeonatoAction() {

@@ -74,7 +74,7 @@
                             <?php endif; ?>
                             </label>
                         </td>
-                        <td><?php echo ($equipe->vitorias * 3) + $equipe->empates; ?></td>
+                        <td><?php echo $equipe->pontos; ?></td>
                         <td><?php echo $equipe->jogos; ?></td>
                         <td><?php echo $equipe->vitorias; ?></td>
                         <td><?php echo $equipe->empates; ?></td>
@@ -85,7 +85,12 @@
                         <td><?php echo $equipe->aprv; ?></td> 
                     </tr>
                     <?php endforeach; ?>                    
-                </table>
+                </table>                
+                <?php if ($this->faseCampeonato->observacoes) : ?>
+                <div class="well small">
+                    <span class="text-danger"><?php echo $this->faseCampeonato->observacoes; ?></span>
+                </div>
+                <?php endif; ?>
             </div>
             <div class="col-lg-4">
                 <div id="<?php echo 'rodada_grupo_' . $grupo->id_grupo; ?>">
@@ -127,10 +132,14 @@
 
                             <tr>
                                 <td style="font-size: 10px;" class="text-muted small text-left" colspan="5">                                
+                                    <?php if ($partida->adiada) : ?>
+                                    <span class="text-danger">JOGO ADIADO</span>
+                                    <?php else : ?>
                                     <?php echo $partida->data_partida ? ucfirst(View_Helper_Date::date($partida->data_partida, Zend_Date::WEEKDAY_NAME)) . ' - ' : ''; ?>
                                     <?php echo $partida->data_partida ? View_Helper_Date::date($partida->data_partida, Zend_Date::DATE_SHORT) . ' - ' : ''; ?>
                                     <?php echo $partida->horario_partida ? $partida->horario_partida . ' | ' : ''; ?> 
                                     <?php echo $partida->apelido_estadio; ?>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                             <tr style="font-size: 11px;" class="text-center">                      
@@ -224,7 +233,12 @@
                         <?php endif; ?>
                         <?php echo $jogo->visitante; ?>
                     </td>                    
-                </tr>     
+                </tr>
+                <?php if ($jogo->observacoes) : ?>
+                <tr>
+                    <td colspan="9" class="small text-danger text-right"><?php echo $jogo->observacoes; ?></td>
+                </tr>
+                <?php endif; ?>
             <?php endforeach; ?>
             </table>
             <?php else : ?>            

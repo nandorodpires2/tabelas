@@ -65,7 +65,6 @@ class Form_Admin_Partidas extends Zend_Form {
         
         $this->addElement('select', 'tipo_partida', array(
             'label' => 'Tipo de Partida:',
-            'required' => true,
             'multioptions' => array(
                 '' => 'Nenhum',
                 'ida' => 'Ida',
@@ -102,6 +101,12 @@ class Form_Admin_Partidas extends Zend_Form {
         
         $this->addElement('text', 'placar_equipe_visitante', array(
             'label' => 'Placar Visitante: ',
+            'class' => 'form-control'
+        ));
+        
+        $this->addElement('textarea', 'observacoes', array(
+            'label' => 'Observações: ',
+            'rows' => 5,
             'class' => 'form-control'
         ));
         

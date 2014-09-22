@@ -182,14 +182,18 @@ class Model_Partida extends Zend_Db_Table_Abstract {
     public function getPartidadasByDate($date) {
         $select = $this->select()
                 ->from(array('p' => $this->_name), array(
-                    '*'
+                    '*',
+                    'p.observacoes'
                 ))
                 ->setIntegrityCheck(false)
                 ->joinInner(array('g' => 'grupo'), 'p.id_grupo = g.id_grupo', array(
                     '*'
                 ))
                 ->joinInner(array('fc' => 'fase_campeonato'), 'g.id_fase_campeonato = fc.id_fase_campeonato', array(
-                    '*'
+                    'fc.id_fase_campeonato',
+                    'fc.descricao_fase',
+                    'observacoes_fase' => 'fc.observacoes',
+                    'tipo_fase'
                 ))
                 ->joinInner(array('c' => 'campeonato'), 'fc.id_campeonato = c.id_campeonato', array(
                     '*'
@@ -287,7 +291,9 @@ class Model_Partida extends Zend_Db_Table_Abstract {
                     'e.apelido_estadio'
                 ))
                 ->where("p.data_partida <= now()")        
-                ->where("p.realizada = 0 or p.data_partida = '0000-00-00'");
+                ->where("p.realizada = 0 or p.data_partida = '0000-00-00'")
+                ->where("p.observacoes is null or p.observacoes = ''")
+                ->where("p.adiada = 0");
         
         return $this->fetchAll($select);
         

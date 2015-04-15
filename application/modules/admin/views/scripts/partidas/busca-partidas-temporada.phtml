@@ -14,9 +14,9 @@
         <td><?php echo $partida->mandante; ?></td>
         <td>
             <?php if ($partida->escudo_mandante) : ?>
-            <img src="<?php echo $this->baseUrl('views/img/escudos/'.$partida->escudo_mandante); ?>" class="img img-responsive img-thumbnail" />
+            <img width='40'src="<?php echo $this->baseUrl('views/img/escudos/'.$partida->escudo_mandante); ?>" class="img img-responsive img-thumbnail" />
             <?php else : ?>
-            <img src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" class="img img-responsive img-thumbnail" />
+            <img width='40'src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" class="img img-responsive img-thumbnail" />
             <?php endif; ?>
         </td>
         <td><?php echo $partida->placar_equipe_mandante; ?></td>
@@ -24,9 +24,9 @@
         <td><?php echo $partida->placar_equipe_visitante; ?></td>
         <td>
             <?php if ($partida->escudo_visitante) : ?>
-            <img src="<?php echo $this->baseUrl('views/img/escudos/'.$partida->escudo_visitante); ?>" class="img img-responsive img-thumbnail" />
+            <img width='40'src="<?php echo $this->baseUrl('views/img/escudos/'.$partida->escudo_visitante); ?>" class="img img-responsive img-thumbnail" />
             <?php else : ?>
-            <img src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" class="img img-responsive img-thumbnail" />
+            <img width='40'src="<?php echo $this->baseUrl('views/img/escudos/no.png'); ?>" class="img img-responsive img-thumbnail" />
             <?php endif; ?>
         </td>
         <td><?php echo $partida->visitante; ?></td>        

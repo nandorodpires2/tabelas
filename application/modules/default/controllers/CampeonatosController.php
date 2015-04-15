@@ -34,7 +34,7 @@ class Default_CampeonatosController extends Zend_Controller_Action {
         $qtde_fase = $modelFaseCampeonato->getFasesCampeonatoByCampeonatoTemporadaId($this->_id_temporada);
         $this->view->qtdeFases = $qtde_fase->count();
         
-        $fase = $modelFaseCampeonato->getInicioShowFaseCampeonato($this->_id_temporada);          
+        $fase = $modelFaseCampeonato->getInicioShowFaseCampeonato($this->_id_temporada);         
         $id_fase_campeonato = $this->_getParam("id_fase_campeonato", $fase->id_fase_campeonato);             
         
         $this->view->fase_anterior = $modelFaseCampeonato->getIdFaseAnterior($id_fase_campeonato, $this->_id_campeonato, $this->_id_temporada);

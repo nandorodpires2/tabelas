@@ -30,4 +30,16 @@ class Model_RodadaGrupo extends Zend_Db_Table_Abstract {
         
     }
     
+    public function getRodadaUltimaGrupo($id_grupo) {
+        
+        $select = $this->select()
+                ->from(array('rg' => $this->_name), array(
+                    "rodada" => "max(rg.rodada)"
+                ))
+                ->where("rg.id_grupo = ?", $id_grupo);
+        
+        return $this->fetchRow($select);
+        
+    }
+    
 }

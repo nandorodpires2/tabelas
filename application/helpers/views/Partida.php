@@ -27,7 +27,12 @@ class View_Helper_Partida extends Zend_View_Helper_Abstract {
         $modelRodadaGrupo = new Model_RodadaGrupo();
         $rodada = $modelRodadaGrupo->getRodadaAtualGrupo($id_grupo);           
         
-        return $rodada->rodada;
+        if ($rodada->rodada) {
+            return $rodada->rodada;
+        } else {
+            $rodada = $modelRodadaGrupo->getRodadaUltimaGrupo($id_grupo);
+            return $rodada->rodada;
+        }
         
     }
 
